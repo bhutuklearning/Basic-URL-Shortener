@@ -1,0 +1,181 @@
+{
+	"info": {
+		"_postman_id": "f3a62fa5-50a4-4102-8a97-3049dc1b7108",
+		"name": "Basic URL Shortner",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "31623578"
+	},
+	"item": [
+		{
+			"name": "Auth Route",
+			"item": [
+				{
+					"name": "Home Page of Auth Route",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:9000/api/v1/auth/"
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\" : \"user1\",\r\n    \"email\": \"user1@email.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:9000/api/v1/auth/register"
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"user1@email.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:9000/api/v1/auth/login"
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://localhost:9000/api/v1/auth/logout"
+					},
+					"response": []
+				},
+				{
+					"name": "Profile Page",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"user1@email.com\",\r\n    \"password\": \"123456\"\r\n}"
+						},
+						"url": "http://localhost:9000/api/v1/auth/profile"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "URL Route",
+			"item": [
+				{
+					"name": "Home Page of the URL Route",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:9000/api/v1/url"
+					},
+					"response": []
+				},
+				{
+					"name": "Shorten Url",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"originalUrl\": \"https://www.wikipedia.com/\",\r\n  \"customShortId\": \"mylink3\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:9000/api/v1/url"
+					},
+					"response": []
+				},
+				{
+					"name": "Redirecting URL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:9000/api/v1/url/mylink3"
+					},
+					"response": []
+				},
+				{
+					"name": "URL Analytics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:9000/api/v1/url/mylink3/analytics"
+					},
+					"response": []
+				},
+				{
+					"name": "Getting all the URLs of the User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "http://localhost:9000/api/v1/url/myurls/direct"
+					},
+					"response": []
+				},
+				{
+					"name": "Getting All URLs using Populate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:9000/api/v1/url/myurls/populate"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Home Page",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:9000/home"
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,61 @@
+skfjv65 [2025-10-12T07:22:38.638Z] "GET /home HTTP/1.1" 200 3.944 ms - anonymous - none
+fj0w07c [2025-10-12T07:22:43.531Z] "POST /api/v1/auth/logout HTTP/1.1" 200 6.108 ms - anonymous - none
+u43y5wo [2025-10-12T07:22:46.945Z] "POST /api/v1/auth/login HTTP/1.1" 200 237.171 ms - anonymous - none
+o327tn6 [2025-10-12T07:22:50.543Z] "GET /api/v1/auth/profile HTTP/1.1" 200 47.847 ms - 68e222ca4459206ec237b857 - none
+fx6bmx8 [2025-10-12T07:22:54.178Z] "GET /api/v1/auth/ HTTP/1.1" 200 0.986 ms - anonymous - none
+e3fk9yt [2025-10-12T07:23:44.032Z] "GET /api/v1/url HTTP/1.1" 200 0.319 ms - anonymous - none
+y8i0czh [2025-10-12T07:23:50.477Z] "GET /api/v1/url/mylink2 HTTP/1.1" 302 64.391 ms - anonymous - mylink2
+gtz5r6p [2025-10-12T07:38:32.247Z] "GET /home HTTP/1.1" 200 5.073 ms - ::1 - anonymous - PostmanRuntime/7.48.0 - none - none
+cyq6si9 [2025-10-12T07:38:37.610Z] "GET /api/v1/auth/ HTTP/1.1" 200 4.859 ms - ::1 - anonymous - PostmanRuntime/7.48.0 - none - none
+nvtcpuz [2025-10-12T07:38:42.467Z] "POST /api/v1/auth/login HTTP/1.1" 200 229.897 ms - ::1 - anonymous - PostmanRuntime/7.48.0 - none - none
+bfta35z [2025-10-12T07:38:47.853Z] "GET /api/v1/auth/profile HTTP/1.1" 200 48.751 ms - ::1 - user1 - PostmanRuntime/7.48.0 - none - none
+ejjqlz0 [2025-10-12T07:38:51.993Z] "GET /api/v1/url HTTP/1.1" 200 0.356 ms - ::1 - anonymous - PostmanRuntime/7.48.0 - none - none
+
+
+New Starting----------------------------------------------------------------------------------
+[Oct 12, 2025, 13:18:28] 9rjhmm0 | IP: ::1 | User: anonymous | "GET /home" | Status: 200 | Time: 4.819 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 12, 2025, 13:18:44] gah6fen | IP: ::1 | User: anonymous | "POST /api/v1/auth/login" | Status: 200 | Time: 221.504 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 12, 2025, 13:18:48] mvj5p20 | IP: ::1 | User: anonymous | "POST /api/v1/auth/logout" | Status: 200 | Time: 1.240 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 12, 2025, 13:18:54] kezcle5 | IP: ::1 | User: anonymous | "GET /api/v1/auth/profile" | Status: 401 | Time: 2.033 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 12, 2025, 13:19:01] 7iyo2uf | IP: ::1 | User: anonymous | "POST /api/v1/auth/login" | Status: 200 | Time: 179.260 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 12, 2025, 13:19:04] igzd1yw | IP: ::1 | User: user1 | "GET /api/v1/auth/profile" | Status: 200 | Time: 49.273 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 12, 2025, 13:19:08] u8oo8le | IP: ::1 | User: anonymous | "GET /api/v1/auth/" | Status: 200 | Time: 0.771 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 12, 2025, 13:19:12] feutozs | IP: ::1 | User: anonymous | "GET /api/v1/url" | Status: 200 | Time: 0.245 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 12, 2025, 13:19:18] 9c5xz5m | IP: ::1 | User: anonymous | "GET /api/v1/url/mylink2" | Status: 302 | Time: 62.139 ms | UA: PostmanRuntime/7.48.0 | ShortID: mylink2 | OriginalURL: none
+[Oct 12, 2025, 13:19:32] b7m51tr | IP: ::1 | User: user1 | "GET /api/v1/url/mylink2/analytics" | Status: 200 | Time: 94.621 ms | UA: PostmanRuntime/7.48.0 | ShortID: mylink2 | OriginalURL: none
+[Oct 12, 2025, 13:20:18] e5oyprm | IP: ::1 | User: anonymous | "POST /api/v1/auth/logout" | Status: 200 | Time: 1.062 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 12, 2025, 13:20:22] 65v4pfq | IP: ::1 | User: anonymous | "GET /api/v1/auth/profile" | Status: 401 | Time: 1.277 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 12, 2025, 13:20:49] kshlnr8 | IP: ::1 | User: anonymous | "POST /api/v1/auth/login" | Status: 200 | Time: 165.781 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 12, 2025, 13:20:53] s6mo78g | IP: ::1 | User: anonymous | "GET /home" | Status: 200 | Time: 0.506 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 12, 2025, 13:38:19] mtaik7w | IP: ::1 | User: anonymous | "GET /home" | Status: 200 | Time: 2.856 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 12, 2025, 13:38:23] zc6loo9 | IP: ::1 | User: anonymous | "GET /api/v1/auth/" | Status: 200 | Time: 5.267 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 12, 2025, 13:38:27] x1h8fnv | IP: ::1 | User: anonymous | "POST /api/v1/auth/login" | Status: 200 | Time: 226.870 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 12, 2025, 13:38:36] gl0u5wv | IP: ::1 | User: user1 | "GET /api/v1/auth/profile" | Status: 200 | Time: 50.415 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 12, 2025, 13:38:41] 2uhqiwm | IP: ::1 | User: anonymous | "GET /api/v1/url" | Status: 200 | Time: 0.294 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 12, 2025, 13:38:47] pqyrc86 | IP: ::1 | User: anonymous | "GET /api/v1/url/mylink2" | Status: 302 | Time: 64.808 ms | UA: PostmanRuntime/7.48.0 | ShortID: mylink2 | OriginalURL: none
+[Oct 12, 2025, 13:38:52] 90fe7ai | IP: ::1 | User: anonymous | "GET /api/v1/url/mylink" | Status: 404 | Time: 48.687 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 12, 2025, 13:39:01] baqp9yk | IP: ::1 | User: anonymous | "GET /api/v1/url/mylink1" | Status: 429 | Time: 0.814 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 12, 2025, 13:39:13] 0e94ndn | IP: ::1 | User: anonymous | "GET /api/v1/url/mylink2/analytics" | Status: 429 | Time: 1.036 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 12, 2025, 13:40:31] ygfqmxz | IP: ::1 | User: anonymous | "GET /home" | Status: 200 | Time: 2.297 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 12, 2025, 13:40:41] 0ydkytn | IP: ::1 | User: anonymous | "GET /api/v1/auth/" | Status: 200 | Time: 4.387 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 12, 2025, 13:40:45] d6wkx1v | IP: ::1 | User: anonymous | "POST /api/v1/auth/login" | Status: 200 | Time: 196.566 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 12, 2025, 13:40:51] 47i5b9y | IP: ::1 | User: user1 | "GET /api/v1/auth/profile" | Status: 200 | Time: 43.343 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 12, 2025, 13:40:56] ln8clfx | IP: ::1 | User: anonymous | "GET /api/v1/url" | Status: 200 | Time: 0.246 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 12, 2025, 13:41:04] fj5m480 | IP: ::1 | User: anonymous | "GET /api/v1/url/mylink1" | Status: 302 | Time: 56.527 ms | UA: PostmanRuntime/7.48.0 | ShortID: mylink1 | OriginalURL: none
+[Oct 12, 2025, 13:41:12] dmov6an | IP: ::1 | User: anonymous | "GET /api/v1/url/mylink2" | Status: 302 | Time: 48.704 ms | UA: PostmanRuntime/7.48.0 | ShortID: mylink2 | OriginalURL: none
+[Oct 12, 2025, 13:41:19] dywxt6w | IP: ::1 | User: anonymous | "GET /api/v1/url/mylink1" | Status: 302 | Time: 46.159 ms | UA: PostmanRuntime/7.48.0 | ShortID: mylink1 | OriginalURL: none
+[Oct 12, 2025, 13:41:28] bfajgnt | IP: ::1 | User: user1 | "GET /api/v1/url/mylink2/analytics" | Status: 200 | Time: 90.728 ms | UA: PostmanRuntime/7.48.0 | ShortID: mylink2 | OriginalURL: none
+[Oct 12, 2025, 13:41:39] slwo8mr | IP: ::1 | User: anonymous | "GET /home" | Status: 200 | Time: 0.809 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 12, 2025, 13:41:53] s2uxoay | IP: ::1 | User: user1 | "POST /api/v1/url" | Status: 400 | Time: 82.386 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: https://www.facebook.com/
+[Oct 18, 2025, 11:26:00] a0zieuy | IP: ::1 | User: anonymous | "GET /home" | Status: 200 | Time: 5.501 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 18, 2025, 11:26:08] 264cn3k | IP: ::1 | User: anonymous | "GET /api/v1/auth/" | Status: 200 | Time: 6.520 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 18, 2025, 11:26:22] 4dll1ab | IP: ::1 | User: anonymous | "POST /api/v1/auth/login" | Status: 500 | Time: 491.756 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 18, 2025, 11:36:48] fqj7m5b | IP: ::1 | User: anonymous | "GET /home" | Status: 200 | Time: 3.300 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 18, 2025, 11:36:54] c3rsjxs | IP: ::1 | User: anonymous | "POST /api/v1/auth/login" | Status: 200 | Time: 486.395 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 18, 2025, 11:37:02] 4fpsox7 | IP: ::1 | User: user1 | "GET /api/v1/auth/profile" | Status: 200 | Time: 49.130 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 18, 2025, 11:37:10] fn2yaww | IP: ::1 | User: anonymous | "GET /api/v1/url" | Status: 200 | Time: 0.357 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 18, 2025, 11:37:39] 0uelxrd | IP: ::1 | User: user1 | "POST /api/v1/url" | Status: 201 | Time: 161.351 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: https://www.wikipedia.com/
+[Oct 18, 2025, 11:37:51] rl1xpkb | IP: ::1 | User: anonymous | "GET /api/v1/url/mylink3" | Status: 302 | Time: 56.317 ms | UA: PostmanRuntime/7.48.0 | ShortID: mylink3 | OriginalURL: none
+[Oct 18, 2025, 11:38:04] ehxmgde | IP: ::1 | User: user1 | "GET /api/v1/url/mylink3/analytics" | Status: 200 | Time: 91.191 ms | UA: PostmanRuntime/7.48.0 | ShortID: mylink3 | OriginalURL: none
+[Oct 18, 2025, 11:38:25] ok5ilou | IP: ::1 | User: anonymous | "GET /home" | Status: 200 | Time: 0.359 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none
+[Oct 18, 2025, 11:38:36] rn7aq5d | IP: ::1 | User: user1 | "POST /api/v1/auth/logout" | Status: 200 | Time: 141.939 ms | UA: PostmanRuntime/7.48.0 | ShortID: none | OriginalURL: none

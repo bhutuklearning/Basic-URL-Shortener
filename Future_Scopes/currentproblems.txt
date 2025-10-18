@@ -1,0 +1,5 @@
+The current problems are:
+
+1) Logging is not working properly in the error logging in both the cases development and production.
+2) Implementing Winston for logging.
+

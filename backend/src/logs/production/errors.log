@@ -1,0 +1,39 @@
+[2025-10-12T08:08:52.349Z] ERROR
+Request ID: 90fe7ai
+IP: ::1
+User: anonymous
+Method: GET
+URL: /api/v1/url/mylink
+Status: 404
+Message: URL not found
+Stack: Error: URL not found
+    at file:///C:/Users/amrit/Desktop/The%20Projects/Lets%20Create%20API's/00_Pratice/backend/src/controllers/url.controller.js:215:15
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+----------------------------------------
+
+[2025-10-12T08:11:53.768Z] ERROR
+Request ID: s2uxoay
+IP: ::1
+User: user1
+Method: POST
+URL: /api/v1/url
+Status: 400
+Message: Custom short ID already in use
+Stack: Error: Custom short ID already in use
+    at file:///C:/Users/amrit/Desktop/The%20Projects/Lets%20Create%20API's/00_Pratice/backend/src/controllers/url.controller.js:177:19
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+----------------------------------------
+
+[2025-10-18T05:56:22.189Z] ERROR
+Request ID: 4dll1ab
+IP: ::1
+User: anonymous
+Method: POST
+URL: /api/v1/auth/login
+Status: 500
+Message: Can't save() the same doc multiple times in parallel. Document: 68e222ca4459206ec237b857
+Stack: ParallelSaveError: Can't save() the same doc multiple times in parallel. Document: 68e222ca4459206ec237b857
+    at model.save (C:\Users\amrit\Desktop\The Projects\Backend Series\Project-3\backend\node_modules\mongoose\lib\model.js:617:20)
+    at file:///C:/Users/amrit/Desktop/The%20Projects/Backend%20Series/Project-3/backend/src/controllers/auth.controller.js:269:16
+----------------------------------------
+
