@@ -155,7 +155,7 @@ This project is licensed under the ISC License - see the LICENSE file for detail
 
 ## 👨‍💻 Author
 
-- **Your Name** - [GitHub Profile](https://github.com/yourusername)
+- **Amritanshu Goutam** - [GitHub Profile](https://github.com/bhutuklearning)
 
 ---
 
