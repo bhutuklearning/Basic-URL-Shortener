@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { authAPI } from "../api.js";
 import { FaLink, FaUser, FaSignOutAlt, FaBars, FaTimes } from "react-icons/fa";
+import Footer from "./Footer";
 
 const Layout = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -16,7 +17,13 @@ const Layout = ({ children }) => {
   const checkAuth = async () => {
     try {
       const response = await authAPI.getProfile();
-      setUser(response.user);
+      if (response && response.data && response.data.user) {
+        setUser(response.data.user);
+      } else if (response && response.user) {
+        setUser(response.user);
+      } else {
+        setUser(null);
+      }
     } catch (error) {
       setUser(null);
     } finally {
@@ -207,13 +214,7 @@ const Layout = ({ children }) => {
       </main>
 
       {/* Footer */}
-      <footer className="bg-white border-t mt-auto">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="text-center text-gray-500 text-sm">
-            <p>&copy; 2024 URL Shortener. Built with React & Tailwind CSS.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

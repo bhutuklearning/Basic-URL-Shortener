@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { urlAPI } from "../api.js";
-import { FaLink, FaCopy, FaCheck, FaArrowRight } from "react-icons/fa";
+import { useState, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { urlAPI, authAPI } from "../api.js";
+import { FaLink, FaCopy, FaCheck, FaArrowRight, FaTachometerAlt } from "react-icons/fa";
 
 const HomePage = () => {
   const [originalUrl, setOriginalUrl] = useState("");
@@ -10,7 +10,28 @@ const HomePage = () => {
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState("");
+  const [user, setUser] = useState(null);
+  const [authChecked, setAuthChecked] = useState(false);
   const navigate = useNavigate();
+  
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await authAPI.getProfile();
+        if (response && response.data && response.data.user) {
+          setUser(response.data.user);
+        } else if (response && response.user) {
+          setUser(response.user);
+        }
+      } catch (error) {
+        setUser(null);
+      } finally {
+        setAuthChecked(true);
+      }
+    };
+    
+    checkAuth();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,7 +45,32 @@ const HomePage = () => {
       }
 
       const response = await urlAPI.createShortUrl(urlData);
-      setShortUrl(response.data.shortUrl);
+      console.log("API Response:", response); // Debug log
+      
+      // Handle different response formats
+      if (response && response.data) {
+        let shortId;
+        
+        // Check if data.data exists (nested structure)
+        if (response.data.data) {
+          shortId = response.data.data.shortId;
+        } else {
+          // Direct structure
+          shortId = response.data.shortId || response.data.customShortId;
+        }
+        
+        // Ensure we have a shortId
+        if (shortId) {
+          // Use backend URL format with correct backend server
+          const baseUrl = "http://localhost:9000";
+          const fullShortUrl = `${baseUrl}/api/v1/url/${shortId}`;
+          setShortUrl(fullShortUrl);
+        } else {
+          throw new Error("No shortId found in response");
+        }
+      } else {
+        throw new Error("Invalid response from server");
+      }
     } catch (err) {
       setError(err.response?.data?.error || "Failed to create short URL");
     } finally {
@@ -54,6 +100,17 @@ const HomePage = () => {
           Create short, memorable links that are perfect for sharing. Track
           clicks and get detailed analytics.
         </p>
+        {user && (
+          <div className="mt-6">
+            <Link
+              to="/dashboard"
+              className="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-md transition-colors"
+            >
+              <FaTachometerAlt className="mr-2" />
+              Go to Dashboard
+            </Link>
+          </div>
+        )}
       </div>
 
       {/* URL Shortener Form */}
@@ -82,7 +139,7 @@ const HomePage = () => {
               htmlFor="customShortId"
               className="block text-sm font-medium text-gray-700 mb-2"
             >
-              Custom short ID (optional)
+              Custom short ID
             </label>
             <input
               type="text"
@@ -103,7 +160,7 @@ const HomePage = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center space-x-2"
+            className="w-full bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 disabled:opacity-50 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center space-x-2 shadow-md"
           >
             {loading ? (
               <>
@@ -121,17 +178,15 @@ const HomePage = () => {
 
         {/* Result */}
         {shortUrl && (
-          <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-            <div className="flex items-center justify-between">
-              <div className="flex-1">
-                <p className="text-sm font-medium text-green-800 mb-1">
-                  Your short URL:
-                </p>
-                <p className="text-green-700 font-mono break-all">{shortUrl}</p>
+          <div className="mt-6 p-6 bg-blue-50 border border-blue-200 rounded-lg shadow-md">
+            <h3 className="text-lg font-semibold text-gray-800 mb-3">Your Shortened URL</h3>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div className="flex-1 bg-white p-3 rounded-lg border border-blue-200 font-mono text-blue-700 truncate break-all">
+                {shortUrl}
               </div>
               <button
                 onClick={copyToClipboard}
-                className="ml-4 flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-lg transition-colors"
+                className="flex items-center justify-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-all duration-300 shadow-sm"
               >
                 {copied ? (
                   <FaCheck className="h-4 w-4" />
@@ -139,6 +194,15 @@ const HomePage = () => {
                   <FaCopy className="h-4 w-4" />
                 )}
                 <span>{copied ? "Copied!" : "Copy"}</span>
+              </button>
+            </div>
+            <div className="mt-4 flex justify-end">
+              <button 
+                onClick={() => window.open(shortUrl, '_blank', 'noopener,noreferrer')}
+                className="text-blue-600 hover:text-blue-800 flex items-center"
+              >
+                <span>Visit shortened URL</span>
+                <FaArrowRight className="ml-2" />
               </button>
             </div>
           </div>

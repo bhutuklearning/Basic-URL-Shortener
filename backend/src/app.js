@@ -117,16 +117,29 @@ app.set("trust proxy", ["127.0.0.1", "::1"]);
 // Setup logger (this handles both dev and prod logging)
 setupLogger(app);
 
+// Configure CORS properly for your React frontend
+const corsOptions = {
+    origin: [
+        'http://localhost:5173',  // Your React dev server
+        'http://localhost:9000',  // Your backend
+        process.env.FRONTEND_URL || 'http://localhost:5173'  // Production frontend URL
+    ],
+    credentials: true,  // Allow cookies to be sent
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+
 // Middlewares (order matters!)
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(helmet());
 
 // Rate limiters
 const apiLimiter = rateLimit({
     windowMs: 3 * 60 * 1000, // 3 minutes
-    max: 20,
+    max: 60,
     standardHeaders: true,
     legacyHeaders: false,
     message: {
@@ -137,7 +150,7 @@ const apiLimiter = rateLimit({
 
 const urlLimiter = rateLimit({
     windowMs: 1 * 60 * 1000, // 1 minute
-    max: 10,
+    max: 20,
     standardHeaders: true,
     legacyHeaders: false,
     message: {

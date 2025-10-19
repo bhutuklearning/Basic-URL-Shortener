@@ -69,13 +69,13 @@ const LandingPage = () => {
             to="/login"
             className="bg-white hover:bg-gray-50 text-gray-700 font-semibold py-4 px-8 rounded-lg border-2 border-gray-300 transition-colors text-lg"
           >
-            Sign In
+            Log In
           </Link>
         </div>
 
         {/* Footer */}
         <div className="mt-16 text-gray-500">
-          <p>&copy; 2024 URL Shortener. Built with React & Tailwind CSS.</p>
+          <p>&copy; 2025 Basic URL Shortener.</p>
         </div>
       </div>
     </div>

@@ -25,6 +25,7 @@ export const urlAPI = {
   createShortUrl: (urlData) => api.post("/url", urlData),
   getUserUrls: () => api.get("/url/myurls/direct"),
   getUrlAnalytics: (shortId) => api.get(`/url/${shortId}/analytics`),
+  redirectUrl: (shortId) => api.get(`/url/redirect/${shortId}`),
 };
 
 export default api;
