@@ -2,7 +2,7 @@
 
 A robust and scalable URL shortening service backend built with Node.js, Express, and MongoDB.
 
-## 🚀 Features
+##  Features
 
 - **URL Shortening**: Create shortened URLs with custom or auto-generated aliases
 - **User Authentication**: Secure registration and login system
@@ -12,7 +12,7 @@ A robust and scalable URL shortening service backend built with Node.js, Express
 - **Secure Headers**: Enhanced security with Helmet.js
 - **Comprehensive Logging**: Detailed logs for debugging and monitoring
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 - **Runtime**: Node.js
 - **Framework**: Express.js
@@ -22,7 +22,7 @@ A robust and scalable URL shortening service backend built with Node.js, Express
 - **Logging**: Morgan, Rotating File Stream
 - **Development**: Nodemon for hot reloading
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 backend/
@@ -51,7 +51,7 @@ backend/
 └── .env                       # Environment variables
 ```
 
-## 🔧 Installation & Setup
+##  Installation & Setup
 
 1. **Clone the repository**
 
@@ -79,7 +79,7 @@ backend/
    npm start
    ```
 
-## 🔌 API Endpoints
+##  API Endpoints
 
 ### Authentication
 - `POST /api/auth/register` - Register a new user
@@ -94,7 +94,7 @@ backend/
 - `DELETE /api/urls/:id` - Delete a URL by ID (protected)
 - `GET /api/urls/stats/:shortId` - Get URL statistics (protected)
 
-## 🔒 Security Features
+##  Security Features
 
 - Password hashing with bcrypt
 - JWT-based authentication
@@ -103,7 +103,7 @@ backend/
 - CORS configuration
 - Cookie security
 
-## 📊 Logging
+## Logging
 
 The application uses a comprehensive logging system:
 - Development logs with colorized output
@@ -111,7 +111,7 @@ The application uses a comprehensive logging system:
 - Separate access and error logs
 - Request ID tracking for debugging
 
-## 🧪 Error Handling
+##  Error Handling
 
 Custom error handling middleware provides:
 - Consistent error responses
@@ -119,14 +119,14 @@ Custom error handling middleware provides:
 - Sanitized error messages in production
 - Proper HTTP status codes
 
-## 🚀 Performance Considerations
+##  Performance Considerations
 
 - Database connection pooling
 - Efficient URL lookup with indexed fields
 - Caching opportunities for frequently accessed URLs
 - Stateless authentication for horizontal scaling
 
-## 📝 License
+##  License
 
 ISC
 
