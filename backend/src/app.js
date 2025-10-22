@@ -112,7 +112,8 @@ dotenv.config();
 const app = express();
 
 // Trust proxy (for real IP detection)
-app.set("trust proxy", ["127.0.0.1", "::1"]);
+// Trust first proxy (Render/Vercel), required for secure cookies
+app.set("trust proxy", 1);
 
 // Setup logger (this handles both dev and prod logging)
 setupLogger(app);
@@ -135,17 +136,34 @@ const allowedOrigins = [
     process.env.FRONTEND_URL,
 ].filter(Boolean);
 
+const isAllowedOrigin = (origin) => {
+    try {
+        if (!origin) return true; // non-browser or same-origin
+        const url = new URL(origin);
+        const host = url.hostname;
+        // Allow exact matches
+        if (allowedOrigins.includes(origin)) return true;
+        // Allow any Vercel preview/production domain
+        if (host.endsWith('.vercel.app')) return true;
+        return false;
+    } catch {
+        return false;
+    }
+};
+
 const corsOptions = {
     origin: (origin, callback) => {
-        // Allow same-origin or non-browser requests
-        if (!origin) return callback(null, true);
-        if (allowedOrigins.includes(origin)) return callback(null, true);
+        if (isAllowedOrigin(origin)) return callback(null, true);
         return callback(new Error(`Not allowed by CORS: ${origin}`));
     },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+    optionsSuccessStatus: 204,
 };
+
+// Ensure preflight requests are handled
+app.options('*', cors(corsOptions));
 
 
 

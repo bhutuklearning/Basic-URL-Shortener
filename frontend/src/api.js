@@ -102,17 +102,23 @@ const createApiInstance = (baseURL) => {
 };
 
 // Determine the base URL based on environment
+const normalizeBase = (url) => {
+  if (!url) return '';
+  const trimmed = url.replace(/\/+$/, '');
+  return trimmed.endsWith('/api/v1') ? trimmed : `${trimmed}/api/v1`;
+};
+
 const getBaseUrl = () => {
-  // In production, use the production API URL
   if (import.meta.env.MODE === 'production') {
-    return import.meta.env.VITE_API_URL;
+    // Use VITE_API_URL and ensure it includes /api/v1 only once
+    return normalizeBase(import.meta.env.VITE_API_URL);
   }
-  // In development, use the proxy (which will forward to localhost:9000)
+  // Dev uses Vite proxy at /api -> rewritten to /api/v1
   return '/api';
 };
 
 // Create the API instance
-const API_BASE_URL = `${getBaseUrl()}/api/v1`;
+const API_BASE_URL = getBaseUrl();
 const api = createApiInstance(API_BASE_URL);
 
 // Authentication API calls
