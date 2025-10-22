@@ -157,7 +157,7 @@
 
 
 // Updated code with error handling middleware and async wrapper
-import Url from "../models/Url.model.js";
+import Url from "../models/url.model.js";
 import User from "../models/User.model.js";
 import { catchAsync, AppError, ValidationError, NotFoundError, AuthError } from "../middlewares/error.middleware.js";
 
