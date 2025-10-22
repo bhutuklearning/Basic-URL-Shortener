@@ -117,17 +117,36 @@ app.set("trust proxy", ["127.0.0.1", "::1"]);
 // Setup logger (this handles both dev and prod logging)
 setupLogger(app);
 
-// Configure CORS properly for your React frontend
+// // Configure CORS properly for your React frontend
+// const corsOptions = {
+//     origin: [
+//         'http://localhost:5173',  // Your React dev server
+//         'http://localhost:9000',  // Your backend
+//         process.env.FRONTEND_URL || 'http://localhost:5173'  // Production frontend URL
+//     ],
+//     credentials: true,  // Allow cookies to be sent
+//     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+//     allowedHeaders: ['Content-Type', 'Authorization']
+// };
+
+
+const allowedOrigins = [
+    'http://localhost:5173',
+    process.env.FRONTEND_URL,
+].filter(Boolean);
+
 const corsOptions = {
-    origin: [
-        'http://localhost:5173',  // Your React dev server
-        'http://localhost:9000',  // Your backend
-        process.env.FRONTEND_URL || 'http://localhost:5173'  // Production frontend URL
-    ],
-    credentials: true,  // Allow cookies to be sent
+    origin: (origin, callback) => {
+        // Allow same-origin or non-browser requests
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.includes(origin)) return callback(null, true);
+        return callback(new Error(`Not allowed by CORS: ${origin}`));
+    },
+    credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    allowedHeaders: ['Content-Type', 'Authorization'],
 };
+
 
 
 // Middlewares (order matters!)

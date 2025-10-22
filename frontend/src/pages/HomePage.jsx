@@ -46,24 +46,19 @@ const HomePage = () => {
 
       const response = await urlAPI.createShortUrl(urlData);
       console.log("API Response:", response); // Debug log
-      
-      // Handle different response formats
+
       if (response && response.data) {
         let shortId;
-        
-        // Check if data.data exists (nested structure)
+
         if (response.data.data) {
           shortId = response.data.data.shortId;
         } else {
-          // Direct structure
           shortId = response.data.shortId || response.data.customShortId;
         }
-        
-        // Ensure we have a shortId
+
         if (shortId) {
-          // Use backend URL format with correct backend server
-          const baseUrl = "http://localhost:9000";
-          const fullShortUrl = `${baseUrl}/api/v1/url/${shortId}`;
+          const baseApiUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:9000/api/v1";
+          const fullShortUrl = `${baseApiUrl}/url/${shortId}`;
           setShortUrl(fullShortUrl);
         } else {
           throw new Error("No shortId found in response");
