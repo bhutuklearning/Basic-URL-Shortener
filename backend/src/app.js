@@ -118,38 +118,6 @@ app.set("trust proxy", 1);
 // Setup logger (this handles both dev and prod logging)
 setupLogger(app);
 
-// // Configure CORS properly for your React frontend
-// const corsOptions = {
-//     origin: [
-//         'http://localhost:5173',  // Your React dev server
-//         'http://localhost:9000',  // Your backend
-//         process.env.FRONTEND_URL || 'http://localhost:5173'  // Production frontend URL
-//     ],
-//     credentials: true,  // Allow cookies to be sent
-//     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-//     allowedHeaders: ['Content-Type', 'Authorization']
-// };
-
-
-// const allowedOrigins = [
-//     'http://localhost:5173',
-//     process.env.FRONTEND_URL,
-// ].filter(Boolean);
-
-// const isAllowedOrigin = (origin) => {
-//     try {
-//         if (!origin) return true; // non-browser or same-origin
-//         const url = new URL(origin);
-//         const host = url.hostname;
-//         // Allow exact matches
-//         if (allowedOrigins.includes(origin)) return true;
-//         // Allow any Vercel preview/production domain
-//         if (host.endsWith('.vercel.app')) return true;
-//         return false;
-//     } catch {
-//         return false;
-//     }
-// };
 
 // const corsOptions = {
 //     origin: (origin, callback) => {
@@ -165,39 +133,46 @@ setupLogger(app);
 // // Ensure preflight requests are handled
 // app.options('*', cors(corsOptions));
 
-
+// ✅ Allow only your frontend
 const allowedOrigins = [
+    "https://url-shortener-basic.vercel.app",
     "http://localhost:5173",
     "http://localhost:3000",
-    "https://url-shortener-basic.vercel.app",  // Your Vercel frontend
-    process.env.FRONTEND_URL,                 // Optional env fallback
 ].filter(Boolean);
 
 const corsOptions = {
-    origin: (origin, callback) => {
-        // Allow non-browser (like Postman)
-        if (!origin) return callback(null, true);
-        if (allowedOrigins.includes(origin)) return callback(null, true);
-        if (origin.endsWith(".vercel.app")) return callback(null, true);
-        callback(new Error(`CORS blocked: ${origin}`));
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin) || origin.endsWith(".vercel.app")) {
+            callback(null, true);
+        } else {
+            callback(new Error("CORS not allowed for " + origin));
+        }
     },
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
-    optionsSuccessStatus: 204,
 };
 
+// ✅ CORS should be first — before all routes and Helmet
+app.use(cors(corsOptions));
+// ✅ Automatically handle preflight requests
+//app.options("*", cors(corsOptions));
 
-//app.use(cors(corsOptions));
-// app.options('/api/*', cors(corsOptions)); // Handle preflight for your API routes only
-
+// ✅ Add Helmet AFTER CORS, and disable blocking of cross-origin resources
+app.use(
+    helmet({
+        crossOriginResourcePolicy: false,
+        crossOriginOpenerPolicy: false,
+        crossOriginEmbedderPolicy: false,
+    })
+);
 
 
 // Middlewares (order matters!)
 app.use(express.json());
-app.use(cors(corsOptions));
+//app.use(cors(corsOptions));
 app.use(cookieParser());
-app.use(helmet());
+//app.use(helmet());
 
 // Rate limiters
 const apiLimiter = rateLimit({
