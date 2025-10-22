@@ -189,7 +189,8 @@ const corsOptions = {
 
 //  Register CORS BEFORE everything
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
+app.options('/api/*', cors(corsOptions)); // Handle preflight for your API routes only
+
 
 
 // Middlewares (order matters!)
