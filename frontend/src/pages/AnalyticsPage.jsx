@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { urlAPI } from "../api.js";
@@ -38,7 +39,7 @@ const AnalyticsPage = () => {
         uniqueClicks: 98,
         referrers: ["google.com", "facebook.com", "twitter.com", "linkedin.com"],
         details: Array(25).fill().map((_, i) => ({
-          timestamp: new Date(Date.now() - (25-i) * 3600000),
+          timestamp: new Date(Date.now() - (25 - i) * 3600000),
           ip: `192.168.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`,
           referrer: ["google.com", "facebook.com", "twitter.com", "linkedin.com", "direct"][Math.floor(Math.random() * 5)]
         }))
@@ -54,7 +55,7 @@ const AnalyticsPage = () => {
         uniqueClicks: 67,
         referrers: ["google.com", "dev.to", "stackoverflow.com"],
         details: Array(15).fill().map((_, i) => ({
-          timestamp: new Date(Date.now() - (15-i) * 7200000),
+          timestamp: new Date(Date.now() - (15 - i) * 7200000),
           ip: `192.168.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`,
           referrer: ["google.com", "dev.to", "stackoverflow.com", "direct"][Math.floor(Math.random() * 4)]
         }))
@@ -70,7 +71,7 @@ const AnalyticsPage = () => {
         uniqueClicks: 189,
         referrers: ["google.com", "instagram.com", "pinterest.com", "youtube.com"],
         details: Array(35).fill().map((_, i) => ({
-          timestamp: new Date(Date.now() - (35-i) * 2400000),
+          timestamp: new Date(Date.now() - (35 - i) * 2400000),
           ip: `192.168.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`,
           referrer: ["google.com", "instagram.com", "pinterest.com", "youtube.com", "direct"][Math.floor(Math.random() * 5)]
         }))
@@ -86,7 +87,7 @@ const AnalyticsPage = () => {
         uniqueClicks: 356,
         referrers: ["google.com", "eventbrite.com", "meetup.com", "facebook.com", "linkedin.com"],
         details: Array(45).fill().map((_, i) => ({
-          timestamp: new Date(Date.now() - (45-i) * 1800000),
+          timestamp: new Date(Date.now() - (45 - i) * 1800000),
           ip: `192.168.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`,
           referrer: ["google.com", "eventbrite.com", "meetup.com", "facebook.com", "linkedin.com", "direct"][Math.floor(Math.random() * 6)]
         }))
@@ -102,7 +103,7 @@ const AnalyticsPage = () => {
         uniqueClicks: 42,
         referrers: ["google.com", "github.com", "stackoverflow.com"],
         details: Array(12).fill().map((_, i) => ({
-          timestamp: new Date(Date.now() - (12-i) * 14400000),
+          timestamp: new Date(Date.now() - (12 - i) * 14400000),
           ip: `192.168.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`,
           referrer: ["google.com", "github.com", "stackoverflow.com", "direct"][Math.floor(Math.random() * 4)]
         }))
@@ -134,7 +135,7 @@ const AnalyticsPage = () => {
     try {
       const response = await urlAPI.getUrlAnalytics(shortId);
       console.log("Analytics response:", response);
-      
+
       // Handle different response formats
       if (response && response.data) {
         // Check if data is nested in data property
@@ -152,7 +153,7 @@ const AnalyticsPage = () => {
             setUrlDetails(response.data.urlDetails);
           }
         }
-        
+
         // If analytics data doesn't have expected properties, create defaults
         if (response.data.data && !response.data.data.details) {
           setAnalytics(prev => ({
@@ -188,13 +189,13 @@ const AnalyticsPage = () => {
   // Get top referrers with counts
   const getTopReferrers = () => {
     if (!analytics || !analytics.details || !analytics.details.length) return [];
-    
+
     const referrerCounts = {};
     analytics.details.forEach(click => {
       const referrer = click.referrer || "Direct";
       referrerCounts[referrer] = (referrerCounts[referrer] || 0) + 1;
     });
-    
+
     return Object.entries(referrerCounts)
       .map(([name, count]) => ({ name, count }))
       .sort((a, b) => b.count - a.count)
@@ -204,7 +205,7 @@ const AnalyticsPage = () => {
   // Get click data by day for the last 7 days
   const getClicksByDay = () => {
     if (!analytics || !analytics.details || !analytics.details.length) return [];
-    
+
     const now = new Date();
     const days = [];
     for (let i = 6; i >= 0; i--) {
@@ -215,16 +216,16 @@ const AnalyticsPage = () => {
         count: 0
       });
     }
-    
+
     analytics.details.forEach(click => {
       const clickDate = new Date(click.timestamp);
       const dayDiff = Math.floor((now - clickDate) / (1000 * 60 * 60 * 24));
-      
+
       if (dayDiff >= 0 && dayDiff < 7) {
         days[6 - dayDiff].count++;
       }
     });
-    
+
     return days;
   };
 
@@ -300,7 +301,7 @@ const AnalyticsPage = () => {
                 <span className="font-mono text-blue-700 mr-2">
                   {`http://localhost:9000/api/v1/url/${shortId}`}
                 </span>
-                <button 
+                <button
                   onClick={() => {
                     navigator.clipboard.writeText(`http://localhost:9000/api/v1/url/${shortId}`);
                   }}
@@ -319,9 +320,9 @@ const AnalyticsPage = () => {
                 <span className="truncate max-w-md mr-2">
                   {urlDetails?.originalUrl || "https://example.com/original-url-path"}
                 </span>
-                <a 
-                  href={urlDetails?.originalUrl || "#"} 
-                  target="_blank" 
+                <a
+                  href={urlDetails?.originalUrl || "#"}
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-600 hover:text-blue-800"
                   title="Visit original URL"
@@ -390,10 +391,10 @@ const AnalyticsPage = () => {
               {safeAnalytics.uniqueClicks} of {safeAnalytics.clicks} total clicks
             </div>
             <div className="w-full bg-gray-200 rounded-full h-2.5">
-              <div 
-                className="bg-green-600 h-2.5 rounded-full" 
-                style={{ 
-                  width: `${calculatePercentage(safeAnalytics.uniqueClicks, safeAnalytics.clicks)}%` 
+              <div
+                className="bg-green-600 h-2.5 rounded-full"
+                style={{
+                  width: `${calculatePercentage(safeAnalytics.uniqueClicks, safeAnalytics.clicks)}%`
                 }}
               ></div>
             </div>
@@ -415,10 +416,10 @@ const AnalyticsPage = () => {
           <div className="mt-4 pt-4 border-t border-gray-100">
             <div className="text-xs text-gray-500 mb-1">Top source: {topReferrers[0]?.name || "Direct"}</div>
             <div className="w-full bg-gray-200 rounded-full h-2.5">
-              <div 
-                className="bg-purple-600 h-2.5 rounded-full" 
-                style={{ 
-                  width: topReferrers[0] ? `${calculatePercentage(topReferrers[0].count, safeAnalytics.clicks)}%` : "0%" 
+              <div
+                className="bg-purple-600 h-2.5 rounded-full"
+                style={{
+                  width: topReferrers[0] ? `${calculatePercentage(topReferrers[0].count, safeAnalytics.clicks)}%` : "0%"
                 }}
               ></div>
             </div>
@@ -435,10 +436,10 @@ const AnalyticsPage = () => {
         <div className="h-64 flex items-end justify-between space-x-2">
           {clicksByDay.map((day, index) => (
             <div key={index} className="flex flex-col items-center flex-1">
-              <div 
-                className="w-full bg-blue-500 hover:bg-blue-600 transition-all rounded-t-lg" 
-                style={{ 
-                  height: `${Math.max(5, (day.count / Math.max(...clicksByDay.map(d => d.count))) * 180)}px` 
+              <div
+                className="w-full bg-blue-500 hover:bg-blue-600 transition-all rounded-t-lg"
+                style={{
+                  height: `${Math.max(5, (day.count / Math.max(...clicksByDay.map(d => d.count))) * 180)}px`
                 }}
               ></div>
               <div className="text-xs font-medium text-gray-600 mt-2">{day.date}</div>
@@ -471,8 +472,8 @@ const AnalyticsPage = () => {
                       </span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2.5 group-hover:bg-gray-300 transition-colors">
-                      <div 
-                        className="bg-blue-600 h-2.5 rounded-full group-hover:bg-blue-500 transition-colors" 
+                      <div
+                        className="bg-blue-600 h-2.5 rounded-full group-hover:bg-blue-500 transition-colors"
                         style={{ width: `${calculatePercentage(referrer.count, safeAnalytics.clicks)}%` }}
                       ></div>
                     </div>

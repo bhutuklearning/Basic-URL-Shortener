@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { urlAPI, authAPI } from "../api.js";
@@ -13,7 +14,7 @@ const HomePage = () => {
   const [user, setUser] = useState(null);
   const [authChecked, setAuthChecked] = useState(false);
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -29,7 +30,7 @@ const HomePage = () => {
         setAuthChecked(true);
       }
     };
-    
+
     checkAuth();
   }, []);
 
@@ -192,7 +193,7 @@ const HomePage = () => {
               </button>
             </div>
             <div className="mt-4 flex justify-end">
-              <button 
+              <button
                 onClick={() => window.open(shortUrl, '_blank', 'noopener,noreferrer')}
                 className="text-blue-600 hover:text-blue-800 flex items-center"
               >

@@ -14,22 +14,21 @@
 
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import tailwindcss from "@tailwindcss/vite";
+import tailwindcss from '@tailwindcss/vite';
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [
     tailwindcss(),
     react({
-      // Add this to handle React 18+ compatibility
       jsxRuntime: 'classic',
       babel: {
         plugins: [
           ['@babel/plugin-transform-react-jsx', { runtime: 'classic' }]
         ],
-      }
+      },
     }),
   ],
+
   server: {
     port: 5173,
     proxy: {
@@ -39,23 +38,25 @@ export default defineConfig({
         secure: false,
         rewrite: (path) => path.replace(/^\/api/, '/api/v1'),
       },
-    }
-  },
-  build: {
-    outDir: 'dist',
-    emptyOutDir: true,
-    sourcemap: false, // Disable source maps for production
-    commonjsOptions: {
-      // This helps with CommonJS compatibility
-      include: [/node_modules/],
     },
   },
-  // Add optimizeDeps for better dependency handling
+
   optimizeDeps: {
-    include: [
-      'react',
-      'react-dom',
-      '@tailwindcss/vite',
-    ],
+    // Prevent Vite from trying to bundle native modules (.node)
+    exclude: ['@tailwindcss/oxide', 'lightningcss'],
+  },
+
+  build: {
+    commonjsOptions: {
+      include: [/node_modules/],
+      exclude: ['@tailwindcss/oxide', 'lightningcss'],
+    },
+  },
+
+  resolve: {
+    alias: {
+      // Optional fallback for lightningcss
+      'lightningcss/node/index.js': 'lightningcss/dist/browser.js',
+    },
   },
 });
