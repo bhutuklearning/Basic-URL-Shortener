@@ -18,6 +18,10 @@ app.set("trust proxy", 1);
 // Logging
 setupLogger(app);
 
+// Body & cookies
+app.use(express.json());
+app.use(cookieParser());
+
 // Allowed origins
 const allowedOrigins = [
     process.env.FRONTEND_URL,
@@ -54,9 +58,7 @@ app.use(
     })
 );
 
-// Body & cookies
-app.use(express.json());
-app.use(cookieParser());
+
 
 // Rate limiting
 const apiLimiter = rateLimit({
