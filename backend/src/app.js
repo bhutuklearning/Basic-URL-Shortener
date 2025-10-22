@@ -169,8 +169,8 @@ setupLogger(app);
 const allowedOrigins = [
     "http://localhost:5173",
     "http://localhost:3000",
-    "https://url-shortener-basic.vercel.app",  // ✅ Your Vercel frontend
-    process.env.FRONTEND_URL,                 // ✅ Optional env fallback
+    "https://url-shortener-basic.vercel.app",  // Your Vercel frontend
+    process.env.FRONTEND_URL,                 // Optional env fallback
 ].filter(Boolean);
 
 const corsOptions = {
@@ -187,15 +187,15 @@ const corsOptions = {
     optionsSuccessStatus: 204,
 };
 
-//  Register CORS BEFORE everything
-app.use(cors(corsOptions));
-app.options('/api/*', cors(corsOptions)); // Handle preflight for your API routes only
+
+//app.use(cors(corsOptions));
+// app.options('/api/*', cors(corsOptions)); // Handle preflight for your API routes only
 
 
 
 // Middlewares (order matters!)
 app.use(express.json());
-//app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(helmet());
 
