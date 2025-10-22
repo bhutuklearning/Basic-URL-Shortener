@@ -119,60 +119,47 @@ app.set("trust proxy", 1);
 setupLogger(app);
 
 
+
+// // ✅ Allow only your frontend
+// const allowedOrigins = [
+//     "https://url-shortener-basic.vercel.app",
+//     "http://localhost:5173",
+//     "http://localhost:3000",
+// ].filter(Boolean);
+
 // const corsOptions = {
-//     origin: (origin, callback) => {
-//         if (isAllowedOrigin(origin)) return callback(null, true);
-//         return callback(new Error(`Not allowed by CORS: ${origin}`));
+//     origin: function (origin, callback) {
+//         if (!origin || allowedOrigins.includes(origin) || origin.endsWith(".vercel.app")) {
+//             callback(null, true);
+//         } else {
+//             callback(new Error("CORS not allowed for " + origin));
+//         }
 //     },
 //     credentials: true,
-//     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-//     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
-//     optionsSuccessStatus: 204,
+//     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+//     allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
 // };
 
-// // Ensure preflight requests are handled
-// app.options('*', cors(corsOptions));
+// // ✅ CORS should be first — before all routes and Helmet
+// app.use(cors(corsOptions));
+// // ✅ Automatically handle preflight requests
+// //app.options("*", cors(corsOptions));
 
-// ✅ Allow only your frontend
-const allowedOrigins = [
-    "https://url-shortener-basic.vercel.app",
-    "http://localhost:5173",
-    "http://localhost:3000",
-].filter(Boolean);
-
-const corsOptions = {
-    origin: function (origin, callback) {
-        if (!origin || allowedOrigins.includes(origin) || origin.endsWith(".vercel.app")) {
-            callback(null, true);
-        } else {
-            callback(new Error("CORS not allowed for " + origin));
-        }
-    },
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
-};
-
-// ✅ CORS should be first — before all routes and Helmet
-app.use(cors(corsOptions));
-// ✅ Automatically handle preflight requests
-//app.options("*", cors(corsOptions));
-
-// ✅ Add Helmet AFTER CORS, and disable blocking of cross-origin resources
-app.use(
-    helmet({
-        crossOriginResourcePolicy: false,
-        crossOriginOpenerPolicy: false,
-        crossOriginEmbedderPolicy: false,
-    })
-);
+// // ✅ Add Helmet AFTER CORS, and disable blocking of cross-origin resources
+// app.use(
+//     helmet({
+//         crossOriginResourcePolicy: false,
+//         crossOriginOpenerPolicy: false,
+//         crossOriginEmbedderPolicy: false,
+//     })
+// );
 
 
 // Middlewares (order matters!)
 app.use(express.json());
-//app.use(cors(corsOptions));
+app.use(cors());
 app.use(cookieParser());
-//app.use(helmet());
+app.use(helmet());
 
 // Rate limiters
 const apiLimiter = rateLimit({
