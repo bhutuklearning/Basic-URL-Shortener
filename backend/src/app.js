@@ -20,38 +20,38 @@ setupLogger(app);
 
 // Allowed origins
 const allowedOrigins = [
-  process.env.FRONTEND_URL,
-  "https://url-shortener-basic.vercel.app",
-  "http://localhost:5173",
-  "http://localhost:3000",
+    process.env.FRONTEND_URL,
+    "https://url-shortener-basic.vercel.app",
+    "http://localhost:5173",
+    "http://localhost:3000",
 ].filter(Boolean);
 
 // CORS (credentials + strict origin)
 const corsOptions = {
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin) || /\.vercel\.app$/.test(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("CORS not allowed for origin: " + origin));
-    }
-  },
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
-  optionsSuccessStatus: 204,
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin) || /\.vercel\.app$/.test(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("CORS not allowed for origin: " + origin));
+        }
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+    optionsSuccessStatus: 204,
 };
 
 // Apply CORS early and handle preflight
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
+//app.options("*", cors(corsOptions));
 
 // Security headers (after CORS)
 app.use(
-  helmet({
-    crossOriginResourcePolicy: false,
-    crossOriginOpenerPolicy: false,
-    crossOriginEmbedderPolicy: false,
-  })
+    helmet({
+        crossOriginResourcePolicy: false,
+        crossOriginOpenerPolicy: false,
+        crossOriginEmbedderPolicy: false,
+    })
 );
 
 // Body & cookies
@@ -60,18 +60,18 @@ app.use(cookieParser());
 
 // Rate limiting
 const apiLimiter = rateLimit({
-  windowMs: 3 * 60 * 1000,
-  max: 60,
-  standardHeaders: true,
-  legacyHeaders: false,
-  message: { success: false, error: "Too many requests, please try again later." },
+    windowMs: 3 * 60 * 1000,
+    max: 60,
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: { success: false, error: "Too many requests, please try again later." },
 });
 const urlLimiter = rateLimit({
-  windowMs: 60 * 1000,
-  max: 20,
-  standardHeaders: true,
-  legacyHeaders: false,
-  message: { success: false, error: "Too many URL requests, please try again later." },
+    windowMs: 60 * 1000,
+    max: 20,
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: { success: false, error: "Too many URL requests, please try again later." },
 });
 app.use("/api/v1/", apiLimiter);
 app.use("/api/v1/url", urlLimiter);
