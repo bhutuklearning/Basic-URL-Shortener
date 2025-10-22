@@ -15,39 +15,47 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from "@tailwindcss/vite";
-import EnvironmentPlugin from 'vite-plugin-environment';
 
 // https://vite.dev/config/
-export default defineConfig(({ mode }) => {
-  // Determine if we're in production mode
-  const isProduction = mode === 'production';
-
-  return {
-    plugins: [
-      tailwindcss(),
-      react(),
-      EnvironmentPlugin('VITE_'), // Load all variables prefixed with VITE_
-    ],
-    server: {
-      port: 5173, // Default port for Vite
-      // Proxy configuration only for development
-      ...(!isProduction && {
-        proxy: {
-          '/api': {
-            target: 'http://localhost:9000',
-            changeOrigin: true,
-            secure: false,
-            rewrite: (path) => path.replace(/^\/api/, '/api/v1'),
-          },
-        }
-      })
-    },
-    // Production-specific build settings
-    build: {
-      outDir: 'dist',
-      emptyOutDir: true,
-      // Enable source maps for debugging in production
-      sourcemap: isProduction ? false : 'inline',
+export default defineConfig({
+  plugins: [
+    tailwindcss(),
+    react({
+      // Add this to handle React 18+ compatibility
+      jsxRuntime: 'classic',
+      babel: {
+        plugins: [
+          ['@babel/plugin-transform-react-jsx', { runtime: 'classic' }]
+        ],
+      }
+    }),
+  ],
+  server: {
+    port: 5173,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:9000',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api/, '/api/v1'),
+      },
     }
-  };
+  },
+  build: {
+    outDir: 'dist',
+    emptyOutDir: true,
+    sourcemap: false, // Disable source maps for production
+    commonjsOptions: {
+      // This helps with CommonJS compatibility
+      include: [/node_modules/],
+    },
+  },
+  // Add optimizeDeps for better dependency handling
+  optimizeDeps: {
+    include: [
+      'react',
+      'react-dom',
+      '@tailwindcss/vite',
+    ],
+  },
 });
