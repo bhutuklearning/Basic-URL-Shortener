@@ -37,7 +37,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-linear-to-b from-gray-50 to-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
           <div className="h-16 w-16 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg">
@@ -63,7 +63,7 @@ const LoginPage = () => {
           {error && (
             <div className="mb-6 bg-red-50 border-l-4 border-red-400 p-4 rounded-r-md">
               <div className="flex">
-                <div className="flex-shrink-0">
+                <div className="shrink-0">
                   <FaEyeSlash className="h-5 w-5 text-red-400" />
                 </div>
                 <div className="ml-3">
@@ -142,7 +142,7 @@ const LoginPage = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 disabled:opacity-50 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center space-x-2"
+              className="w-full bg-linear-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 disabled:opacity-50 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center space-x-2"
             >
               {loading ? (
                 <>

@@ -242,7 +242,7 @@ const AnalyticsPage = () => {
     return (
       <div className="max-w-4xl mx-auto p-6">
         <div className="bg-red-50 border-l-4 border-red-500 text-red-700 p-6 rounded-lg mb-6 flex items-start">
-          <FaInfoCircle className="h-6 w-6 mr-3 mt-0.5 flex-shrink-0" />
+          <FaInfoCircle className="h-6 w-6 mr-3 mt-0.5 shrink-0" />
           <div>
             <h3 className="font-bold mb-1">Error Loading Analytics</h3>
             <p>{error}</p>
@@ -273,7 +273,7 @@ const AnalyticsPage = () => {
   return (
     <div className="max-w-6xl mx-auto p-4">
       {/* Header with Back Button */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 bg-gradient-to-r from-blue-600 to-indigo-700 p-6 rounded-lg shadow-lg text-white">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 bg-linear-to-r from-blue-600 to-indigo-700 p-6 rounded-lg shadow-lg text-white">
         <div>
           <h1 className="text-3xl font-bold mb-2">URL Analytics Dashboard</h1>
           <p className="opacity-90">Detailed performance insights for your shortened URL</p>
@@ -452,7 +452,7 @@ const AnalyticsPage = () => {
       <div className="grid md:grid-cols-2 gap-8 mb-8">
         {/* Referrers */}
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-          <div className="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
+          <div className="px-6 py-4 border-b border-gray-200 bg-linear-to-r from-gray-50 to-gray-100">
             <h2 className="text-xl font-semibold text-gray-900 flex items-center">
               <FaGlobe className="mr-2 text-blue-600" />
               Top Referrers
@@ -491,7 +491,7 @@ const AnalyticsPage = () => {
 
         {/* Device & Browser Stats (Placeholder) */}
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-          <div className="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
+          <div className="px-6 py-4 border-b border-gray-200 bg-linear-to-r from-gray-50 to-gray-100">
             <h2 className="text-xl font-semibold text-gray-900 flex items-center">
               <FaDesktop className="mr-2 text-blue-600" />
               Devices & Browsers
@@ -558,7 +558,7 @@ const AnalyticsPage = () => {
 
       {/* Click Details */}
       <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
+        <div className="px-6 py-4 border-b border-gray-200 bg-linear-to-r from-gray-50 to-gray-100">
           <h2 className="text-xl font-semibold text-gray-900 flex items-center">
             <FaClock className="mr-2 text-blue-600" />
             Click History

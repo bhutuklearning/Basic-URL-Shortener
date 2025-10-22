@@ -112,7 +112,7 @@ const DashboardPage = () => {
   return (
     <div className="max-w-6xl mx-auto">
       {/* Header */}
-      <div className="flex justify-between items-center mb-8 bg-gradient-to-r from-blue-600 to-indigo-700 p-6 rounded-lg shadow-lg">
+      <div className="flex justify-between items-center mb-8 bg-linear-to-r from-blue-600 to-indigo-700 p-6 rounded-lg shadow-lg">
         <div className="text-white">
           <h1 className="text-3xl font-bold">URL Dashboard</h1>
           <p className="mt-2 opacity-90">Create and manage your shortened URLs</p>
@@ -198,7 +198,7 @@ const DashboardPage = () => {
               <button
                 type="submit"
                 disabled={creating}
-                className="bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 disabled:opacity-70 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 shadow-md flex-1 flex justify-center items-center"
+                className="bg-linear-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 disabled:opacity-70 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 shadow-md flex-1 flex justify-center items-center"
               >
                 {creating ? (
                   <>
@@ -229,7 +229,7 @@ const DashboardPage = () => {
 
       {/* URLs List */}
       <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
+        <div className="px-6 py-4 border-b border-gray-200 bg-linear-to-r from-gray-50 to-gray-100">
           <h2 className="text-xl font-semibold text-gray-900 flex items-center">
             <FaLink className="mr-2 text-blue-600" />
             Your URLs
@@ -252,7 +252,7 @@ const DashboardPage = () => {
             </p>
             <button
               onClick={() => setShowCreateForm(true)}
-              className="bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 shadow-md flex items-center mx-auto"
+              className="bg-linear-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 shadow-md flex items-center mx-auto"
             >
               <FaPlus className="mr-2" />
               Create Your First URL

@@ -5,7 +5,7 @@ import { FaLink, FaArrowRight } from "react-icons/fa";
 
 const LandingPage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+    <div className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
       <div className="max-w-4xl mx-auto text-center px-4">
         {/* Hero Section */}
         <div className="mb-12">

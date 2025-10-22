@@ -28,7 +28,6 @@ export default defineConfig({
       },
     }),
   ],
-
   server: {
     port: 5173,
     proxy: {
@@ -40,22 +39,17 @@ export default defineConfig({
       },
     },
   },
-
   optimizeDeps: {
-    // Prevent Vite from trying to bundle native modules (.node)
     exclude: ['@tailwindcss/oxide', 'lightningcss'],
   },
-
   build: {
     commonjsOptions: {
       include: [/node_modules/],
       exclude: ['@tailwindcss/oxide', 'lightningcss'],
     },
   },
-
   resolve: {
     alias: {
-      // Optional fallback for lightningcss
       'lightningcss/node/index.js': 'lightningcss/dist/browser.js',
     },
   },
