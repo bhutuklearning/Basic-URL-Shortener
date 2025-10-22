@@ -270,11 +270,11 @@ app.use(
   })
 );
 
-// ✅ Handle preflight requests properly
-app.options("*", cors({
-  origin: allowedOrigins,
-  credentials: true,
-}));
+// // ✅ Handle preflight requests properly
+// app.options("*", cors({
+//   origin: allowedOrigins,
+//   credentials: true,
+// }));
 
 // ✅ Helmet (after CORS)
 app.use(
