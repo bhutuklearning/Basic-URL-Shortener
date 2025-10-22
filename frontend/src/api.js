@@ -112,7 +112,7 @@ const getBaseUrl = () => {
 };
 
 // Create the API instance
-const API_BASE_URL = getBaseUrl();
+const API_BASE_URL = `${getBaseUrl()}/api/v1`;
 const api = createApiInstance(API_BASE_URL);
 
 // Authentication API calls
