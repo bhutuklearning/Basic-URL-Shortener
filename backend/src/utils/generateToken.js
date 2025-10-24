@@ -62,11 +62,13 @@ const generateTokens = (userId, userName = null) => {
  * @param {String} refreshToken - Refresh token
  */
 const setTokenCookies = (res, accessToken, refreshToken) => {
-    const secure = ENV.NODE_ENV !== "development";
+    // For cross-site contexts (production), we need SameSite=None and Secure=true
+    // For local development, we use SameSite=Lax and Secure=false
+    const isProduction = ENV.NODE_ENV === "production" || ENV.NODE_ENV !== "development";
     const cookieOptions = {
         httpOnly: true,
-        secure,
-        sameSite: secure ? "none" : "lax",
+        secure: isProduction, // Must be true for SameSite=None
+        sameSite: isProduction ? "none" : "lax", // None for cross-site, Lax for same-site
     };
 
     // Set access token cookie (short-lived)
@@ -95,11 +97,11 @@ const setTokenCookies = (res, accessToken, refreshToken) => {
  * @param {Object} res - Express response object
  */
 const clearTokenCookies = (res) => {
-    const secure = ENV.NODE_ENV !== "development";
+    const isProduction = ENV.NODE_ENV === "production" || ENV.NODE_ENV !== "development";
     const cookieOptions = {
         httpOnly: true,
-        secure,
-        sameSite: secure ? "none" : "lax",
+        secure: isProduction,
+        sameSite: isProduction ? "none" : "lax",
         expires: new Date(0),
     };
 

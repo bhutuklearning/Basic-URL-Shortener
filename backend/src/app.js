@@ -22,18 +22,23 @@ setupLogger(app);
 app.use(express.json());
 app.use(cookieParser());
 
-// Allowed origins
+// CORS - normalize URLs by removing trailing slashes
 const allowedOrigins = [
     process.env.FRONTEND_URL,
     "https://url-shortener-basic.vercel.app",
     "http://localhost:5173",
     "http://localhost:3000",
-].filter(Boolean);
+].filter(Boolean).map(url => url.replace(/\/$/, '')); // Remove trailing slashes
 
 // CORS (credentials + strict origin)
 const corsOptions = {
     origin: (origin, callback) => {
-        if (!origin || allowedOrigins.includes(origin) || /\.vercel\.app$/.test(origin)) {
+        if (!origin) return callback(null, true);
+        
+        // Normalize origin by removing trailing slash
+        const normalizedOrigin = origin.replace(/\/$/, '');
+        
+        if (allowedOrigins.includes(normalizedOrigin) || /\.vercel\.app$/.test(normalizedOrigin)) {
             callback(null, true);
         } else {
             callback(new Error("CORS not allowed for origin: " + origin));
