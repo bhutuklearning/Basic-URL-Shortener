@@ -108,6 +108,7 @@ const normalizeBase = (url) => {
   return trimmed.endsWith('/api/v1') ? trimmed : `${trimmed}/api/v1`;
 };
 
+// Get the API base URL for axios requests
 const getBaseUrl = () => {
   if (import.meta.env.MODE === 'production') {
     // Use VITE_API_URL and ensure it includes /api/v1 only once
@@ -115,6 +116,17 @@ const getBaseUrl = () => {
   }
   // Dev uses Vite proxy at /api -> rewritten to /api/v1
   return '/api';
+};
+
+// Get the public-facing URL for shortened links
+export const getPublicUrl = (shortId) => {
+  if (import.meta.env.MODE === 'production') {
+    // In production, use the backend URL from environment variable
+    const backendUrl = import.meta.env.VITE_API_URL || 'https://url-shortener-backend.7u2f.onrender.com';
+    return `${backendUrl.replace(/\/+$/, '')}/api/v1/url/${shortId}`;
+  }
+  // In development, use localhost
+  return `http://localhost:9000/api/v1/url/${shortId}`;
 };
 
 // Create the API instance

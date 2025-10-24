@@ -9,6 +9,7 @@ A modern, responsive frontend for a URL Shortener application built with React 1
 - Analytics page with charts, referrer and click details
 - Short ID redirect route (e.g., `/abc123`) to original URLs
 - Toast notifications (`react-hot-toast`) and iconography (`react-icons`)
+- Production-ready URL handling for cross-domain deployment
 
 ## Tech Stack
 - React 19, React Router v6
@@ -38,12 +39,14 @@ Defined in `src/App.jsx` using `BrowserRouter`:
 - Protected (wrapped by `Layout` + `AuthGuard`): `/home`, `/dashboard`, `/analytics`
 - Fallback: `*` → `NotFoundPage`
 
-## API & Environment
+## API and Environment Configuration
 `src/api.js`:
 - Creates an Axios instance with `withCredentials: true`
 - Base URL resolution:
   - Development: `'/api'` (proxied to backend via Vite)
   - Production: `VITE_API_URL` normalized to include `/api/v1` exactly once
+- Production URL handling: Uses backend URL for shortened links to ensure proper redirection
+- Cross-domain support: Properly handles URLs in both development and production environments
 
 Required env in production (Vercel):
 ```

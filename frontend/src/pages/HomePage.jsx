@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { urlAPI, authAPI } from "../api.js";
+import { urlAPI, authAPI, getPublicUrl } from "../api.js";
 import { FaLink, FaCopy, FaCheck, FaArrowRight, FaTachometerAlt } from "react-icons/fa";
 
 const HomePage = () => {
@@ -58,8 +58,8 @@ const HomePage = () => {
         }
 
         if (shortId) {
-          const baseApiUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:9000/api/v1";
-          const fullShortUrl = `${baseApiUrl}/url/${shortId}`;
+          // Use the utility function to get the correct URL for the environment
+          const fullShortUrl = getPublicUrl(shortId);
           setShortUrl(fullShortUrl);
         } else {
           throw new Error("No shortId found in response");
