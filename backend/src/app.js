@@ -4,10 +4,12 @@ import helmet from "helmet";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import rateLimit from "express-rate-limit";
+import axios from "axios";
 import authRoute from "./routes/auth.route.js";
 import urlRoute from "./routes/url.route.js";
 import { errorHandler, notFoundHandler } from "./middlewares/error.middleware.js";
 import { setupLogger } from "./config/logger.js";
+import { ENV } from "./config/env.js";
 
 dotenv.config();
 const app = express();
@@ -34,10 +36,10 @@ const allowedOrigins = [
 const corsOptions = {
     origin: (origin, callback) => {
         if (!origin) return callback(null, true);
-        
+
         // Normalize origin by removing trailing slash
         const normalizedOrigin = origin.replace(/\/$/, '');
-        
+
         if (allowedOrigins.includes(normalizedOrigin) || /\.vercel\.app$/.test(normalizedOrigin)) {
             callback(null, true);
         } else {
@@ -52,7 +54,7 @@ const corsOptions = {
 
 // Apply CORS early and handle preflight
 app.use(cors(corsOptions));
-//app.options("*", cors(corsOptions));
+
 
 // Security headers (after CORS)
 app.use(
@@ -90,6 +92,23 @@ app.use("/api/v1/url", urlRoute);
 // Health/test
 app.get("/home", (req, res) => res.send("Hello World!"));
 app.get("/health", (req, res) => res.status(200).json({ status: "OK" }));
+
+// Pinging the server to keep it awake
+// Endpoint to ping
+app.get('/ping', (req, res) => {
+    res.status(200).send('Pong!');
+});
+
+// Function to ping the server every 5 minutes
+function pingServer() {
+    const url = `${ENV.BACKEND_URL}/ping` || `http://localhost:${ENV.PORT}/ping`;
+    axios.get(url)
+        .then(() => console.log('Pinged server at', new Date().toLocaleString()))
+        .catch(err => console.error('Error pinging server:', err.message));
+}
+
+// Ping every 5 minutes (300,000 milliseconds)
+setInterval(pingServer, 30000); // For testing, ping every 30 seconds
 
 // Errors
 app.use(notFoundHandler);
