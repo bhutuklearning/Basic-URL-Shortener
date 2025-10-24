@@ -1,16 +1,82 @@
-# React + Vite
+# URL Shortener — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive frontend for a URL Shortener application built with React 19, Vite 5, Tailwind via the official Vite plugin, React Router v6, and Axios. It supports authenticated dashboards, URL creation, and analytics, and is deployable to Vercel as a static build.
 
-Currently, two official plugins are available:
+## Features
+- Authentication: register, login, logout with cookie-based sessions
+- Protected routes using `AuthGuard` and shared `Layout`
+- Dashboard to manage and list shortened URLs
+- Analytics page with charts, referrer and click details
+- Short ID redirect route (e.g., `/abc123`) to original URLs
+- Toast notifications (`react-hot-toast`) and iconography (`react-icons`)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack
+- React 19, React Router v6
+- Vite 5, Tailwind (via `@tailwindcss/vite` plugin)
+- Axios with `withCredentials` for cookie-based auth
+- Deployed via Vercel (`@vercel/static-build`)
 
-## React Compiler
+## Project Structure
+```
+frontend/
+  ├─ src/
+  │  ├─ components/    # Layout, AuthGuard, Footer
+  │  ├─ pages/         # Landing, Home, Login, Register, Dashboard, Analytics, Redirect, NotFound
+  │  ├─ api.js         # Axios instance and API wrappers
+  │  ├─ App.jsx        # Routing
+  │  ├─ main.jsx       # App bootstrap
+  │  ├─ index.css      # Global styles
+  │  └─ App.css        # App-scoped styles
+  ├─ vercel.json       # Static build + SPA route handling
+  ├─ vite.config.mjs   # Dev server, proxy, plugins
+  └─ package.json      # Scripts and dependencies
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Routing
+Defined in `src/App.jsx` using `BrowserRouter`:
+- Public: `/`, `/login`, `/register`, `/:shortId` (redirect)
+- Protected (wrapped by `Layout` + `AuthGuard`): `/home`, `/dashboard`, `/analytics`
+- Fallback: `*` → `NotFoundPage`
 
-## Expanding the ESLint configuration
+## API & Environment
+`src/api.js`:
+- Creates an Axios instance with `withCredentials: true`
+- Base URL resolution:
+  - Development: `'/api'` (proxied to backend via Vite)
+  - Production: `VITE_API_URL` normalized to include `/api/v1` exactly once
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Required env in production (Vercel):
+```
+VITE_API_URL=https://<your-render-backend>/api/v1
+```
+
+## Vite Dev Server & Proxy
+`vite.config.mjs` sets a dev proxy so the frontend can call the backend without CORS pain:
+- Incoming `'/api'` → rewrites to `'/api/v1'`
+- Proxies to `http://localhost:9000`
+
+## Scripts
+- `npm run dev` — start Vite dev server at `http://localhost:5173`
+- `npm run build` — production build to `dist/`
+- `npm run preview` — preview the built app locally
+
+## Deployment (Vercel)
+- `vercel.json` uses `@vercel/static-build` with `distDir: "dist"`
+- SPA routing: all paths fallback to `/index.html`
+- Set `VITE_API_URL` in Vercel project settings to your backend base (include `/api/v1`)
+
+## Authentication Notes
+- Cookies must be accepted in a cross-site context (backend domain differs)
+- Ensure backend sets cookies with `SameSite: 'None'` and `Secure: true` in production
+- Axios is configured with `withCredentials: true`
+
+## Getting Started
+1. Install: `npm install`
+2. Dev: `npm run dev` (backend on `http://localhost:9000`)
+3. Build: `npm run build`
+4. Preview: `npm run preview`
+
+## Useful Tips
+- If login fails in production, verify `VITE_API_URL` and backend CORS/cookie settings
+- Keep `vercel.json` for SPA rewrites intact
+- Tailwind is enabled via `@tailwindcss/vite`; styles are in `index.css`/`App.css`
