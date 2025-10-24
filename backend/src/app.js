@@ -107,8 +107,8 @@ function pingServer() {
         .catch(err => console.error('Error pinging server:', err.message));
 }
 
-// Ping every 5 minutes (300,000 milliseconds)
-setInterval(pingServer, 30000); // For testing, ping every 30 seconds
+// Ping every 12 minutes (720,000 milliseconds)
+setInterval(pingServer, 720000); 
 
 // Errors
 app.use(notFoundHandler);
