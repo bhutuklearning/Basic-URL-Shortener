@@ -1,162 +1,408 @@
-# URL Shortener
+# 🔗 URL Shortener
 
-A full-stack URL shortening service with a modern React frontend and robust Node.js backend.
+<div align="center">
 
-![URL Shortener](https://via.placeholder.com/800x400?text=URL+Shortener+App)
+![URL Shortener](https://img.shields.io/badge/URL-Shortener-blue?style=for-the-badge&logo=link)
+![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react)
+![Node.js](https://img.shields.io/badge/Node.js-Express-green?style=for-the-badge&logo=node.js)
+![MongoDB](https://img.shields.io/badge/MongoDB-Database-green?style=for-the-badge&logo=mongodb)
 
-## 📋 Overview
+A modern, full-stack URL shortening service with comprehensive analytics and user management.
 
-This URL shortener application provides a comprehensive solution for creating, managing, and tracking shortened URLs. Built with scalability and security in mind, it features a clean, intuitive UI and a powerful backend API.
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20App-brightgreen?style=for-the-badge)](https://url-shortener-basic.vercel.app/)
+[![API Docs](https://img.shields.io/badge/API-Documentation-orange?style=for-the-badge)](./backend/README.md)
 
-## ✨ Key Features
+</div>
+
+## 📋 Table of Contents
+
+- [✨ Features](#-features)
+- [🛠️ Tech Stack](#️-tech-stack)
+- [🏗️ Architecture](#️-architecture)
+- [🚀 Quick Start](#-quick-start)
+- [📱 Usage Guide](#-usage-guide)
+- [🔒 Security](#-security)
+- [📊 Performance](#-performance)
+- [🌐 Deployment](#-deployment)
+- [🤝 Contributing](#-contributing)
+- [📄 License](#-license)
+
+## ✨ Features
+
+### 🎯 Core Functionality
 
 - **Instant URL Shortening**: Create short, memorable links in seconds
 - **Custom Aliases**: Choose your own custom short URLs
-- **User Dashboard**: Track all your shortened URLs in one place
-- **Click Analytics**: Monitor traffic and engagement for each link
-- **Secure Authentication**: Protect your links with user accounts
-- **Responsive Design**: Works seamlessly on desktop and mobile devices
-- **API Access**: Integrate URL shortening into your own applications
+- **QR Code Generation**: Generate QR codes for easy sharing
+- **Bulk URL Management**: Handle multiple URLs efficiently
 
-## 🛠️ Technology Stack
+###  User Management
+
+- **Secure Authentication**: JWT-based login with refresh tokens
+- **User Dashboard**: Centralized management of all shortened URLs
+- **Profile Management**: Update user information and preferences
+- **Session Management**: Secure logout and token refresh
+
+###  Analytics & Tracking
+
+- **Click Analytics**: Monitor traffic and engagement metrics
+- **Referrer Tracking**: Track where your clicks are coming from
+
+- **Time-based Analytics**: Track clicks over time periods
+
+
+### Developer Features
+
+- **RESTful API**: Complete API for integration
+- **Rate Limiting**: Prevent abuse with configurable limits
+- **API Documentation**: Comprehensive API docs with examples
+- **Webhook Support**: Real-time notifications for events
+
+## Tech Stack
 
 ### Frontend
-- **Framework**: React.js
-- **State Management**: React Context API / Redux
-- **Styling**: CSS Modules / Styled Components
-- **HTTP Client**: Axios
-- **Routing**: React Router
+
+| Technology          | Version | Purpose                 |
+| ------------------- | ------- | ----------------------- |
+| **React**           | 19.1.1  | UI Framework            |
+| **Vite**            | 7.1.7   | Build Tool & Dev Server |
+| **Tailwind CSS**    | 4.1.14  | Styling Framework       |
+| **React Router**    | 7.9.4   | Client-side Routing     |
+| **Axios**           | 1.12.2  | HTTP Client             |
+| **React Hot Toast** | 2.6.0   | Notifications           |
+| **React Icons**     | 5.5.0   | Icon Library            |
 
 ### Backend
-- **Runtime**: Node.js
-- **Framework**: Express.js
-- **Database**: MongoDB with Mongoose ODM
-- **Authentication**: JWT with bcrypt
-- **Security**: Helmet.js, Express Rate Limit
-- **Logging**: Morgan, Rotating File Stream
+
+| Technology     | Version | Purpose             |
+| -------------- | ------- | ------------------- |
+| **Node.js**    | Latest  | Runtime Environment |
+| **Express.js** | 5.1.0   | Web Framework       |
+| **MongoDB**    | Latest  | Database            |
+| **Mongoose**   | 8.19.0  | ODM                 |
+| **JWT**        | 9.0.2   | Authentication      |
+| **bcryptjs**   | 3.0.2   | Password Hashing    |
+| **Helmet**     | 8.1.0   | Security Headers    |
+| **Morgan**     | 1.10.1  | HTTP Logging        |
+
+### DevOps & Tools
+
+| Tool               | Purpose                |
+| ------------------ | ---------------------- |
+| **Vercel**         | Frontend Deployment    |
+| **Render**         | Backend Deployment     |
+| **GitHub Actions** | CI/CD Pipeline         |
+| **ESLint**         | Code Quality           |
+| **Nodemon**        | Development Hot Reload |
 
 ## 🏗️ Architecture
 
-The application follows a modern microservices architecture:
+```mermaid
+graph TB
+    subgraph "Client Layer"
+        A[React Frontend]
+        B[Mobile App]
+        C[Third-party Apps]
+    end
+
+    subgraph "API Gateway"
+        D[Express.js Server]
+        E[Rate Limiting]
+        F[CORS & Security]
+    end
+
+    subgraph "Business Logic"
+        G[Auth Controller]
+        H[URL Controller]
+        I[Analytics Controller]
+    end
+
+    subgraph "Data Layer"
+        J[MongoDB Database]
+        K[User Collection]
+        L[URL Collection]
+        M[Analytics Collection]
+    end
+
+    A --> D
+    B --> D
+    C --> D
+    D --> E
+    E --> F
+    F --> G
+    F --> H
+    F --> I
+    G --> J
+    H --> J
+    I --> J
+    J --> K
+    J --> L
+    J --> M
+```
+
+### Project Structure
 
 ```
 URL Shortener/
-├── frontend/               # React frontend application
-│   ├── public/             # Static assets
-│   └── src/                # React source code
-│       ├── components/     # UI components
-│       ├── pages/          # Page components
-│       ├── context/        # React context
-│       ├── services/       # API services
-│       └── utils/          # Utility functions
+├── 📁 frontend/                 # React frontend application
+│   ├── 📁 src/
+│   │   ├── 📁 components/       # Reusable UI components
+│   │   ├── 📁 pages/            # Page components
+│   │   ├── 📁 hooks/            # Custom React hooks
+│   │   ├── 📁 utils/            # Utility functions
+│   │   └── 📄 api.js            # API client configuration
+│   ├── 📄 vite.config.mjs       # Vite configuration
+│   └── 📄 vercel.json           # Deployment configuration
 │
-├── backend/                # Node.js backend API
-│   ├── src/                # Source code
-│   │   ├── config/         # Configuration
-│   │   ├── controllers/    # Request handlers
-│   │   ├── middlewares/    # Express middlewares
-│   │   ├── models/         # Database models
-│   │   ├── routes/         # API routes
-│   │   └── utils/          # Utility functions
-│   └── .env                # Environment variables
+├── 📁 backend/                  # Node.js backend API
+│   ├── 📁 src/
+│   │   ├── 📁 config/           # Configuration files
+│   │   ├── 📁 controllers/      # Request handlers
+│   │   ├── 📁 middlewares/      # Express middlewares
+│   │   ├── 📁 models/           # Database models
+│   │   ├── 📁 routes/           # API routes
+│   │   ├── 📁 utils/            # Utility functions
+│   │   └── 📁 logs/             # Application logs
+│   └── 📄 .env                  # Environment variables
 │
-└── Future_Scopes/          # Future development plans
+└── 📁 docs/                     # Documentation
+    ├── 📄 API.md               # API documentation
+    ├── 📄 DEPLOYMENT.md        # Deployment guide
+    └── 📄 CONTRIBUTING.md      # Contribution guidelines
 ```
 
-## 🚀 Getting Started
+## Quick Start
 
 ### Prerequisites
-- Node.js (v14+)
-- MongoDB
-- npm or yarn
+
+- **Node.js** (v18 or higher)
+- **MongoDB** (v6 or higher)
+- **npm** or **yarn**
+- **Git**
 
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/yourusername/url-shortener.git
    cd url-shortener
    ```
 
 2. **Set up the backend**
+
    ```bash
    cd backend
    npm install
-   # Create .env file with required environment variables
+
+   # Create environment file
+   cp .env.example .env
+   # Edit .env with your configuration
+
+   # Start development server
    npm run backend
    ```
 
 3. **Set up the frontend**
+
    ```bash
    cd ../frontend
    npm install
-   npm start
+
+   # Start development server
+   npm run dev
    ```
 
 4. **Access the application**
-   - Frontend: http://localhost:3000
-   - Backend API: http://localhost:5000
+   -  **Frontend**: http://localhost:5173
+   -  **Backend API**: http://localhost:5000
+   -  **API Docs**: http://localhost:5000/api-docs
 
-## 📱 Usage
+### Environment Variables
 
-1. **Create an account** or log in
-2. **Paste a long URL** in the input field
-3. **Generate a short URL** or customize your own alias
-4. **Share your shortened URL** with anyone
-5. **Track clicks and analytics** from your dashboard
+Create a `.env` file in the backend directory:
 
-## 🔒 Security Features
+```env
+# Server Configuration
+PORT=5000
+NODE_ENV=development
 
-- Secure password hashing with bcrypt
-- JWT-based authentication
-- HTTP security headers
-- Rate limiting to prevent abuse
-- CORS configuration
-- Input validation and sanitization
+# Database
+MONGODB_URI=mongodb://localhost:27017/url-shortener
 
-## 📊 Performance Optimizations
+# Authentication
+JWT_SECRET=your-super-secret-jwt-key
+JWT_EXPIRE=7d
+JWT_REFRESH_SECRET=your-refresh-token-secret
+JWT_REFRESH_EXPIRE=30d
 
-- Efficient database indexing
-- Caching strategies for popular URLs
-- Optimized React rendering
-- Lazy loading of components
-- Minified and compressed assets
+# Security
+BCRYPT_ROUNDS=12
+RATE_LIMIT_WINDOW=15
+RATE_LIMIT_MAX=100
 
-## 🔄 CI/CD Pipeline
+# Frontend URL (for CORS)
+FRONTEND_URL=http://localhost:5173
+```
 
-The project uses a modern CI/CD workflow:
-- Automated testing with Jest
-- Code quality checks with ESLint
-- Continuous integration with GitHub Actions
-- Containerization with Docker (planned)
+## Usage Guide
 
-## 🔮 Future Scope
+### For End Users
 
-- QR code generation for shortened URLs
-- Advanced analytics dashboard
-- Team collaboration features
-- Browser extensions
-- Mobile applications
-- API key management for developers
+1. **Create Account**: Register with email and password
+2. ** Shorten URLs**: Paste long URLs to get short links
+3. **Customize**: Create custom aliases for your links
+4. **Track Performance**: Monitor clicks and analytics
+<!-- 5. **📱 Share**: Use QR codes or direct links -->
 
-## 🤝 Contributing
+<!-- ### For Developers
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+1. **🔑 Get API Key**: Register and generate API credentials
+2. **📖 Read Documentation**: Check API docs for endpoints
+3. **🧪 Test Integration**: Use Postman collection or curl
+4. **🚀 Deploy**: Integrate into your applications -->
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+### API Usage Example
 
-## 📝 License
+```javascript
+// Shorten a URL
+const response = await fetch("/api/v1/urls", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: "Bearer YOUR_JWT_TOKEN",
+  },
+  body: JSON.stringify({
+    originalUrl: "https://example.com/very-long-url",
+    customShortId: "my-custom-link", // Optional
+  }),
+});
 
-This project is licensed under the ISC License - see the LICENSE file for details.
+const data = await response.json();
+console.log(data.shortUrl); // https://yoursite.com/my-custom-link
+```
 
-## 👨‍💻 Author
+## Security
 
-- **Amritanshu Goutam** - [Linkedin Profile](https://www.linkedin.com/in/amritanshu-goutam/)
+### Authentication & Authorization
+
+- ✅ **JWT Tokens**: Secure token-based authentication
+- ✅ **Refresh Tokens**: Automatic token renewal
+- ✅ **Password Hashing**: bcrypt with salt rounds
+- ✅ **Session Management**: Secure logout and cleanup
+
+### API Security
+
+-  **Rate Limiting**: Prevent abuse and DDoS attacks
+-  **CORS Protection**: Configured for specific origins
+-  **Helmet.js**: Security headers implementation
+-  **Input Validation**: Comprehensive request validation
+
+
+### Data Protection
+
+-  **HTTPS Only**: All communications encrypted
+-  **Environment Variables**: Sensitive data protection
+-  **Cookie Security**: HttpOnly and Secure flags
+- **Data Sanitization**: XSS prevention
+
+## 📊 Performance
+
+### Backend Optimizations
+
+<!-- - ⚡ **Database Indexing**: Optimized queries with proper indexes -->
+- **Connection Pooling**: Efficient database connections
+<!-- - ⚡ **Caching**: Redis caching for frequently accessed URLs -->
+<!-- - ⚡ **Compression**: Gzip compression for API responses -->
+
+### Frontend Optimizations
+
+-  **Code Splitting**: Lazy loading of components
+<!-- - ⚡ **Bundle Optimization**: Tree shaking and minification -->
+<!-- - ⚡ **Image Optimization**: WebP format and lazy loading -->
+<!-- - ⚡ **CDN Integration**: Static asset delivery -->
+
+### Monitoring
+
+- 📈 **Performance Metrics**: Response time tracking
+- 📈 **Error Monitoring**: Comprehensive error logging
+- 📈 **Usage Analytics**: User behavior tracking
+- 📈 **Health Checks**: Automated system monitoring
+
+## 🌐 Deployment
+
+### Frontend (Vercel)
+
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy
+cd frontend
+vercel --prod
+```
+
+### Backend (Render/Railway)
+
+```bash
+# Connect your repository
+# Set environment variables
+# Deploy automatically on push
+```
+
+### Docker Deployment
+
+```bash
+# Build and run with Docker Compose
+docker-compose up -d
+```
+
+### Environment Setup
+
+- **Production Database**: MongoDB Atlas
+<!-- - **CDN**: CloudFlare for static assets -->
+<!-- - **Monitoring**: Sentry for error tracking -->
+<!-- - **Analytics**: Google Analytics integration -->
+
+<!-- ## 🤝 Contributing
+
+We welcome contributions! Please see our [Contributing Guide](./CONTRIBUTING.md) for details. -->
+
+### Development Workflow
+
+1. **Fork** the repository
+2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
+3. **Commit** your changes (`git commit -m 'Add amazing feature'`)
+4. **Push** to the branch (`git push origin feature/amazing-feature`)
+5. **Open** a Pull Request
+
+### Code Standards
+
+- **ESLint**: Follow the configured linting rules
+- **Prettier**: Consistent code formatting
+<!-- - **Tests**: Write tests for new features -->
+- **Documentation**: Update docs for API changes
+
+<!-- ## 📄 License
+
+This project is licensed under the **ISC License** - see the [LICENSE](./LICENSE) file for details. -->
+
+##  Author
+
+**Amritanshu Goutam**
+
+-  [LinkedIn](https://www.linkedin.com/in/amritanshu-goutam/)
+-  [GitHub](https://github.com/amritanshu-goutam)
+-  [X/Twitter](https://x.com/Amritanshutwt)
 
 ---
 
-Made with ❤️ and JavaScript
+<div align="center">
+
+**Made with ❤️ and JavaScript**
+
+<!-- [![Star](https://img.shields.io/github/stars/yourusername/url-shortener?style=social)](https://github.com/yourusername/url-shortener)
+[![Fork](https://img.shields.io/github/forks/yourusername/url-shortener?style=social)](https://github.com/yourusername/url-shortener)
+[![Watch](https://img.shields.io/github/watchers/yourusername/url-shortener?style=social)](https://github.com/yourusername/url-shortener) -->
+
+</div>
