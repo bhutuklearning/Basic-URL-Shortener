@@ -20,12 +20,7 @@ export default defineConfig({
   plugins: [
     tailwindcss(),
     react({
-      jsxRuntime: 'classic',
-      babel: {
-        plugins: [
-          ['@babel/plugin-transform-react-jsx', { runtime: 'classic' }]
-        ],
-      },
+      jsxRuntime: 'automatic',
     }),
   ],
   server: {

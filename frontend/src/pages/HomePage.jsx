@@ -243,7 +243,7 @@ const HomePage = () => {
       </div>
 
       {/* CTA */}
-      <div className="text-center bg-blue-50 rounded-lg p-8">
+      {/* <div className="text-center bg-blue-50 rounded-lg p-8">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">
           Ready to get started?
         </h2>
@@ -256,7 +256,7 @@ const HomePage = () => {
         >
           Get Started Free
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };

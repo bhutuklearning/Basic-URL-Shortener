@@ -99,9 +99,8 @@ const Footer = () => {
           <div className="mt-4 md:mt-0 flex items-center text-gray-400 text-sm">
             <span>Built with</span>
             <FaHeart className="h-4 w-4 text-red-500 mx-1" />
-            <span>using</span>
-            <FaCode className="h-4 w-4 mx-1 text-blue-400" />
-            <span>React & Tailwind CSS</span>
+            <span>by <Link to="https://www.linkedin.com/in/amritanshu-goutam/" className="text-gray-300 hover:text-white transition-colors">Amritanshu Goutam</Link></span>
+
           </div>
         </div>
       </div>
