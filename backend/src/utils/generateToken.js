@@ -1,32 +1,3 @@
-// import jwt from "jsonwebtoken";
-// import { ENV } from "../config/env.js";
-
-// const generateToken = (res, userId) => {
-//     // sign with a consistent claim name `id`
-//     const token = jwt.sign({ id: userId }, ENV.JWT_SECRET, {
-//         expiresIn: ENV.JWT_EXPIRES || "7d",
-//     });
-
-//     // set cookie name `jwt`
-//     const secure = ENV.NODE_ENV === "development";
-//     res.cookie("jwt", token, {
-//         httpOnly: true,
-//         secure,
-//         sameSite: secure ? "none" : "lax", // if production + cross-site, you may need 'none'
-//         maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
-//     });
-
-//     return token;
-// };
-
-// export default generateToken;
-
-
-
-
-
-
-
 import jwt from "jsonwebtoken";
 import { ENV } from "../config/env.js";
 
