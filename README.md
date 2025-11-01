@@ -33,14 +33,12 @@ A modern, full-stack URL shortening service with comprehensive analytics and use
 
 - **Instant URL Shortening**: Create short, memorable links in seconds
 - **Custom Aliases**: Choose your own custom short URLs
-- **QR Code Generation**: Generate QR codes for easy sharing
 - **Bulk URL Management**: Handle multiple URLs efficiently
 
 ###  User Management
 
 - **Secure Authentication**: JWT-based login with refresh tokens
 - **User Dashboard**: Centralized management of all shortened URLs
-- **Profile Management**: Update user information and preferences
 - **Session Management**: Secure logout and token refresh
 
 ###  Analytics & Tracking
@@ -306,7 +304,7 @@ console.log(data.shortUrl); // https://yoursite.com/my-custom-link
 -  **Cookie Security**: HttpOnly and Secure flags
 - **Data Sanitization**: XSS prevention
 
-## 📊 Performance
+##  Performance
 
 ### Backend Optimizations
 
@@ -324,12 +322,12 @@ console.log(data.shortUrl); // https://yoursite.com/my-custom-link
 
 ### Monitoring
 
-- 📈 **Performance Metrics**: Response time tracking
-- 📈 **Error Monitoring**: Comprehensive error logging
-- 📈 **Usage Analytics**: User behavior tracking
-- 📈 **Health Checks**: Automated system monitoring
+-  **Performance Metrics**: Response time tracking
+-  **Error Monitoring**: Comprehensive error logging
+-  **Usage Analytics**: User behavior tracking
+-  **Health Checks**: Automated system monitoring
 
-## 🌐 Deployment
+##  Deployment
 
 ### Frontend (Vercel)
 
