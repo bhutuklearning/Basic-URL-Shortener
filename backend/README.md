@@ -1,4 +1,4 @@
-# 🔧 URL Shortener API
+# URL Shortener API
 
 <div align="center">
 
@@ -7,24 +7,30 @@
 ![MongoDB](https://img.shields.io/badge/MongoDB-Database-green?style=for-the-badge&logo=mongodb)
 ![JWT](https://img.shields.io/badge/JWT-Authentication-orange?style=for-the-badge&logo=jsonwebtokens)
 
-A robust, scalable REST API for URL shortening with comprehensive analytics and user management.
-
-[![API Status](https://img.shields.io/badge/API-Status-green?style=for-the-badge)](https://your-api-url.com/health)
-[![Documentation](https://img.shields.io/badge/Docs-API%20Reference-blue?style=for-the-badge)](./API.md)
+A robust REST API for URL shortening, user management, and click analytics.
 
 </div>
 
-## 📋 Table of Contents
+## Table of Contents
 
-- [✨ Features](#-features)
-- [🛠️ Tech Stack](#️-tech-stack)
-- [🏗️ Architecture](#️-architecture)
-- [🚀 Quick Start](#-quick-start)
-- [📚 API Documentation](#-api-documentation)
-- [🔒 Security](#-security)
-- [📊 Performance](#-performance)
-- [🌐 Deployment](#-deployment)
+- [Overview](#overview)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Architecture](#architecture)
+- [Project Structure](#project-structure)
+- [Quick Start](#quick-start)
+- [Environment Variables](#environment-variables)
+- [API Documentation](#api-documentation)
+- [Error Responses](#error-responses)
+- [Security](#security)
+- [Performance](#performance)
+- [Deployment](#deployment)
+- [Monitoring and Logging](#monitoring-and-logging)
+- [Health Checks](#health-checks)
 
+## Overview
+
+This backend service powers a production-ready URL shortener. It provides secure authentication, configurable rate limiting, detailed click capture, and deployment-friendly observability. The codebase is built with Express 5 and MongoDB (via Mongoose) and follows a layered architecture separating routing, controllers, and data access concerns.
 
 ## Features
 
@@ -33,7 +39,7 @@ A robust, scalable REST API for URL shortening with comprehensive analytics and 
 - **URL Shortening**: Create short URLs with auto-generated or custom IDs
 - **URL Redirection**: Efficient redirect handling with click tracking
 - **User Authentication**: JWT-based auth with refresh tokens
-- **Analytics**: Comprehensive click tracking and statistics
+- **Click Capture**: Persist timestamp, referrer, and IP metadata for each redirect
 - **Rate Limiting**: Configurable API rate limits
 - **Error Handling**: Centralized error management
 
@@ -45,21 +51,19 @@ A robust, scalable REST API for URL shortening with comprehensive analytics and 
 - **Session Management**: Secure logout and token cleanup
 - **Protected Routes**: Middleware-based route protection
 
-###  Analytics & Monitoring
+### Analytics and Reporting
 
-- **Click Tracking**: Track every URL click with metadata
-- **Referrer Analysis**: Monitor traffic sources
-- **Geographic Data**: Location-based analytics
-- **Time-based Stats**: Track performance over time
-- **User Analytics**: Per-user URL statistics
+- **Click History**: Access full click records per URL, including timestamp, IP, and referrer
+- **Unique Clicks**: Derive unique visitor counts based on captured IP addresses
+- **User-Level Views**: Retrieve URL lists and analytics scoped to the authenticated user
 
 ### Security Features
 
 - **Helmet.js**: Security headers implementation
 - **CORS Protection**: Configurable cross-origin policies
 - **Input Validation**: Comprehensive request validation
-- **SQL Injection Protection**: Parameterized queries
 - **Rate Limiting**: DDoS and abuse prevention
+- **Cookie Management**: HttpOnly cookies with environment-aware SameSite settings
 
 ## Tech Stack
 
@@ -76,7 +80,7 @@ A robust, scalable REST API for URL shortening with comprehensive analytics and 
 | **Rate Limiting**  | express-rate-limit | 8.1.0   | API rate limiting         |
 | **Development**    | Nodemon            | 3.1.10  | Development hot reload    |
 
-## 🏗️ Architecture
+## Architecture
 
 ```mermaid
 graph TB
@@ -89,18 +93,20 @@ graph TB
     subgraph "Business Logic"
         D[Auth Controller]
         E[URL Controller]
-        F[Analytics Controller]
     end
 
     subgraph "Data Access"
         G[Mongoose Models]
         H[Database Queries]
-        I[Data Validation]
+        I[Validation]
     end
 
-    subgraph "External Services"
-        J[MongoDB Database]
-        K[Logging System]
+    subgraph "Data Store"
+        J[(MongoDB)]
+    end
+
+    subgraph "Observability"
+        K[Request Logging]
         L[Error Tracking]
     end
 
@@ -108,10 +114,8 @@ graph TB
     B --> C
     C --> D
     C --> E
-    C --> F
     D --> G
     E --> G
-    F --> G
     G --> H
     H --> I
     I --> J
@@ -119,45 +123,37 @@ graph TB
     A --> L
 ```
 
-### Project Structure
+## Project Structure
 
 ```
 backend/
-├── 📁 src/
-│   ├── 📄 app.js                 # Express app configuration
-│   ├── 📄 server.js              # Server entry point
-│   │
-│   ├── 📁 config/                # Configuration files
-│   │   ├── 📄 db.js              # Database connection
-│   │   ├── 📄 env.js             # Environment variables
-│   │   └── 📄 logger.js          # Logging configuration
-│   │
-│   ├── 📁 controllers/           # Request handlers
-│   │   ├── 📄 auth.controller.js # Authentication logic
-│   │   └── 📄 url.controller.js  # URL shortening logic
-│   │
-│   ├── 📁 middlewares/           # Express middlewares
-│   │   ├── 📄 auth.middleware.js # Authentication middleware
-│   │   └── 📄 error.middleware.js# Error handling middleware
-│   │
-│   ├── 📁 models/                # Database models
-│   │   ├── 📄 User.model.js      # User schema and model
-│   │   └── 📄 url.model.js       # URL schema and model
-│   │
-│   ├── 📁 routes/                # API routes
-│   │   ├── 📄 auth.route.js      # Authentication routes
-│   │   └── 📄 url.route.js       # URL shortening routes
-│   │
-│   ├── 📁 utils/                 # Utility functions
-│   │   └── 📄 generateToken.js   # JWT token generation
-│   │
-│   └── 📁 logs/                  # Application logs
-│       ├── 📁 development/       # Dev environment logs
-│       └── 📁 production/        # Production environment logs
-│
-├── 📄 package.json               # Dependencies and scripts
-├── 📄 .env.example               # Environment variables template
-└── 📄 README.md                  # This file
+├── src/
+│   ├── app.js                 # Express app configuration
+│   ├── server.js              # Server entry point
+│   ├── config/                # Configuration files
+│   │   ├── db.js              # Database connection
+│   │   ├── env.js             # Environment variables
+│   │   └── logger.js          # Logging configuration
+│   ├── controllers/           # Request handlers
+│   │   ├── auth.controller.js # Authentication logic
+│   │   └── url.controller.js  # URL shortening logic
+│   ├── middlewares/           # Express middlewares
+│   │   ├── auth.middleware.js # Authentication middleware
+│   │   └── error.middleware.js# Error handling middleware
+│   ├── models/                # Database models
+│   │   ├── User.model.js      # User schema and model
+│   │   └── url.model.js       # URL schema and model
+│   ├── routes/                # API routes
+│   │   ├── auth.route.js      # Authentication routes
+│   │   └── url.route.js       # URL shortening routes
+│   ├── utils/                 # Utility functions
+│   │   └── generateToken.js   # JWT token generation
+│   └── logs/                  # Application logs
+│       ├── development/       # Dev environment logs
+│       └── production/        # Production environment logs
+├── package.json               # Dependencies and scripts
+├── .env.example               # Environment variables template
+└── README.md                  # Documentation
 ```
 
 ## Quick Start
@@ -185,13 +181,19 @@ backend/
 
 3. **Environment setup**
 
-   ```bash
-   # Copy environment template
-   cp .env.example .env
+   Copy the sample environment file and update it with your configuration:
 
-   # Edit .env with your configuration
-   nano .env
+   ```bash
+   # macOS / Linux
+   cp .env.example .env
    ```
+
+   ```powershell
+   # Windows PowerShell
+   Copy-Item .env.example .env
+   ```
+
+   Edit `.env` in your preferred editor (for example VS Code, Notepad, or nano).
 
 4. **Start the server**
 
@@ -203,7 +205,7 @@ backend/
    npm start
    ```
 
-### Environment Variables
+## Environment Variables
 
 Create a `.env` file in the backend root directory:
 
@@ -242,7 +244,7 @@ LOG_FILE_MAX_FILES=5
 
 ```
 Development: http://localhost:5000/api/v1
-Production: https://your-api-domain.com/api/v1
+Production: https://<your-domain>/api/v1
 ```
 
 ### Authentication Endpoints
@@ -407,35 +409,32 @@ Authorization: Bearer jwt_access_token
 {
   "success": true,
   "data": {
-    "shortId": "abc123",
-    "originalUrl": "https://example.com/long-url",
-    "totalClicks": 42,
-    "clicks": [
+    "clicks": 42,
+    "uniqueClicks": 38,
+    "referrers": ["https://google.com", "Direct"],
+    "details": [
       {
         "timestamp": "2024-01-20T10:30:00.000Z",
         "referrer": "https://google.com",
         "ip": "192.168.1.1"
       }
-    ],
-    "createdAt": "2024-01-20T10:30:00.000Z"
+    ]
   }
 }
 ```
 
+## Error Responses
 
-
-### Error Responses
-
-All endpoints return consistent error responses:
+All endpoints return a consistent structure on error:
 
 ```json
 {
   "success": false,
-  "error": "Error message",
-  "code": "ERROR_CODE",
-  "details": "Additional error details"
+  "error": "Invalid refresh token"
 }
 ```
+
+When `NODE_ENV` is `development`, the response also includes a stack trace and additional metadata to help with debugging.
 
 **Common HTTP Status Codes:**
 
@@ -467,31 +466,25 @@ All endpoints return consistent error responses:
 
 ### Data Protection
 
-- **Environment Variables**: Sensitive data protection
-- **HTTPS Only**: All communications encrypted
-- **Data Sanitization**: XSS prevention
-- **Error Handling**: Sanitized error messages
+- **Environment Variables**: Sensitive configuration kept out of version control
+- **Secure Cookies**: HttpOnly cookies with SameSite/secure flags based on environment
+- **HTTPS Recommended**: Deploy behind TLS to encrypt transport-level communication
+- **Error Handling**: Centralized handler avoids leaking stack traces in production
 
 ## Performance
 
-### Database Optimizations
+### Database
 
-<!-- - **Indexing**: Optimized database indexes for queries -->
-- **Connection Pooling**: Efficient MongoDB connections
-- **Query Optimization**: Optimized Mongoose queries
-<!-- - **Data Aggregation**: Efficient analytics queries -->
+- **Connection Pooling**: Managed by Mongoose to reuse sockets efficiently
+- **Unique Indexes**: Enforced on `shortId` and `customShortId` for fast lookups and integrity
 
+### API Safeguards
 
-### Monitoring
+- **Rate Limiting**: Multiple limiters to guard hot endpoints against bursts
+- **Lightweight Controllers**: Async route handlers minimize blocking operations
+- **Structured Logging**: Request and error logs assist with latency analysis
 
-- **Performance Metrics**: Response time tracking
-- **Error Monitoring**: Comprehensive error logging
-- **Health Checks**: Automated system monitoring
-- **Resource Usage**: Memory and CPU monitoring
-
-
-
-## 🌐 Deployment
+## Deployment
 
 ### Environment Setup
 
@@ -546,8 +539,7 @@ git push heroku main
 - Error monitoring setup
 - Health checks implemented
 
-
-## Monitoring & Logging
+## Monitoring and Logging
 
 ### Logging Configuration
 
@@ -556,7 +548,13 @@ git push heroku main
 - **Log Rotation**: Automatic log file rotation
 - **Log Levels**: Configurable log levels
 
-### Health Checks
+### Error Tracking
+
+- **Error Logging**: Comprehensive error logging
+- **Stack Traces**: Detailed error information
+- **Error Classification**: Categorized error types
+
+## Health Checks
 
 ```http
 GET /health
@@ -566,27 +564,12 @@ GET /health
 
 ```json
 {
-  "status": "healthy",
-  "timestamp": "2024-01-20T10:30:00.000Z",
-  "uptime": 3600,
-  "database": "connected",
-  "memory": {
-    "used": "50MB",
-    "free": "200MB"
-  }
+  "status": "OK"
 }
 ```
 
-### Error Tracking
-
-- **Error Logging**: Comprehensive error logging
-- **Stack Traces**: Detailed error information
-- **Error Classification**: Categorized error types
+The health endpoint is lightweight and suitable for load balancers or uptime monitors.
 
 ---
 
-<div align="center">
-
-**Built with ❤️ using Node.js and Express**
-
-</div>
+Built with Node.js and Express.
