@@ -299,7 +299,7 @@ const AnalyticsPage = () => {
               <p className="text-sm text-gray-500 mb-1">Short URL</p>
               <div className="flex items-center">
                 <span className="font-mono text-blue-700 mr-2">
-                  {`http://localhost:9000/api/v1/url/${shortId}`}
+                  {urlDetails?.shortUrl || `${window.location.origin}/api/v1/url/${shortId}`}
                 </span>
                 <button
                   onClick={() => {
@@ -318,7 +318,7 @@ const AnalyticsPage = () => {
               <p className="text-sm text-gray-500 mb-1">Original URL</p>
               <div className="flex items-center">
                 <span className="truncate max-w-md mr-2">
-                  {urlDetails?.originalUrl || "https://example.com/original-url-path"}
+                  {urlDetails?.originalUrl || "—"}
                 </span>
                 <a
                   href={urlDetails?.originalUrl || "#"}
