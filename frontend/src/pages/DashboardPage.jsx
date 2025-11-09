@@ -314,6 +314,14 @@ const DashboardPage = () => {
                       )}
                     </button>
                     <button
+                      onClick={() => window.open(url.shortUrl, '_blank', 'noopener')}
+                      className="flex items-center space-x-2 bg-linear-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-4 py-2 rounded-lg transition-all duration-300 shadow-sm"
+                      title="Open shortened URL"
+                    >
+                      <FaExternalLinkAlt className="h-4 w-4" />
+                      <span>Redirect</span>
+                    </button>               
+                    <button
                       onClick={() => navigate(`/analytics?data=${encodeURIComponent(JSON.stringify(url))}`)}
                       className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-all duration-300 shadow-sm"
                     >
