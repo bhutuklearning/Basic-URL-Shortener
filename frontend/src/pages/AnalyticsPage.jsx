@@ -25,7 +25,9 @@ const AnalyticsPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const shortId = searchParams.get("url");
+  const urlDataRaw = searchParams.get("data");
+  const urlData = urlDataRaw ? JSON.parse(decodeURIComponent(urlDataRaw)) : null;
+  const shortId = urlData?.shortId;
 
   // Sample data for preview
   const sampleUrls = [
@@ -299,7 +301,7 @@ const AnalyticsPage = () => {
               <p className="text-sm text-gray-500 mb-1">Short URL</p>
               <div className="flex items-center">
                 <span className="font-mono text-blue-700 mr-2">
-                  {urlDetails?.shortUrl || `${window.location.origin}/api/v1/url/${shortId}`}
+                  {urlData?.shortUrl}
                 </span>
                 <button
                   onClick={() => {
@@ -318,7 +320,7 @@ const AnalyticsPage = () => {
               <p className="text-sm text-gray-500 mb-1">Original URL</p>
               <div className="flex items-center">
                 <span className="truncate max-w-md mr-2">
-                  {urlDetails?.originalUrl || "—"}
+                  {urlData?.originalUrl || "—"}
                 </span>
                 <a
                   href={urlDetails?.originalUrl || "#"}
