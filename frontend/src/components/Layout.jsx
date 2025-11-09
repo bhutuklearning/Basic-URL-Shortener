@@ -141,7 +141,7 @@ const Layout = ({ children }) => {
 
           {/* Mobile Navigation */}
           {mobileMenuOpen && (
-            <div className="md:hidden border-t border-gray-200 py-4">
+            <div className="md:hidden border-t border-gray-200 py-4 md:text-center">
               <div className="flex flex-col space-y-2">
                 <Link
                   to="/home"
@@ -154,19 +154,19 @@ const Layout = ({ children }) => {
                   <>
                     <Link
                       to="/dashboard"
-                      className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+                      className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium md:text-center"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       Dashboard
                     </Link>
                     <Link
                       to="/analytics"
-                      className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+                      className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium md:text-center"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       Analytics
                     </Link>
-                    <div className="border-t border-gray-200 pt-2 mt-2">
+                    <div className="border-t border-gray-200 pt-2 mt-2 md:text-center">
                       <div className="flex items-center space-x-2 px-3 py-2">
                         <FaUser className="h-4 w-4 text-gray-500" />
                         <span className="text-sm font-medium text-gray-700">
@@ -178,7 +178,7 @@ const Layout = ({ children }) => {
                           handleLogout();
                           setMobileMenuOpen(false);
                         }}
-                        className="flex items-center space-x-2 text-gray-700 hover:text-red-600 px-3 py-2 rounded-md text-sm font-medium w-full text-left"
+                        className="flex items-center space-x-2 text-gray-700 hover:text-red-600 px-3 py-2 rounded-md text-sm font-medium w-full text-left md:text-center"
                       >
                         <FaSignOutAlt className="h-4 w-4" />
                         <span>Logout</span>
