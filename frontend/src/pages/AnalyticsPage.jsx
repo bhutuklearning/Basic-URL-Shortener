@@ -323,7 +323,7 @@ const AnalyticsPage = () => {
                   {urlData?.originalUrl || "—"}
                 </span>
                 <a
-                  href={urlDetails?.originalUrl || "#"}
+                  href={urlData?.originalUrl || "#"}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-600 hover:text-blue-800"
