@@ -207,7 +207,7 @@ const LandingPage = () => {
             <Link
               to="/register"
               className="group inline-flex items-center space-x-3 bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 lg:px-12 py-4 rounded-xl font-semibold text-lg transition-all duration-300 shadow-2xl hover:shadow-blue-500/25 hover:scale-105"
-            >bg-linear-to-r
+            >
               <span>Get Started Now</span>
               <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
             </Link>
