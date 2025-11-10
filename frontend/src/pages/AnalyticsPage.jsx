@@ -301,7 +301,7 @@ const AnalyticsPage = () => {
               <p className="text-sm text-gray-500 mb-1">Short URL</p>
               <div className="flex items-center">
                 <span className="font-mono text-blue-700 mr-2">
-                  {urlData?.shortUrl}
+                  {urlDetails?.shortUrl}
                 </span>
                 <button
                   onClick={() => {
@@ -320,10 +320,10 @@ const AnalyticsPage = () => {
               <p className="text-sm text-gray-500 mb-1">Original URL</p>
               <div className="flex items-center">
                 <span className="truncate max-w-md mr-2">
-                  {urlData?.originalUrl || "—"}
+                  {urlDetails?.originalUrl || "—"}
                 </span>
                 <a
-                  href={urlData?.originalUrl || "#"}
+                  href={urlDetails?.originalUrl || "#"}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-600 hover:text-blue-800"

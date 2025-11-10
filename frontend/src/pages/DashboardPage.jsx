@@ -265,68 +265,68 @@ const DashboardPage = () => {
                 key={url.shortId}
                 className="p-6 hover:bg-blue-50 transition-all duration-300"
               >
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center space-x-3 mb-3">
-                      <h3 className="text-lg font-medium text-gray-900 truncate max-w-md">
+                      <h3 className="text-base lg:text-lg font-medium text-gray-900 truncate max-w-full lg:max-w-md break-all" title={url.originalUrl}>
                         {url.originalUrl}
                       </h3>
                       <a
                         href={url.originalUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-600 hover:text-blue-700 transition-colors"
+                        className="text-blue-600 hover:text-blue-700 transition-colors shrink-0"
                         title="Visit original URL"
                       >
                         <FaExternalLinkAlt className="h-4 w-4" />
                       </a>
                     </div>
-                    <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
-                      <span className="font-mono bg-white border border-blue-200 px-3 py-1.5 rounded-lg flex items-center">
-                        <span className="mr-2 text-blue-600">🔗</span>
-                        {url.shortUrl}
+                    <div className="flex flex-wrap items-center gap-3 lg:gap-4 text-sm text-gray-500">
+                      <span className="font-mono bg-white border border-blue-200 px-3 py-1.5 rounded-lg flex items-center max-w-full" title={url.shortUrl}>
+                        <span className="mr-2 text-blue-600 shrink-0">🔗</span>
+                        <span className="truncate">{url.shortUrl}</span>
                       </span>
-                      <span className="flex items-center">
+                      <span className="flex items-center shrink-0">
                         <span className="inline-block w-2 h-2 rounded-full bg-blue-600 mr-2"></span>
                         {url.clicks || 0} clicks
                       </span>
-                      <span className="flex items-center">
+                      <span className="flex items-center shrink-0">
                         <span className="inline-block w-2 h-2 rounded-full bg-green-600 mr-2"></span>
-                        Created {formatDate(url.createdAt)}
+                        {formatDate(url.createdAt)}
                       </span>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-3 mt-3 md:mt-0">
+                  <div className="flex items-center space-x-2 lg:space-x-3 mt-3 lg:mt-0 flex-wrap gap-2">
                     <button
                       onClick={() => copyToClipboard(url.shortUrl, url.shortId)}
-                      className="flex items-center space-x-2 bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 px-4 py-2 rounded-lg transition-all duration-300 shadow-sm"
+                      className="flex items-center space-x-2 bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 px-3 lg:px-4 py-2 rounded-lg transition-all duration-300 shadow-sm shrink-0"
                     >
                       {copied === url.shortId ? (
                         <>
                           <FaCheck className="h-4 w-4 text-green-600" />
-                          <span className="text-green-600">Copied!</span>
+                          <span className="text-green-600 hidden sm:inline">Copied!</span>
                         </>
                       ) : (
                         <>
                           <FaCopy className="h-4 w-4" />
-                          <span>Copy</span>
+                          <span className="hidden sm:inline">Copy</span>
                         </>
                       )}
                     </button>
                     <button
                       onClick={() => window.open(url.shortUrl, '_blank', 'noopener')}
-                      className="flex items-center space-x-2 bg-linear-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-4 py-2 rounded-lg transition-all duration-300 shadow-sm"
+                      className="flex items-center space-x-2 bg-linear-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-3 lg:px-4 py-2 rounded-lg transition-all duration-300 shadow-sm shrink-0"
                       title="Open shortened URL"
                     >
                       <FaExternalLinkAlt className="h-4 w-4" />
-                      <span>Redirect</span>
+                      <span className="hidden sm:inline">Redirect</span>
                     </button>               
                     <button
                       onClick={() => navigate(`/analytics?data=${encodeURIComponent(JSON.stringify(url))}`)}
-                      className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-all duration-300 shadow-sm"
+                      className="flex items-center space-x-2 bg-linear-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-3 lg:px-4 py-2 rounded-lg transition-all duration-300 shadow-sm shrink-0"
                     >
                       <FaChartBar className="h-4 w-4" />
-                      <span>Analytics</span>
+                      <span className="hidden sm:inline">Analytics</span>
                     </button>
                   </div>
                 </div>
