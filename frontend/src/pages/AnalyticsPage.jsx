@@ -1,7 +1,7 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import { urlAPI } from "../api.js";
+import { urlAPI, getPublicUrl } from "../api.js";
 import {
   FaChartBar,
   FaMousePointer,
@@ -26,8 +26,17 @@ const AnalyticsPage = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const urlDataRaw = searchParams.get("data");
-  const urlData = urlDataRaw ? JSON.parse(decodeURIComponent(urlDataRaw)) : null;
+  const urlData = useMemo(() => {
+    if (!urlDataRaw) return null;
+    try {
+      return JSON.parse(decodeURIComponent(urlDataRaw));
+    } catch (parseError) {
+      console.error("Failed to parse analytics data query param:", parseError);
+      return null;
+    }
+  }, [urlDataRaw]);
   const shortId = urlData?.shortId;
+  const resolvedShortId = urlDetails?.id || shortId;
 
   // Sample data for preview
   const sampleUrls = [
@@ -114,6 +123,14 @@ const AnalyticsPage = () => {
   ];
 
   useEffect(() => {
+    if (urlData) {
+      setUrlDetails({
+        originalUrl: urlData.originalUrl || "",
+        shortUrl: urlData.shortUrl || getPublicUrl(urlData.shortId || shortId),
+        createdAt: urlData.createdAt || null,
+        id: urlData.shortId || shortId
+      });
+    }
     if (shortId) {
       fetchAnalytics();
     } else {
@@ -131,7 +148,7 @@ const AnalyticsPage = () => {
         setLoading(false);
       }, 800); // Simulate loading
     }
-  }, [shortId]);
+  }, [shortId, urlData]);
 
   const fetchAnalytics = async () => {
     try {
@@ -145,14 +162,24 @@ const AnalyticsPage = () => {
           setAnalytics(response.data.data);
           // If URL details are included in the response
           if (response.data.urlDetails) {
-            setUrlDetails(response.data.urlDetails);
+            setUrlDetails(prev => ({
+              ...prev,
+              ...response.data.urlDetails,
+              shortUrl: response.data.urlDetails.shortUrl || prev?.shortUrl || getPublicUrl(shortId),
+              originalUrl: response.data.urlDetails.originalUrl || prev?.originalUrl || urlData?.originalUrl || ""
+            }));
           }
         } else {
           // Direct structure
           setAnalytics(response.data);
           // If URL details are included in the response
           if (response.data.urlDetails) {
-            setUrlDetails(response.data.urlDetails);
+            setUrlDetails(prev => ({
+              ...prev,
+              ...response.data.urlDetails,
+              shortUrl: response.data.urlDetails.shortUrl || prev?.shortUrl || getPublicUrl(shortId),
+              originalUrl: response.data.urlDetails.originalUrl || prev?.originalUrl || urlData?.originalUrl || ""
+            }));
           }
         }
 
@@ -299,13 +326,13 @@ const AnalyticsPage = () => {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <div className="mb-4 md:mb-0">
               <p className="text-sm text-gray-500 mb-1">Short URL</p>
-              <div className="flex items-center">
-                <span className="font-mono text-blue-700 mr-2">
-                  {urlDetails?.shortUrl}
+              <div className="flex items-center md:overflow-hidden">
+                <span className="font-mono text-blue-700 mr-2 md: overflow-hidden">
+                  {urlDetails?.shortUrl || getPublicUrl(resolvedShortId)}
                 </span>
                 <button
                   onClick={() => {
-                    navigator.clipboard.writeText(`http://localhost:9000/api/v1/url/${shortId}`);
+                    navigator.clipboard.writeText(urlDetails?.shortUrl || getPublicUrl(resolvedShortId));
                   }}
                   className="text-blue-600 hover:text-blue-800"
                   title="Copy to clipboard"
@@ -338,7 +365,7 @@ const AnalyticsPage = () => {
             <div className="mb-2 md:mb-0">
               <p className="text-sm text-gray-500 mb-1">Created</p>
               <div className="flex items-center">
-                <FaCalendarAlt className="h-4 w-4 text-gray-500 mr-2" />
+                  <FaCalendarAlt className="h-4 w-4 text-gray-500 mr-2" />
                 <span>{formatDate(urlDetails?.createdAt || new Date())}</span>
               </div>
             </div>
@@ -346,7 +373,7 @@ const AnalyticsPage = () => {
               <p className="text-sm text-gray-500 mb-1">Short ID</p>
               <div className="flex items-center">
                 <span className="font-mono bg-blue-100 px-2 py-1 rounded text-blue-800">
-                  {shortId}
+                  {resolvedShortId || "—"}
                 </span>
               </div>
             </div>

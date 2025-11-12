@@ -120,6 +120,9 @@ const getBaseUrl = () => {
 
 // Get the public-facing URL for shortened links
 export const getPublicUrl = (shortId) => {
+  if (!shortId) {
+    return "";
+  }
   if (import.meta.env.MODE === 'production') {
     // In production, use the backend URL from environment variable
     const backendUrl = import.meta.env.VITE_API_URL || 'https://url-shortener-backend.7u2f.onrender.com';
@@ -132,6 +135,68 @@ export const getPublicUrl = (shortId) => {
 // Create the API instance
 const API_BASE_URL = getBaseUrl();
 const api = createApiInstance(API_BASE_URL);
+
+// --- Automatic refresh token handling -------------------------------------------------
+let isRefreshing = false;
+const refreshQueue = [];
+
+const enqueueRequest = (resolve, reject, config) => {
+  refreshQueue.push({ resolve, reject, config });
+};
+
+const processQueue = (error = null) => {
+  while (refreshQueue.length) {
+    const { resolve, reject, config } = refreshQueue.shift();
+    if (error) {
+      reject(error);
+    } else {
+      resolve(api(config));
+    }
+  }
+};
+
+const shouldBypassRefresh = (config) => {
+  const bypassPaths = ["/auth/login", "/auth/register", "/auth/refresh-token"];
+  return bypassPaths.some((path) => config?.url?.includes(path)) || config?.skipAuthRefresh;
+};
+
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const { response, config } = error;
+
+    if (!response || !config || response.status !== 401 || shouldBypassRefresh(config) || config._retry) {
+      return Promise.reject(error);
+    }
+
+    const originalRequest = { ...config };
+    originalRequest._retry = true;
+
+    if (isRefreshing) {
+      return new Promise((resolve, reject) => {
+        enqueueRequest(resolve, reject, originalRequest);
+      });
+    }
+
+    isRefreshing = true;
+
+    return new Promise((resolve, reject) => {
+      api
+        .post("/auth/refresh-token", {}, { skipAuthRefresh: true })
+        .then(() => {
+          processQueue();
+          resolve(api(originalRequest));
+        })
+        .catch((refreshError) => {
+          processQueue(refreshError);
+          reject(refreshError);
+        })
+        .finally(() => {
+          isRefreshing = false;
+        });
+    });
+  }
+);
 
 // Authentication API calls
 export const authAPI = {

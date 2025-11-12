@@ -66,8 +66,8 @@ export const protect = catchAsync(async (req, res, next) => {
                     user.userName
                 );
 
-                // Update refresh token in database
-                await user.setRefreshToken(newRefreshToken);
+                // Persist the newly issued refresh token (and update last login metadata)
+                await user.updateAuthTokens(newRefreshToken);
 
                 // Set new cookies
                 setTokenCookies(res, accessToken, newRefreshToken);
