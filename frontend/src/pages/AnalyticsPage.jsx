@@ -136,7 +136,7 @@ const AnalyticsPage = () => {
   const fetchAnalytics = async () => {
     try {
       const response = await urlAPI.getUrlAnalytics(shortId);
-      console.log("Analytics response:", response);
+      //console.log("Analytics response:", response);
 
       // Handle different response formats
       if (response && response.data) {
@@ -170,7 +170,7 @@ const AnalyticsPage = () => {
         throw new Error("Invalid response format");
       }
     } catch (err) {
-      console.error("Analytics error:", err);
+      //console.error("Analytics error:", err);
       setError(err.response?.data?.error || "Failed to fetch analytics");
     } finally {
       setLoading(false);

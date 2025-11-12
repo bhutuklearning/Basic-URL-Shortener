@@ -35,11 +35,11 @@ const DashboardPage = () => {
         // Handle case where data is directly an array
         setUrls(response.data);
       } else {
-        console.error("Unexpected API response format:", response.data);
+        //console.error("Unexpected API response format:", response.data);
         setUrls([]);
       }
     } catch (err) {
-      console.error("Failed to fetch URLs:", err);
+      //console.error("Failed to fetch URLs:", err);
       setUrls([]);
     } finally {
       setLoading(false);
@@ -76,11 +76,11 @@ const DashboardPage = () => {
         setShowCreateForm(false);
       } else {
         // If the response format is different than expected
-        console.error("Unexpected API response format:", response.data);
+        //console.error("Unexpected API response format:", response.data);
         setError("Received an invalid response from the server");
       }
     } catch (err) {
-      console.error("Error creating URL:", err);
+      //console.error("Error creating URL:", err);
       setError(err.response?.data?.error || "Failed to create URL");
     } finally {
       setCreating(false);
