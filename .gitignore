@@ -6,3 +6,5 @@ node_modules
 Future_Scopes/
 DEPLOYMENT_FIX.md
 PRODUCTION_DEPLOYMENT.md
+
+frontend/dist/
