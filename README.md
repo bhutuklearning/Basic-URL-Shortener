@@ -549,8 +549,7 @@ For detailed API documentation, see the [backend README](./backend/README.md).
 
 ## License
 
-This project is licensed under the ISC License.
-
+This project is licensed under the  GNU GENERAL PUBLIC LICENSE Version 3 License.
 ---
 
-Built with Node.js, Express, React, and MongoDB.
+Built with heat and trial methodology.
