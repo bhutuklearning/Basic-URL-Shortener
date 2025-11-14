@@ -550,6 +550,7 @@ For detailed API documentation, see the [backend README](./backend/README.md).
 ## License
 
 This project is licensed under the  GNU GENERAL PUBLIC LICENSE Version 3 License.
+
 ---
 
 Built with heat and trial methodology.
