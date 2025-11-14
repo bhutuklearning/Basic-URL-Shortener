@@ -141,11 +141,12 @@
 import Url from "../models/url.model.js";
 import User from "../models/User.model.js";
 import { catchAsync, AppError, ValidationError, NotFoundError, AuthError } from "../middlewares/error.middleware.js";
+import { ENV } from "../config/env.js";
 
 // Helper function to generate short URL with frontend domain
 const generateShortUrl = (shortId, req) => {
     // Use frontend domain from environment variables or fallback to request host
-    const frontendDomain = process.env.FRONTEND_URL || `${req.protocol}://${req.get("host")}`;
+    const frontendDomain = ENV.FRONTEND_URL || `${req.protocol}://${req.get("host")}`;
     // Remove /api/v1/url prefix to make it work with frontend routing
     // Remove any trailing slashes from the domain and ensure proper URL format
     const cleanDomain = frontendDomain.replace(/\/+$/, '');
