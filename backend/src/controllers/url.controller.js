@@ -145,9 +145,30 @@ import { ENV } from "../config/env.js";
 
 // Helper function to generate short URL with frontend domain
 const generateShortUrl = (shortId, req) => {
-    // Use frontend domain from environment variables or fallback to request host
-    const frontendDomain = ENV.FRONTEND_URL || `${req.protocol}://${req.get("host")}`;
-    // Remove /api/v1/url prefix to make it work with frontend routing
+    // Use frontend domain from environment variables
+    let frontendDomain = ENV.FRONTEND_URL;
+    
+    if (!frontendDomain) {
+        // In production, FRONTEND_URL must be set!
+        if (ENV.NODE_ENV === 'production') {
+            console.warn('WARNING: FRONTEND_URL is not set in production! Short URLs may be incorrect.');
+        }
+        
+        // Fallback: try to infer from request headers
+        // This works for development but is unreliable in production
+        const host = req.get("host") || "localhost";
+        const protocol = req.protocol || "http";
+        const origin = req.get("origin");
+        
+        // If we have an origin header (from frontend request), use it
+        if (origin) {
+            frontendDomain = origin;
+        } else {
+            // Last resort: use request host (won't work correctly in production if backend and frontend are different domains)
+            frontendDomain = `${protocol}://${host}`;
+        }
+    }
+    
     // Remove any trailing slashes from the domain and ensure proper URL format
     const cleanDomain = frontendDomain.replace(/\/+$/, '');
     return `${cleanDomain}/${shortId}`;
@@ -197,7 +218,41 @@ export const shortenUrl = catchAsync(async (req, res) => {
     });
 });
 
-// Redirect to original URL and track click
+// Get original URL (for frontend use) - tracks click and returns JSON
+export const getOriginalUrl = catchAsync(async (req, res) => {
+    const { shortId } = req.params;
+    const ip = req.headers["x-forwarded-for"]?.split(",")[0] || req.ip;
+
+    const url = await Url.findOneAndUpdate(
+        { shortId },
+        {
+            $push: {
+                clicks: {
+                    timestamp: new Date(),
+                    referrer: req.get("Referrer") || "Direct",
+                    ip: ip.replace("::ffff:", ""),
+                    userAgent: req.get("User-Agent"),
+                },
+            },
+        },
+        { new: true }
+    );
+
+    if (!url) {
+        throw new NotFoundError("URL not found");
+    }
+
+    // Return original URL as JSON (for frontend to handle redirect)
+    res.json({
+        success: true,
+        data: {
+            originalUrl: url.originalUrl,
+            shortId: url.shortId,
+        },
+    });
+});
+
+// Redirect to original URL and track click (for direct browser requests)
 export const redirectUrl = catchAsync(async (req, res) => {
     const { shortId } = req.params;
     const ip = req.headers["x-forwarded-for"]?.split(",")[0] || req.ip;
@@ -245,6 +300,8 @@ export const getUrlAnalytics = catchAsync(async (req, res) => {
             referrers,
             details: url.clicks,
             shortUrl: generateShortUrl(url.shortId, req),
+            originalUrl: url.originalUrl,
+            shortId: url.shortId,
         },
     });
 });

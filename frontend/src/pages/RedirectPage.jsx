@@ -13,18 +13,35 @@ const RedirectPage = () => {
   useEffect(() => {
     const redirectToOriginalUrl = async () => {
       try {
-        const baseApiUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:9000/api/v1";
-        const redirectUrl = `${baseApiUrl}/url/${shortId}`;
-        // Navigate the browser; do not use XHR
-        window.location.replace(redirectUrl);
+        setLoading(true);
+        // Make API call to backend to get the original URL
+        // The backend will track the click and return the original URL
+        const response = await urlAPI.getOriginalUrl(shortId);
+        
+        if (response && response.data && response.data.success) {
+          const originalUrl = response.data.data?.originalUrl;
+          if (originalUrl) {
+            // Redirect to the original URL
+            window.location.href = originalUrl;
+          } else {
+            throw new Error("Original URL not found in response");
+          }
+        } else {
+          throw new Error("Invalid response from server");
+        }
       } catch (err) {
         console.error("Redirect error:", err);
-        setError("This short URL doesn't exist or has expired");
+        setError(err.response?.data?.error || "This short URL doesn't exist or has expired");
         setLoading(false);
       }
     };
 
-    redirectToOriginalUrl();
+    if (shortId) {
+      redirectToOriginalUrl();
+    } else {
+      setError("Invalid short URL");
+      setLoading(false);
+    }
   }, [shortId]);
 
   const handleGoHome = () => {

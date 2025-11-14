@@ -46,23 +46,18 @@ const HomePage = () => {
       }
 
       const response = await urlAPI.createShortUrl(urlData);
-      console.log("API Response:", response); // Debug log
 
       if (response && response.data) {
-        let shortId;
-
-        if (response.data.data) {
-          shortId = response.data.data.shortId;
+        // Use the shortUrl from backend response (backend generates frontend URLs)
+        if (response.data.data && response.data.data.shortUrl) {
+          setShortUrl(response.data.data.shortUrl);
+        } else if (response.data.shortUrl) {
+          setShortUrl(response.data.shortUrl);
+        } else if (response.data.data && response.data.data.shortId) {
+          // Fallback: if backend doesn't provide shortUrl, generate it using frontend URL
+          setShortUrl(getPublicUrl(response.data.data.shortId));
         } else {
-          shortId = response.data.shortId || response.data.customShortId;
-        }
-
-        if (shortId) {
-          // Use the utility function to get the correct URL for the environment
-          const fullShortUrl = getPublicUrl(shortId);
-          setShortUrl(fullShortUrl);
-        } else {
-          throw new Error("No shortId found in response");
+          throw new Error("No shortUrl or shortId found in response");
         }
       } else {
         throw new Error("Invalid response from server");

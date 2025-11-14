@@ -111,25 +111,28 @@ const normalizeBase = (url) => {
 // Get the API base URL for axios requests
 const getBaseUrl = () => {
   if (import.meta.env.MODE === 'production') {
-    // Use VITE_API_URL and ensure it includes /api/v1 only once
-    return normalizeBase(import.meta.env.VITE_API_URL);
+    // In production, VITE_API_URL is required
+    const apiUrl = import.meta.env.VITE_API_URL;
+    if (!apiUrl) {
+      console.error('VITE_API_URL is not set in production! API calls will fail.');
+      // Fallback: try to construct from current origin (won't work for most deployments)
+      return '/api/v1';
+    }
+    return normalizeBase(apiUrl);
   }
   // Dev uses Vite proxy at /api -> rewritten to /api/v1
   return '/api';
 };
 
-// Get the public-facing URL for shortened links
+// Get the public-facing URL for shortened links (frontend URL, not backend)
 export const getPublicUrl = (shortId) => {
   if (!shortId) {
     return "";
   }
-  if (import.meta.env.MODE === 'production') {
-    // In production, use the backend URL from environment variable
-    const backendUrl = import.meta.env.VITE_API_URL || 'https://url-shortener-backend.7u2f.onrender.com';
-    return `${backendUrl.replace(/\/+$/, '')}/api/v1/url/${shortId}`;
-  }
-  // In development, use localhost
-  return `http://localhost:9000/api/v1/url/${shortId}`;
+  // Use the frontend URL (window.location.origin) for short URLs
+  // This ensures short URLs point to the frontend, which will handle the redirect
+  const frontendUrl = import.meta.env.VITE_FRONTEND_URL || window.location.origin;
+  return `${frontendUrl.replace(/\/+$/, '')}/${shortId}`;
 };
 
 // Create the API instance
@@ -212,6 +215,7 @@ export const urlAPI = {
   createShortUrl: (urlData) => api.post("/url", urlData),
   getUserUrls: () => api.get("/url/myurls/direct"),
   getUrlAnalytics: (shortId) => api.get(`/url/${shortId}/analytics`),
+  getOriginalUrl: (shortId) => api.get(`/url/${shortId}/original`),
   redirectUrl: (shortId) => api.get(`/url/${shortId}`),
 };
 

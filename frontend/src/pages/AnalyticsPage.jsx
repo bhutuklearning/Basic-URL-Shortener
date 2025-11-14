@@ -160,27 +160,23 @@ const AnalyticsPage = () => {
         // Check if data is nested in data property
         if (response.data.data) {
           setAnalytics(response.data.data);
-          // If URL details are included in the response
-          if (response.data.urlDetails) {
-            setUrlDetails(prev => ({
-              ...prev,
-              ...response.data.urlDetails,
-              shortUrl: response.data.urlDetails.shortUrl || prev?.shortUrl || getPublicUrl(shortId),
-              originalUrl: response.data.urlDetails.originalUrl || prev?.originalUrl || urlData?.originalUrl || ""
-            }));
-          }
+          // Update URL details from the response
+          setUrlDetails(prev => ({
+            ...prev,
+            shortUrl: response.data.data.shortUrl || prev?.shortUrl || getPublicUrl(shortId),
+            originalUrl: response.data.data.originalUrl || prev?.originalUrl || urlData?.originalUrl || "",
+            id: response.data.data.shortId || prev?.id || shortId
+          }));
         } else {
           // Direct structure
           setAnalytics(response.data);
-          // If URL details are included in the response
-          if (response.data.urlDetails) {
-            setUrlDetails(prev => ({
-              ...prev,
-              ...response.data.urlDetails,
-              shortUrl: response.data.urlDetails.shortUrl || prev?.shortUrl || getPublicUrl(shortId),
-              originalUrl: response.data.urlDetails.originalUrl || prev?.originalUrl || urlData?.originalUrl || ""
-            }));
-          }
+          // Update URL details from the response
+          setUrlDetails(prev => ({
+            ...prev,
+            shortUrl: response.data.shortUrl || prev?.shortUrl || getPublicUrl(shortId),
+            originalUrl: response.data.originalUrl || prev?.originalUrl || urlData?.originalUrl || "",
+            id: response.data.shortId || prev?.id || shortId
+          }));
         }
 
         // If analytics data doesn't have expected properties, create defaults

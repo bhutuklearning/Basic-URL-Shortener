@@ -2,6 +2,7 @@ import express from "express";
 import {
     shortenUrl,
     redirectUrl,
+    getOriginalUrl,
     getUrlAnalytics,
     getMyUrlsPopulate,
     getMyUrlsDirect,
@@ -21,13 +22,20 @@ router.get("/", (req, res) => {
 });
 // Shorten a URL (protected)
 router.post("/", protect, shortenUrl);
-// Redirect to original URL (public)
-router.get("/:shortId", redirectUrl);
+
+// Specific routes must be defined before the generic :shortId route
+// Get original URL as JSON (for frontend use) - tracks click
+router.get("/:shortId/original", getOriginalUrl);
 // Get analytics (protected)
 router.get("/:shortId/analytics", protect, getUrlAnalytics);
 
+// User URLs routes
 router.get("/myurls/populate", protect, getMyUrlsPopulate); // Using virtual field
 router.get("/myurls/direct", protect, getMyUrlsDirect); // Direct query
+
+// Redirect to original URL (for direct browser requests) - tracks click
+// This must be last to avoid matching specific routes above
+router.get("/:shortId", redirectUrl);
 
 
 
