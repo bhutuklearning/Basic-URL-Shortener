@@ -1,64 +1,70 @@
-# 🎨 URL Shortener Frontend
+# URL Shortener Frontend
 
-<div align="center">
+A modern, responsive React frontend for the URL Shortener application with authentication, analytics, and intuitive user interface.
 
-![Frontend](https://img.shields.io/badge/Frontend-React-blue?style=for-the-badge&logo=react)
-![Vite](https://img.shields.io/badge/Vite-Build%20Tool-646CFF?style=for-the-badge&logo=vite)
-![Tailwind](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=for-the-badge&logo=tailwind-css)
-![Vercel](https://img.shields.io/badge/Vercel-Deployment-000000?style=for-the-badge&logo=vercel)
+## Table of Contents
 
-A modern, responsive React frontend for the URL Shortener application with authentication, analytics, and beautiful UI.
+- [Overview](#overview)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Architecture](#architecture)
+- [Project Structure](#project-structure)
+- [Quick Start](#quick-start)
+- [Configuration](#configuration)
+- [Pages and Components](#pages-and-components)
+- [Styling](#styling)
+- [Deployment](#deployment)
+- [Performance](#performance)
+- [Testing](#testing)
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20App-brightgreen?style=for-the-badge)](https://your-frontend-url.com)
-[![Build Status](https://img.shields.io/badge/Build-Passing-green?style=for-the-badge)](https://vercel.com)
+## Overview
 
-</div>
+This frontend application provides a modern, responsive interface for the URL Shortener service. Built with React 19, Vite, and Tailwind CSS, it offers a seamless user experience with comprehensive features for URL shortening, analytics, and user management.
 
-## 📋 Table of Contents
+Key capabilities include:
+- Modern React-based user interface
+- Secure authentication and session management
+- Comprehensive analytics dashboard
+- Responsive design for all devices
+- Fast and efficient API communication
+- Production-ready deployment configuration
 
-- [✨ Features](#-features)
-- [🛠️ Tech Stack](#️-tech-stack)
-- [🏗️ Architecture](#️-architecture)
-- [🚀 Quick Start](#-quick-start)
-- [📱 Pages & Components](#-pages--components)
-- [🔧 Configuration](#-configuration)
-- [🌐 Deployment](#-deployment)
-- [🎨 Styling](#-styling)
-- [🧪 Testing](#-testing)
-- [📊 Performance](#-performance)
-
-## ✨ Features
+## Features
 
 ### Core Functionality
 
 - **URL Shortening**: Create short URLs with custom aliases
-- **User Dashboard**: Manage all your shortened URLs
-- **Analytics Dashboard**: Track clicks and performance metrics
-- **QR Code Generation**: Generate QR codes for easy sharing
-- **Bulk Operations**: Manage multiple URLs efficiently
+- **User Dashboard**: Manage all your shortened URLs from a centralized dashboard
+- **Analytics Dashboard**: Track clicks and performance metrics with visual charts
+- **Quick Access**: Fast and efficient URL redirection
+- **URL Management**: View, copy, and manage all your shortened URLs
 
-### Authentication & Security
+### Authentication and Security
 
-- **Secure Login/Register**: JWT-based authentication
+- **Secure Login/Register**: JWT-based authentication with refresh tokens
 - **Protected Routes**: Route guards for authenticated users
-- **Session Management**: Automatic token refresh
-- **Secure Logout**: Complete session cleanup
-- **Password Validation**: Strong password requirements
+- **Session Management**: Automatic token refresh for seamless user experience
+- **Secure Logout**: Complete session cleanup on logout
+- **Password Validation**: Strong password requirements with real-time validation
+- **Error Handling**: User-friendly error messages and handling
 
-### Analytics & Tracking
+### Analytics and Tracking
 
-- **Click Analytics**: Visual charts and metrics
-- **Referrer Tracking**: Monitor traffic sources
-- **Time-based Stats**: Track performance over time
-- **Real-time Updates**: Live data refresh
+- **Click Analytics**: Visual charts and metrics for click tracking
+- **Referrer Tracking**: Monitor traffic sources and referrers
+- **Time-based Stats**: Track performance metrics over time periods
+- **Real-time Updates**: Live data refresh for analytics
+- **Click History**: Detailed click history with timestamp, IP, and referrer data
+- **Unique Visitors**: Identify unique visitors based on IP addresses
 
 ### User Experience
 
-- **Responsive Design**: Works on all devices
-- **Dark/Light Mode**: Theme switching capability
-- **Toast Notifications**: User feedback system
-- **Loading States**: Smooth loading animations
-- **Error Handling**: User-friendly error messages
+- **Responsive Design**: Works seamlessly on all device sizes
+- **Toast Notifications**: User feedback system with toast notifications
+- **Loading States**: Smooth loading animations and states
+- **Error Handling**: User-friendly error messages and handling
+- **Intuitive Interface**: Clean and intuitive user interface
+- **Fast Performance**: Optimized for fast load times and smooth interactions
 
 ## Tech Stack
 
@@ -71,7 +77,6 @@ A modern, responsive React frontend for the URL Shortener application with authe
 | **HTTP Client**   | Axios           | 1.12.2  | API communication           |
 | **Notifications** | React Hot Toast | 2.6.0   | Toast notifications         |
 | **Icons**         | React Icons     | 5.5.0   | Icon library                |
-| **Environment**   | dotenv          | 17.2.3  | Environment variables       |
 
 ### Development Tools
 
@@ -81,100 +86,76 @@ A modern, responsive React frontend for the URL Shortener application with authe
 | **Prettier**          | Latest  | Code formatting          |
 | **Vite Plugin React** | 5.0.4   | React support for Vite   |
 
-## 🏗️ Architecture
+## Architecture
 
-```mermaid
-graph TB
-    subgraph "Frontend Architecture"
-        A[React App]
-        B[Router]
-        C[Context/State]
-        D[Components]
-    end
+The frontend follows a component-based architecture:
 
-    subgraph "Pages"
-        E[Landing Page]
-        F[Login/Register]
-        G[Dashboard]
-        H[Analytics]
-        I[Redirect Page]
-    end
-
-    subgraph "Components"
-        J[Layout]
-        K[AuthGuard]
-        L[Footer]
-        M[Forms]
-    end
-
-    subgraph "Services"
-        N[API Client]
-        O[Auth Service]
-        P[URL Service]
-    end
-
-    A --> B
-    B --> E
-    B --> F
-    B --> G
-    B --> H
-    B --> I
-    A --> C
-    A --> D
-    D --> J
-    D --> K
-    D --> L
-    D --> M
-    C --> N
-    N --> O
-    N --> P
+```
+React App
+    ↓
+Router (React Router)
+    ↓
+Pages (Route Components)
+    ↓
+Components (Reusable UI Components)
+    ↓
+Services (API Client)
+    ↓
+Backend API
 ```
 
-### Project Structure
+### Request Flow
+
+1. **User Interaction**: User interacts with React components
+2. **Component State**: Component state is updated
+3. **API Call**: API client makes HTTP request to backend
+4. **Response Handling**: Response is processed and state is updated
+5. **UI Update**: UI is re-rendered with new data
+
+## Project Structure
 
 ```
 frontend/
-├── 📁 public/                    # Static assets
-│   ├── 📄 logo.svg              # App logo
-│   └── 📄 vite.svg              # Vite logo
+├── public/                    # Static assets
+│   ├── logo.svg              # App logo
+│   └── vite.svg              # Vite logo
 │
-├── 📁 src/
-│   ├── 📁 components/            # Reusable components
-│   │   ├── 📄 AuthGuard.jsx      # Route protection
-│   │   ├── 📄 Footer.jsx         # Footer component
-│   │   └── 📄 Layout.jsx         # Main layout wrapper
+├── src/
+│   ├── components/            # Reusable components
+│   │   ├── AuthGuard.jsx      # Route protection
+│   │   ├── Footer.jsx         # Footer component
+│   │   └── Layout.jsx         # Main layout wrapper
 │   │
-│   ├── 📁 pages/                 # Page components
-│   │   ├── 📄 AnalyticsPage.jsx  # Analytics dashboard
-│   │   ├── 📄 DashboardPage.jsx  # User dashboard
-│   │   ├── 📄 HomePage.jsx       # Home page
-│   │   ├── 📄 LandingPage.jsx   # Landing page
-│   │   ├── 📄 LoginPage.jsx      # Login form
-│   │   ├── 📄 NotFoundPage.jsx   # 404 page
-│   │   ├── 📄 RedirectPage.jsx   # URL redirect handler
-│   │   └── 📄 RegisterPage.jsx   # Registration form
+│   ├── pages/                 # Page components
+│   │   ├── AnalyticsPage.jsx  # Analytics dashboard
+│   │   ├── DashboardPage.jsx  # User dashboard
+│   │   ├── HomePage.jsx       # Home page
+│   │   ├── LandingPage.jsx    # Landing page
+│   │   ├── LoginPage.jsx      # Login form
+│   │   ├── NotFoundPage.jsx   # 404 page
+│   │   ├── RedirectPage.jsx   # URL redirect handler
+│   │   └── RegisterPage.jsx   # Registration form
 │   │
-│   ├── 📄 api.js                 # API client configuration
-│   ├── 📄 App.jsx                # Main app component
-│   ├── 📄 App.css                # App-specific styles
-│   ├── 📄 index.css              # Global styles
-│   ├── 📄 main.jsx               # App entry point
-│   └── 📄 router.jsx             # Routing configuration
+│   ├── api.js                 # API client configuration
+│   ├── App.jsx                # Main app component
+│   ├── App.css                # App-specific styles
+│   ├── index.css              # Global styles
+│   └── main.jsx               # App entry point
 │
-├── 📄 index.html                 # HTML template
-├── 📄 package.json               # Dependencies and scripts
-├── 📄 tailwind.config.js         # Tailwind configuration
-├── 📄 vercel.json                # Vercel deployment config
-└── 📄 vite.config.mjs            # Vite configuration
+├── index.html                 # HTML template
+├── package.json               # Dependencies and scripts
+├── tailwind.config.js         # Tailwind configuration
+├── vercel.json                # Vercel deployment config
+└── vite.config.mjs            # Vite configuration
 ```
 
-##  Quick Start
+## Quick Start
 
 ### Prerequisites
 
-- **Node.js** (v18 or higher)
-- **npm** or **yarn**
-- **Backend API** running (see backend README)
+- Node.js (v18 or higher)
+- npm or yarn
+- Backend API running (see backend README)
 
 ### Installation
 
@@ -193,13 +174,17 @@ frontend/
 
 3. **Environment setup**
 
+   Create a `.env.local` file in the frontend root (optional for development):
+
    ```bash
    # Create environment file
    touch .env.local
 
    # Add environment variables
-   echo "VITE_API_URL=http://localhost:5000/api/v1" >> .env.local
+   echo "VITE_API_URL=http://localhost:9000/api/v1" >> .env.local
    ```
+
+   Note: In development mode, the frontend uses Vite proxy to connect to the backend, so environment variables are optional.
 
 4. **Start development server**
 
@@ -208,8 +193,9 @@ frontend/
    ```
 
 5. **Access the application**
-   - 🌐 **Frontend**: http://localhost:5173
-   - 🔧 **Backend**: http://localhost:5000 (should be running)
+
+   - Frontend: http://localhost:5173
+   - Backend: http://localhost:9000 (should be running)
 
 ### Available Scripts
 
@@ -225,29 +211,105 @@ npm run build        # Create production build
 npm run preview      # Preview production build locally
 ```
 
-##  Pages & Components
+## Configuration
 
-###  Landing Page (`/`)
+### Environment Variables
 
-- **Hero Section**: Main call-to-action
+Create a `.env.local` file in the frontend root:
+
+```env
+# API Configuration
+VITE_API_URL=http://localhost:9000/api/v1
+
+# Frontend URL (optional, defaults to window.location.origin)
+VITE_FRONTEND_URL=http://localhost:5173
+
+# App Configuration (optional)
+VITE_APP_NAME=URL Shortener
+VITE_APP_VERSION=1.0.0
+```
+
+### Vite Configuration
+
+The Vite configuration (`vite.config.mjs`) includes:
+
+- React plugin for React support
+- Tailwind CSS plugin for Tailwind CSS support
+- Development server proxy for API calls
+- Build optimization settings
+
+```javascript
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
+
+export default defineConfig({
+  plugins: [
+    tailwindcss(),
+    react({
+      jsxRuntime: 'automatic',
+    }),
+  ],
+  server: {
+    port: 5173,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:9000',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api/, '/api/v1'),
+      },
+    },
+  },
+  build: {
+    outDir: 'dist',
+    sourcemap: true,
+  },
+});
+```
+
+### Tailwind Configuration
+
+The Tailwind configuration (`tailwind.config.js`) includes:
+
+- Content paths for Tailwind CSS scanning
+- Theme customization
+- Plugin configuration
+
+```javascript
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+};
+```
+
+## Pages and Components
+
+### Landing Page (`/`)
+
+- **Hero Section**: Main call-to-action with URL shortening interface
 - **Features Overview**: Key features showcase
 - **Call-to-Action**: Sign up/login buttons
 
-###  Authentication Pages
+### Authentication Pages
 
 #### Login Page (`/login`)
 
 - **Email/Password Form**: Secure login form
 - **Remember Me**: Optional session persistence
-- **Forgot Password**: Password recovery link
-- **Social Login**: OAuth integration (optional)
+- **Error Handling**: User-friendly error messages
+- **Redirect Logic**: Automatic redirect after successful login
 
 #### Register Page (`/register`)
 
-- **User Registration**: Username, email, password
-- **Password Strength**: Real-time validation
-- **Terms & Conditions**: Legal agreement
-- **Email Verification**: Account verification
+- **User Registration**: Username, email, and password registration
+- **Password Strength**: Real-time password validation
+- **Error Handling**: User-friendly error messages
+- **Redirect Logic**: Automatic redirect after successful registration
 
 ### Dashboard Pages
 
@@ -256,20 +318,23 @@ npm run preview      # Preview production build locally
 - **URL Shortener**: Main shortening interface
 - **Quick Stats**: Basic usage statistics
 - **Quick Actions**: Common operations
+- **User Dashboard Link**: Link to full dashboard
 
 #### Dashboard (`/dashboard`)
 
 - **URL Management**: List all user URLs
 - **Bulk Operations**: Select multiple URLs
-<!-- - **Search & Filter**: Find specific URLs -->
-<!-- - **Export Options**: Download URL data -->
+- **URL Actions**: Copy, redirect, and analytics for each URL
+- **Create URL**: Form to create new shortened URLs
+- **Statistics**: Click counts and creation dates
 
 #### Analytics (`/analytics`)
 
 - **Click Charts**: Visual click statistics
 - **Referrer Analysis**: Traffic source breakdown
 - **Time-based Stats**: Performance over time
-<!-- - **Geographic Data**: Location-based analytics -->
+- **Click History**: Detailed click history table
+- **URL Information**: Short URL and original URL display
 
 ### Utility Pages
 
@@ -278,22 +343,21 @@ npm run preview      # Preview production build locally
 - **URL Resolution**: Redirect to original URL
 - **Loading State**: Smooth redirect experience
 - **Error Handling**: Invalid URL handling
-- **Analytics Tracking**: Click tracking
+- **Analytics Tracking**: Click tracking via backend API
 
 #### 404 Page (`*`)
 
 - **Not Found**: Custom 404 page
 - **Navigation**: Back to home options
-- **Search**: Help users find content
+- **User-Friendly**: Helpful error message
 
 ### Components
 
 #### Layout Component
 
 - **Header**: Navigation and user menu
-<!-- - **Sidebar**: Navigation menu (mobile) -->
 - **Footer**: Links and information
-<!-- - **Theme Toggle**: Dark/light mode switch -->
+- **Main Content**: Page content wrapper
 
 #### AuthGuard Component
 
@@ -309,100 +373,36 @@ npm run preview      # Preview production build locally
 - **Error Messages**: User-friendly errors
 - **Loading States**: Form submission feedback
 
-## Configuration
+## Styling
 
-### Environment Variables
+### Design System
 
-Create a `.env.local` file in the frontend root:
+The application uses Tailwind CSS for styling with a consistent design system:
 
-```env
-# API Configuration
-VITE_API_URL=http://localhost:5000/api/v1
+- **Colors**: Primary, secondary, and status colors
+- **Typography**: Consistent font families and sizes
+- **Spacing**: Consistent spacing scale
+- **Components**: Reusable component styles
 
-# App Configuration
-VITE_APP_NAME=URL Shortener
-VITE_APP_VERSION=1.0.0
+### Responsive Design
 
-# Feature Flags
-VITE_ENABLE_ANALYTICS=true
-VITE_ENABLE_QR_CODES=true
-VITE_ENABLE_BULK_OPERATIONS=true
+The application is fully responsive with breakpoints for:
 
-# External Services
-VITE_GOOGLE_ANALYTICS_ID=GA_MEASUREMENT_ID
-VITE_SENTRY_DSN=SENTRY_DSN_URL
-```
+- Mobile: Default (320px+)
+- Tablet: 768px+
+- Desktop: 1024px+
+- Large Desktop: 1280px+
 
-### Vite Configuration (`vite.config.mjs`)
+### Component Styling
 
-```javascript
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import tailwindcss from "@tailwindcss/vite";
+Components use Tailwind CSS utility classes for styling:
 
-export default defineConfig({
-  plugins: [react(), tailwindcss()],
-  server: {
-    port: 5173,
-    proxy: {
-      "/api": {
-        target: "http://localhost:5000",
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, "/api/v1"),
-      },
-    },
-  },
-  build: {
-    outDir: "dist",
-    sourcemap: true,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ["react", "react-dom"],
-          router: ["react-router-dom"],
-          ui: ["react-hot-toast", "react-icons"],
-        },
-      },
-    },
-  },
-});
-```
+- **Buttons**: Consistent button styles with hover states
+- **Forms**: Styled form inputs with focus states
+- **Cards**: Card components with shadows and borders
+- **Layout**: Flexbox and grid layouts for responsive design
 
-### Tailwind Configuration (`tailwind.config.js`)
-
-```javascript
-/** @type {import('tailwindcss').Config} */
-export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
-  theme: {
-    extend: {
-      colors: {
-        primary: {
-          50: "#eff6ff",
-          500: "#3b82f6",
-          600: "#2563eb",
-          700: "#1d4ed8",
-        },
-        secondary: {
-          50: "#f8fafc",
-          500: "#64748b",
-          600: "#475569",
-        },
-      },
-      fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
-      },
-      animation: {
-        "fade-in": "fadeIn 0.5s ease-in-out",
-        "slide-up": "slideUp 0.3s ease-out",
-      },
-    },
-  },
-  plugins: [],
-};
-```
-
-## 🌐 Deployment
+## Deployment
 
 ### Vercel Deployment
 
@@ -420,14 +420,16 @@ export default {
    ```
 
 2. **Environment Variables**
+
    Set in Vercel dashboard:
 
-   ```
+   ```env
    VITE_API_URL=https://your-backend-url.com/api/v1
-   VITE_APP_NAME=URL Shortener
+   VITE_FRONTEND_URL=https://your-frontend-url.com
    ```
 
 3. **Custom Domain** (Optional)
+
    - Add domain in Vercel dashboard
    - Update DNS records
    - SSL automatically configured
@@ -472,8 +474,9 @@ export default {
 
 2. **GitHub Actions** (Optional)
 
+   Create `.github/workflows/deploy.yml`:
+
    ```yaml
-   # .github/workflows/deploy.yml
    name: Deploy to GitHub Pages
 
    on:
@@ -496,264 +499,64 @@ export default {
              publish_dir: ./dist
    ```
 
-## 🎨 Styling
-
-### Design System
-
-#### Color Palette
-
-```css
-:root {
-  /* Primary Colors */
-  --primary-50: #eff6ff;
-  --primary-500: #3b82f6;
-  --primary-600: #2563eb;
-  --primary-700: #1d4ed8;
-
-  /* Secondary Colors */
-  --secondary-50: #f8fafc;
-  --secondary-500: #64748b;
-  --secondary-600: #475569;
-
-  /* Status Colors */
-  --success: #10b981;
-  --warning: #f59e0b;
-  --error: #ef4444;
-  --info: #3b82f6;
-}
-```
-
-#### Typography
-
-```css
-/* Font Families */
-.font-primary {
-  font-family: "Inter", system-ui, sans-serif;
-}
-.font-mono {
-  font-family: "Fira Code", monospace;
-}
-
-/* Font Sizes */
-.text-xs {
-  font-size: 0.75rem;
-}
-.text-sm {
-  font-size: 0.875rem;
-}
-.text-base {
-  font-size: 1rem;
-}
-.text-lg {
-  font-size: 1.125rem;
-}
-.text-xl {
-  font-size: 1.25rem;
-}
-```
-
-#### Spacing System
-
-```css
-/* Spacing Scale */
-.space-1 {
-  margin: 0.25rem;
-}
-.space-2 {
-  margin: 0.5rem;
-}
-.space-4 {
-  margin: 1rem;
-}
-.space-8 {
-  margin: 2rem;
-}
-.space-16 {
-  margin: 4rem;
-}
-```
-
-### Component Styling
-
-#### Button Components
-
-```jsx
-// Primary Button
-<button className="bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors">
-  Click Me
-</button>
-
-// Secondary Button
-<button className="bg-secondary-100 hover:bg-secondary-200 text-secondary-700 font-medium py-2 px-4 rounded-lg transition-colors">
-  Cancel
-</button>
-```
-
-#### Form Components
-
-```jsx
-// Input Field
-<input
-  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-  type="text"
-  placeholder="Enter URL"
-/>
-
-// Error State
-<input
-  className="w-full px-3 py-2 border border-red-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
-  type="text"
-/>
-```
-
-### Responsive Design
-
-#### Breakpoints
-
-```css
-/* Mobile First Approach */
-@media (min-width: 640px) {
-  /* sm */
-}
-@media (min-width: 768px) {
-  /* md */
-}
-@media (min-width: 1024px) {
-  /* lg */
-}
-@media (min-width: 1280px) {
-  /* xl */
-}
-```
-
-#### Grid System
-
-```jsx
-// Responsive Grid
-<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-  <div className="bg-white p-4 rounded-lg shadow">Card 1</div>
-  <div className="bg-white p-4 rounded-lg shadow">Card 2</div>
-  <div className="bg-white p-4 rounded-lg shadow">Card 3</div>
-</div>
-```
-
-
 ## Performance
 
 ### Optimization Strategies
 
 #### Code Splitting
 
-```javascript
-// Lazy load components
-import { lazy, Suspense } from "react";
-
-const AnalyticsPage = lazy(() => import("./pages/AnalyticsPage"));
-
-function App() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <AnalyticsPage />
-    </Suspense>
-  );
-}
-```
+- Lazy load components for reduced initial bundle size
+- Split vendor code from application code
+- Optimize route-based code splitting
 
 #### Bundle Optimization
 
-```javascript
-// vite.config.mjs
-export default defineConfig({
-  build: {
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ["react", "react-dom"],
-          router: ["react-router-dom"],
-          ui: ["react-hot-toast", "react-icons"],
-        },
-      },
-    },
-  },
-});
-```
+- Tree shaking to remove unused code
+- Minification for production builds
+- Source maps for debugging
+
+#### API Optimization
+
+- Efficient API calls with proper error handling
+- Request caching where appropriate
+- Optimistic UI updates
 
 #### Image Optimization
 
-```jsx
-// Lazy load images
-import { useState, useRef, useEffect } from "react";
-
-function LazyImage({ src, alt, ...props }) {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const imgRef = useRef();
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsLoaded(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (imgRef.current) {
-      observer.observe(imgRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div ref={imgRef} {...props}>
-      {isLoaded ? (
-        <img src={src} alt={alt} />
-      ) : (
-        <div className="bg-gray-200 animate-pulse h-64" />
-      )}
-    </div>
-  );
-}
-```
+- Lazy load images
+- Use appropriate image formats
+- Optimize image sizes
 
 ### Performance Monitoring
 
 #### Web Vitals
 
-```javascript
-// Performance monitoring
-import { getCLS, getFID, getFCP, getLCP, getTTFB } from "web-vitals";
-
-function sendToAnalytics(metric) {
-  // Send to analytics service
-  console.log(metric);
-}
-
-getCLS(sendToAnalytics);
-getFID(sendToAnalytics);
-getFCP(sendToAnalytics);
-getLCP(sendToAnalytics);
-getTTFB(sendToAnalytics);
-```
+- Monitor Core Web Vitals (LCP, FID, CLS)
+- Track performance metrics
+- Optimize for better scores
 
 #### Bundle Analysis
 
-```bash
-# Analyze bundle size
-npm install --save-dev vite-bundle-analyzer
+- Analyze bundle size
+- Identify large dependencies
+- Optimize bundle composition
 
-# Add to package.json
-"analyze": "vite-bundle-analyzer dist"
-```
+## Testing
+
+### Testing Strategies
+
+- **Unit Tests**: Test individual components and functions
+- **Integration Tests**: Test component interactions
+- **E2E Tests**: Test user flows end-to-end
+- **Accessibility Tests**: Test for accessibility compliance
+
+### Testing Tools
+
+- **Jest**: Unit testing framework
+- **React Testing Library**: Component testing
+- **Cypress**: E2E testing
+- **ESLint**: Code quality and linting
 
 ---
 
-<div align="center">
-
-**Built with ❤️ using React and Vite**
-
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20App-brightgreen?style=for-the-badge)](https://url-shortener-basic.vercel.app/)
-
-</div>
+Built with React, Vite, and Tailwind CSS.

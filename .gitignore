@@ -2,3 +2,7 @@
 node_modules
 .DS_Store
 
+# Future scopes and deployment documentation (excluded from GitHub)
+Future_Scopes/
+DEPLOYMENT_FIX.md
+PRODUCTION_DEPLOYMENT.md

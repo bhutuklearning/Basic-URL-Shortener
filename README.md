@@ -1,182 +1,201 @@
-# 🔗 URL Shortener
+# URL Shortener
 
-<div align="center">
+A modern, full-stack URL shortening service with comprehensive analytics, user management, and secure authentication. Built with React, Node.js, Express, and MongoDB.
 
-![URL Shortener](https://img.shields.io/badge/URL-Shortener-blue?style=for-the-badge&logo=link)
-![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react)
-![Node.js](https://img.shields.io/badge/Node.js-Express-green?style=for-the-badge&logo=node.js)
-![MongoDB](https://img.shields.io/badge/MongoDB-Database-green?style=for-the-badge&logo=mongodb)
+## Table of Contents
 
-A modern, full-stack URL shortening service with comprehensive analytics and user management.
+- [Overview](#overview)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Architecture](#architecture)
+- [Project Structure](#project-structure)
+- [Quick Start](#quick-start)
+- [Environment Variables](#environment-variables)
+- [Usage Guide](#usage-guide)
+- [API Documentation](#api-documentation)
+- [Security](#security)
+- [Performance](#performance)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [Author](#author)
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20App-brightgreen?style=for-the-badge)](https://url-shortener-basic.vercel.app/)
-[![API Docs](https://img.shields.io/badge/API-Documentation-orange?style=for-the-badge)](./backend/README.md)
+## Overview
 
-</div>
+This URL shortener application provides a complete solution for creating, managing, and tracking shortened URLs. It features a modern React frontend with a robust Node.js backend API, comprehensive analytics, and secure user authentication.
 
-## 📋 Table of Contents
+Key capabilities include:
+- Instant URL shortening with custom aliases
+- User authentication and session management
+- Click tracking and analytics
+- Secure API endpoints
+- Responsive web interface
+- Production-ready deployment configuration
 
-- [✨ Features](#-features)
-- [🛠️ Tech Stack](#️-tech-stack)
-- [🏗️ Architecture](#️-architecture)
-- [🚀 Quick Start](#-quick-start)
-- [📱 Usage Guide](#-usage-guide)
-- [🔒 Security](#-security)
-- [📊 Performance](#-performance)
-- [🌐 Deployment](#-deployment)
-- [🤝 Contributing](#-contributing)
-- [📄 License](#-license)
+## Features
 
-## ✨ Features
+### Core Functionality
 
-### 🎯 Core Functionality
+- **URL Shortening**: Create short, memorable links instantly
+- **Custom Aliases**: Choose your own custom short URL identifiers
+- **Bulk Management**: Efficiently manage multiple URLs from a centralized dashboard
+- **Quick Access**: Fast redirect handling with minimal latency
 
-- **Instant URL Shortening**: Create short, memorable links in seconds
-- **Custom Aliases**: Choose your own custom short URLs
-- **Bulk URL Management**: Handle multiple URLs efficiently
+### User Management
 
-###  User Management
+- **Secure Authentication**: JWT-based authentication with refresh tokens
+- **User Dashboard**: Centralized management interface for all shortened URLs
+- **Session Management**: Secure logout and automatic token refresh
+- **Profile Management**: User profile access and management
 
-- **Secure Authentication**: JWT-based login with refresh tokens
-- **User Dashboard**: Centralized management of all shortened URLs
-- **Session Management**: Secure logout and token refresh
+### Analytics and Tracking
 
-###  Analytics & Tracking
-
-- **Click Analytics**: Monitor traffic and engagement metrics
-- **Referrer Tracking**: Track where your clicks are coming from
-
-- **Time-based Analytics**: Track clicks over time periods
-
+- **Click Analytics**: Comprehensive click tracking and visualization
+- **Referrer Tracking**: Monitor traffic sources and referrers
+- **Time-based Analytics**: Track performance metrics over time periods
+- **Unique Visitors**: Identify unique visitors based on IP addresses
+- **Click History**: Detailed click history with timestamp, IP, and referrer data
 
 ### Developer Features
 
-- **RESTful API**: Complete API for integration
-- **Rate Limiting**: Prevent abuse with configurable limits
-- **API Documentation**: Comprehensive API docs with examples
-- **Webhook Support**: Real-time notifications for events
+- **RESTful API**: Complete REST API for integration with external applications
+- **Rate Limiting**: Configurable rate limits to prevent abuse
+- **API Documentation**: Comprehensive API documentation with examples
+- **Error Handling**: Centralized error handling with detailed error responses
+- **Logging**: Structured logging for debugging and monitoring
 
 ## Tech Stack
 
 ### Frontend
 
-| Technology          | Version | Purpose                 |
-| ------------------- | ------- | ----------------------- |
-| **React**           | 19.1.1  | UI Framework            |
-| **Vite**            | 7.1.7   | Build Tool & Dev Server |
-| **Tailwind CSS**    | 4.1.14  | Styling Framework       |
-| **React Router**    | 7.9.4   | Client-side Routing     |
-| **Axios**           | 1.12.2  | HTTP Client             |
-| **React Hot Toast** | 2.6.0   | Notifications           |
-| **React Icons**     | 5.5.0   | Icon Library            |
+| Technology    | Version | Purpose                      |
+| ------------- | ------- | ---------------------------- |
+| React         | 19.1.1  | UI framework                 |
+| Vite          | 7.1.7   | Build tool and dev server    |
+| Tailwind CSS  | 4.1.14  | Utility-first CSS framework  |
+| React Router  | 7.9.4   | Client-side routing          |
+| Axios         | 1.12.2  | HTTP client for API calls    |
+| React Hot Toast | 2.6.0 | Toast notifications          |
+| React Icons   | 5.5.0   | Icon library                 |
 
 ### Backend
 
-| Technology     | Version | Purpose             |
-| -------------- | ------- | ------------------- |
-| **Node.js**    | Latest  | Runtime Environment |
-| **Express.js** | 5.1.0   | Web Framework       |
-| **MongoDB**    | Latest  | Database            |
-| **Mongoose**   | 8.19.0  | ODM                 |
-| **JWT**        | 9.0.2   | Authentication      |
-| **bcryptjs**   | 3.0.2   | Password Hashing    |
-| **Helmet**     | 8.1.0   | Security Headers    |
-| **Morgan**     | 1.10.1  | HTTP Logging        |
+| Technology         | Version | Purpose                    |
+| ------------------ | ------- | -------------------------- |
+| Node.js            | Latest  | Runtime environment        |
+| Express.js         | 5.1.0   | Web application framework  |
+| MongoDB            | Latest  | NoSQL database             |
+| Mongoose           | 8.19.0  | MongoDB object modeling    |
+| JWT                | 9.0.2   | JSON Web Tokens            |
+| bcryptjs           | 3.0.2   | Password hashing           |
+| Helmet             | 8.1.0   | Security headers           |
+| express-rate-limit | 8.1.0   | Rate limiting middleware   |
+| Morgan             | 1.10.1  | HTTP request logging       |
 
-### DevOps & Tools
+### DevOps and Tools
 
-| Tool               | Purpose                |
-| ------------------ | ---------------------- |
-| **Vercel**         | Frontend Deployment    |
-| **Render**         | Backend Deployment     |
-| **GitHub Actions** | CI/CD Pipeline         |
-| **ESLint**         | Code Quality           |
-| **Nodemon**        | Development Hot Reload |
+| Tool         | Purpose                   |
+| ------------ | ------------------------- |
+| Vercel       | Frontend deployment       |
+| Render       | Backend deployment        |
+| GitHub       | Version control           |
+| ESLint       | Code quality and linting  |
+| Nodemon      | Development hot reload    |
 
-## 🏗️ Architecture
+## Architecture
 
-```mermaid
-graph TB
-    subgraph "Client Layer"
-        A[React Frontend]
-        B[Mobile App]
-        C[Third-party Apps]
-    end
+The application follows a layered architecture pattern with clear separation of concerns:
 
-    subgraph "API Gateway"
-        D[Express.js Server]
-        E[Rate Limiting]
-        F[CORS & Security]
-    end
-
-    subgraph "Business Logic"
-        G[Auth Controller]
-        H[URL Controller]
-        I[Analytics Controller]
-    end
-
-    subgraph "Data Layer"
-        J[MongoDB Database]
-        K[User Collection]
-        L[URL Collection]
-        M[Analytics Collection]
-    end
-
-    A --> D
-    B --> D
-    C --> D
-    D --> E
-    E --> F
-    F --> G
-    F --> H
-    F --> I
-    G --> J
-    H --> J
-    I --> J
-    J --> K
-    J --> L
-    J --> M
+```
+Client Layer (React Frontend)
+    ↓
+API Gateway (Express.js Server)
+    ↓
+Business Logic Layer (Controllers)
+    ↓
+Data Access Layer (Mongoose Models)
+    ↓
+Data Store (MongoDB)
 ```
 
-### Project Structure
+### Request Flow
+
+1. **Client Request**: User interacts with React frontend
+2. **API Gateway**: Request reaches Express.js server
+3. **Middleware**: Authentication, rate limiting, CORS handling
+4. **Controller**: Business logic processing
+5. **Model**: Database operations via Mongoose
+6. **Response**: JSON response sent back to client
+
+## Project Structure
 
 ```
 URL Shortener/
-├── 📁 frontend/                 # React frontend application
-│   ├── 📁 src/
-│   │   ├── 📁 components/       # Reusable UI components
-│   │   ├── 📁 pages/            # Page components
-│   │   ├── 📁 hooks/            # Custom React hooks
-│   │   ├── 📁 utils/            # Utility functions
-│   │   └── 📄 api.js            # API client configuration
-│   ├── 📄 vite.config.mjs       # Vite configuration
-│   └── 📄 vercel.json           # Deployment configuration
+├── frontend/                    # React frontend application
+│   ├── src/
+│   │   ├── components/         # Reusable UI components
+│   │   │   ├── AuthGuard.jsx  # Route protection component
+│   │   │   ├── Footer.jsx     # Footer component
+│   │   │   └── Layout.jsx     # Main layout wrapper
+│   │   ├── pages/              # Page components
+│   │   │   ├── AnalyticsPage.jsx    # Analytics dashboard
+│   │   │   ├── DashboardPage.jsx    # User dashboard
+│   │   │   ├── HomePage.jsx         # Home page
+│   │   │   ├── LandingPage.jsx      # Landing page
+│   │   │   ├── LoginPage.jsx        # Login form
+│   │   │   ├── NotFoundPage.jsx     # 404 page
+│   │   │   ├── RedirectPage.jsx     # URL redirect handler
+│   │   │   └── RegisterPage.jsx     # Registration form
+│   │   ├── api.js              # API client configuration
+│   │   ├── App.jsx             # Main app component
+│   │   ├── App.css             # App-specific styles
+│   │   ├── index.css           # Global styles
+│   │   └── main.jsx            # App entry point
+│   ├── public/                 # Static assets
+│   ├── index.html              # HTML template
+│   ├── package.json            # Dependencies and scripts
+│   ├── tailwind.config.js      # Tailwind configuration
+│   ├── vercel.json             # Vercel deployment config
+│   └── vite.config.mjs         # Vite configuration
 │
-├── 📁 backend/                  # Node.js backend API
-│   ├── 📁 src/
-│   │   ├── 📁 config/           # Configuration files
-│   │   ├── 📁 controllers/      # Request handlers
-│   │   ├── 📁 middlewares/      # Express middlewares
-│   │   ├── 📁 models/           # Database models
-│   │   ├── 📁 routes/           # API routes
-│   │   ├── 📁 utils/            # Utility functions
-│   │   └── 📁 logs/             # Application logs
-│   └── 📄 .env                  # Environment variables
+├── backend/                     # Node.js backend API
+│   ├── src/
+│   │   ├── app.js              # Express app configuration
+│   │   ├── server.js           # Server entry point
+│   │   ├── config/             # Configuration files
+│   │   │   ├── db.js           # Database connection
+│   │   │   ├── env.js          # Environment variables
+│   │   │   └── logger.js       # Logging configuration
+│   │   ├── controllers/        # Request handlers
+│   │   │   ├── auth.controller.js  # Authentication logic
+│   │   │   └── url.controller.js   # URL shortening logic
+│   │   ├── middlewares/        # Express middlewares
+│   │   │   ├── auth.middleware.js  # Authentication middleware
+│   │   │   └── error.middleware.js # Error handling middleware
+│   │   ├── models/             # Database models
+│   │   │   ├── User.model.js   # User schema and model
+│   │   │   └── url.model.js    # URL schema and model
+│   │   ├── routes/             # API routes
+│   │   │   ├── auth.route.js   # Authentication routes
+│   │   │   └── url.route.js    # URL shortening routes
+│   │   ├── utils/              # Utility functions
+│   │   │   └── generateToken.js    # JWT token generation
+│   │   └── logs/               # Application logs
+│   │       ├── development/    # Dev environment logs
+│   │       └── production/     # Production environment logs
+│   ├── package.json            # Dependencies and scripts
+│   └── .env.example            # Environment variables template
 │
-└── 📁 docs/                     # Documentation
-    ├── 📄 API.md               # API documentation
-    ├── 📄 DEPLOYMENT.md        # Deployment guide
-    └── 📄 CONTRIBUTING.md      # Contribution guidelines
+└── README.md                   # This file
 ```
 
 ## Quick Start
 
 ### Prerequisites
 
-- **Node.js** (v18 or higher)
-- **MongoDB** (v6 or higher)
-- **npm** or **yarn**
-- **Git**
+- Node.js (v18 or higher)
+- MongoDB (v6 or higher)
+- npm or yarn
+- Git
 
 ### Installation
 
@@ -201,206 +220,337 @@ URL Shortener/
    npm run backend
    ```
 
+   The backend server will start on `http://localhost:9000` (or the port specified in your `.env` file).
+
 3. **Set up the frontend**
 
    ```bash
    cd ../frontend
    npm install
 
+   # Create environment file (optional for development)
+   # The frontend uses Vite proxy in development mode
+
    # Start development server
    npm run dev
    ```
 
+   The frontend will start on `http://localhost:5173`.
+
 4. **Access the application**
-   -  **Frontend**: http://localhost:5173
-   -  **Backend API**: http://localhost:5000
-   -  **API Docs**: http://localhost:5000/api-docs
 
-### Environment Variables
+   - Frontend: http://localhost:5173
+   - Backend API: http://localhost:9000/api/v1
+   - Health Check: http://localhost:9000/health
 
-Create a `.env` file in the backend directory:
+## Environment Variables
+
+### Backend Environment Variables
+
+Create a `.env` file in the `backend` directory:
 
 ```env
 # Server Configuration
-PORT=5000
+PORT=9000
 NODE_ENV=development
 
-# Database
-MONGODB_URI=mongodb://localhost:27017/url-shortener
+# Database Configuration
+MONGO_URI=mongodb://localhost:27017/url-shortener
+DB_NAME=url-shortener
 
-# Authentication
-JWT_SECRET=your-super-secret-jwt-key
-JWT_EXPIRE=7d
+# JWT Configuration
+JWT_SECRET=your-super-secret-jwt-key-here
+JWT_EXPIRES=7d
+JWT_ACCESS_SECRET=your-access-token-secret
+JWT_ACCESS_EXPIRES_IN=15m
 JWT_REFRESH_SECRET=your-refresh-token-secret
-JWT_REFRESH_EXPIRE=30d
+JWT_REFRESH_EXPIRES_IN=7d
 
-# Security
+# Security Configuration
 BCRYPT_ROUNDS=12
-RATE_LIMIT_WINDOW=15
-RATE_LIMIT_MAX=100
+RATE_LIMIT_WINDOW_MS=900000
+RATE_LIMIT_MAX_REQUESTS=100
 
-# Frontend URL (for CORS)
+# CORS Configuration
 FRONTEND_URL=http://localhost:5173
+BACKEND_URL=http://localhost:9000
+
+# Logging Configuration
+LOG_LEVEL=info
+LOG_FILE_MAX_SIZE=10m
+LOG_FILE_MAX_FILES=5
 ```
+
+### Frontend Environment Variables
+
+Create a `.env.local` file in the `frontend` directory (optional for development):
+
+```env
+# API Configuration
+VITE_API_URL=http://localhost:9000/api/v1
+
+# Frontend URL (optional, defaults to window.location.origin)
+VITE_FRONTEND_URL=http://localhost:5173
+```
+
+For production deployment, set these variables in your hosting platform (Vercel, Netlify, etc.).
 
 ## Usage Guide
 
 ### For End Users
 
-1. **Create Account**: Register with email and password
-2. ** Shorten URLs**: Paste long URLs to get short links
-3. **Customize**: Create custom aliases for your links
-4. **Track Performance**: Monitor clicks and analytics
-<!-- 5. **📱 Share**: Use QR codes or direct links -->
+1. **Create Account**: Register with email, username, and password
+2. **Shorten URLs**: Paste long URLs to create short, shareable links
+3. **Customize**: Create custom aliases for your shortened URLs
+4. **Track Performance**: Monitor clicks, analytics, and performance metrics
+5. **Manage URLs**: View, edit, and delete your shortened URLs from the dashboard
 
-<!-- ### For Developers
+### For Developers
 
-1. **🔑 Get API Key**: Register and generate API credentials
-2. **📖 Read Documentation**: Check API docs for endpoints
-3. **🧪 Test Integration**: Use Postman collection or curl
-4. **🚀 Deploy**: Integrate into your applications -->
+1. **API Integration**: Use the REST API to integrate URL shortening into your applications
+2. **Authentication**: Obtain JWT tokens for authenticated API requests
+3. **Rate Limits**: Be aware of API rate limits and implement appropriate error handling
+4. **Error Handling**: Handle API errors appropriately in your application
+5. **Documentation**: Refer to the API documentation for detailed endpoint information
 
 ### API Usage Example
 
 ```javascript
 // Shorten a URL
-const response = await fetch("/api/v1/urls", {
-  method: "POST",
+const response = await fetch('http://localhost:9000/api/v1/url', {
+  method: 'POST',
   headers: {
-    "Content-Type": "application/json",
-    Authorization: "Bearer YOUR_JWT_TOKEN",
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_JWT_TOKEN'
   },
   body: JSON.stringify({
-    originalUrl: "https://example.com/very-long-url",
-    customShortId: "my-custom-link", // Optional
-  }),
+    originalUrl: 'https://example.com/very-long-url',
+    customShortId: 'my-custom-link' // Optional
+  })
 });
 
 const data = await response.json();
-console.log(data.shortUrl); // https://yoursite.com/my-custom-link
+console.log(data.data.shortUrl); // http://localhost:5173/my-custom-link
 ```
+
+## API Documentation
+
+### Base URL
+
+- Development: `http://localhost:9000/api/v1`
+- Production: `https://your-backend-domain.com/api/v1`
+
+### Authentication Endpoints
+
+#### Register User
+
+```http
+POST /api/v1/auth/register
+Content-Type: application/json
+
+{
+  "userName": "johndoe",
+  "email": "john@example.com",
+  "password": "securepassword123"
+}
+```
+
+#### Login User
+
+```http
+POST /api/v1/auth/login
+Content-Type: application/json
+
+{
+  "email": "john@example.com",
+  "password": "securepassword123"
+}
+```
+
+#### Refresh Token
+
+```http
+POST /api/v1/auth/refresh-token
+```
+
+#### Get User Profile
+
+```http
+GET /api/v1/auth/profile
+Authorization: Bearer jwt_access_token
+```
+
+#### Logout
+
+```http
+POST /api/v1/auth/logout
+Authorization: Bearer jwt_access_token
+```
+
+### URL Shortening Endpoints
+
+#### Create Short URL
+
+```http
+POST /api/v1/url
+Authorization: Bearer jwt_access_token
+Content-Type: application/json
+
+{
+  "originalUrl": "https://example.com/very-long-url",
+  "customShortId": "my-custom-link"
+}
+```
+
+#### Get User's URLs
+
+```http
+GET /api/v1/url/myurls/direct
+Authorization: Bearer jwt_access_token
+```
+
+#### Get Original URL (for redirect)
+
+```http
+GET /api/v1/url/:shortId/original
+```
+
+#### Redirect to Original URL
+
+```http
+GET /api/v1/url/:shortId
+```
+
+#### Get URL Analytics
+
+```http
+GET /api/v1/url/:shortId/analytics
+Authorization: Bearer jwt_access_token
+```
+
+For detailed API documentation, see the [backend README](./backend/README.md).
 
 ## Security
 
-### Authentication & Authorization
+### Authentication and Authorization
 
-- ✅ **JWT Tokens**: Secure token-based authentication
-- ✅ **Refresh Tokens**: Automatic token renewal
-- ✅ **Password Hashing**: bcrypt with salt rounds
-- ✅ **Session Management**: Secure logout and cleanup
+- **JWT Tokens**: Secure token-based authentication with access and refresh tokens
+- **Refresh Tokens**: Automatic token renewal system for seamless user experience
+- **Password Hashing**: bcrypt with configurable salt rounds (default: 12)
+- **Session Management**: Secure logout and token cleanup
+- **Protected Routes**: Middleware-based route protection for authenticated endpoints
 
 ### API Security
 
--  **Rate Limiting**: Prevent abuse and DDoS attacks
--  **CORS Protection**: Configured for specific origins
--  **Helmet.js**: Security headers implementation
--  **Input Validation**: Comprehensive request validation
-
+- **Rate Limiting**: Configurable per-IP rate limits to prevent abuse and DDoS attacks
+- **CORS Protection**: Restrictive cross-origin policies with configurable allowed origins
+- **Helmet.js**: Security headers implementation to protect against common vulnerabilities
+- **Input Validation**: Comprehensive request validation to prevent malicious input
+- **Error Handling**: Centralized error handling that avoids leaking sensitive information
 
 ### Data Protection
 
--  **HTTPS Only**: All communications encrypted
--  **Environment Variables**: Sensitive data protection
--  **Cookie Security**: HttpOnly and Secure flags
-- **Data Sanitization**: XSS prevention
+- **HTTPS Only**: All communications encrypted in production
+- **Environment Variables**: Sensitive configuration kept out of version control
+- **Cookie Security**: HttpOnly and Secure flags with environment-aware SameSite settings
+- **Data Sanitization**: XSS prevention through input sanitization
+- **Secure Headers**: Security headers set via Helmet.js
 
-##  Performance
+## Performance
 
 ### Backend Optimizations
 
-<!-- - ⚡ **Database Indexing**: Optimized queries with proper indexes -->
-- **Connection Pooling**: Efficient database connections
-<!-- - ⚡ **Caching**: Redis caching for frequently accessed URLs -->
-<!-- - ⚡ **Compression**: Gzip compression for API responses -->
+- **Connection Pooling**: Efficient database connections managed by Mongoose
+- **Database Indexing**: Optimized queries with proper indexes on frequently accessed fields
+- **Rate Limiting**: Prevents abuse and ensures fair resource usage
+- **Error Handling**: Efficient error handling to minimize performance impact
+- **Logging**: Structured logging for performance monitoring and debugging
 
 ### Frontend Optimizations
 
--  **Code Splitting**: Lazy loading of components
-<!-- - ⚡ **Bundle Optimization**: Tree shaking and minification -->
-<!-- - ⚡ **Image Optimization**: WebP format and lazy loading -->
-<!-- - ⚡ **CDN Integration**: Static asset delivery -->
+- **Code Splitting**: Lazy loading of components for reduced initial bundle size
+- **Bundle Optimization**: Tree shaking and minification for production builds
+- **API Optimization**: Efficient API calls with proper error handling
+- **Caching**: Browser caching for static assets
+- **Responsive Design**: Optimized for all device sizes
 
 ### Monitoring
 
--  **Performance Metrics**: Response time tracking
--  **Error Monitoring**: Comprehensive error logging
--  **Usage Analytics**: User behavior tracking
--  **Health Checks**: Automated system monitoring
+- **Performance Metrics**: Response time tracking and monitoring
+- **Error Monitoring**: Comprehensive error logging and tracking
+- **Usage Analytics**: User behavior tracking and analytics
+- **Health Checks**: Automated system monitoring via health check endpoints
 
-##  Deployment
+## Deployment
 
-### Frontend (Vercel)
+### Frontend Deployment (Vercel)
 
-```bash
-# Install Vercel CLI
-npm i -g vercel
+1. **Connect Repository**: Connect your GitHub repository to Vercel
+2. **Set Environment Variables**: Configure `VITE_API_URL` and other environment variables
+3. **Deploy**: Vercel will automatically deploy on every push to the main branch
+4. **Custom Domain**: Configure custom domain in Vercel dashboard (optional)
 
-# Deploy
-cd frontend
-vercel --prod
-```
+### Backend Deployment (Render/Railway)
 
-### Backend (Render/Railway)
+1. **Connect Repository**: Connect your GitHub repository to your hosting platform
+2. **Set Environment Variables**: Configure all required environment variables
+3. **Set Build Command**: `npm install`
+4. **Set Start Command**: `npm start`
+5. **Deploy**: Platform will automatically deploy on every push to the main branch
 
-```bash
-# Connect your repository
-# Set environment variables
-# Deploy automatically on push
-```
+### Production Checklist
 
-### Docker Deployment
+- [ ] Environment variables configured
+- [ ] Database connection established
+- [ ] SSL certificates installed (HTTPS)
+- [ ] Rate limiting configured
+- [ ] Logging configured
+- [ ] Error monitoring setup
+- [ ] Health checks implemented
+- [ ] CORS configured correctly
+- [ ] Frontend and backend URLs configured
+- [ ] All secrets and keys secured
 
-```bash
-# Build and run with Docker Compose
-docker-compose up -d
-```
-
-### Environment Setup
-
-- **Production Database**: MongoDB Atlas
-<!-- - **CDN**: CloudFlare for static assets -->
-<!-- - **Monitoring**: Sentry for error tracking -->
-<!-- - **Analytics**: Google Analytics integration -->
-
-<!-- ## 🤝 Contributing
-
-We welcome contributions! Please see our [Contributing Guide](./CONTRIBUTING.md) for details. -->
+## Contributing
 
 ### Development Workflow
 
-1. **Fork** the repository
-2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
-3. **Commit** your changes (`git commit -m 'Add amazing feature'`)
-4. **Push** to the branch (`git push origin feature/amazing-feature`)
-5. **Open** a Pull Request
+1. **Fork the repository**: Create your own fork of the repository
+2. **Create a feature branch**: `git checkout -b feature/amazing-feature`
+3. **Make your changes**: Implement your feature or fix
+4. **Commit your changes**: `git commit -m 'Add amazing feature'`
+5. **Push to the branch**: `git push origin feature/amazing-feature`
+6. **Open a Pull Request**: Create a pull request with a detailed description
 
 ### Code Standards
 
 - **ESLint**: Follow the configured linting rules
-- **Prettier**: Consistent code formatting
-<!-- - **Tests**: Write tests for new features -->
-- **Documentation**: Update docs for API changes
+- **Code Formatting**: Use consistent code formatting
+- **Documentation**: Update documentation for API changes
+- **Testing**: Write tests for new features (when applicable)
+- **Error Handling**: Implement proper error handling
+- **Security**: Follow security best practices
 
-<!-- ## 📄 License
+### Pull Request Guidelines
 
-This project is licensed under the **ISC License** - see the [LICENSE](./LICENSE) file for details. -->
+- Provide a clear description of changes
+- Include relevant documentation updates
+- Ensure all tests pass (when applicable)
+- Follow the existing code style
+- Update README if necessary
 
-##  Author
+## Author
 
 **Amritanshu Goutam**
 
--  [LinkedIn](https://www.linkedin.com/in/amritanshu-goutam/)
--  [GitHub](https://github.com/amritanshu-goutam)
--  [X/Twitter](https://x.com/Amritanshutwt)
+- LinkedIn: [Amritanshu Goutam](https://www.linkedin.com/in/amritanshu-goutam/)
+- GitHub: [amritanshu-goutam](https://github.com/amritanshu-goutam)
+- Twitter/X: [Amritanshutwt](https://x.com/Amritanshutwt)
+
+## License
+
+This project is licensed under the ISC License.
 
 ---
 
-<div align="center">
-
-**Made with ❤️ and JavaScript**
-
-<!-- [![Star](https://img.shields.io/github/stars/yourusername/url-shortener?style=social)](https://github.com/yourusername/url-shortener)
-[![Fork](https://img.shields.io/github/forks/yourusername/url-shortener?style=social)](https://github.com/yourusername/url-shortener)
-[![Watch](https://img.shields.io/github/watchers/yourusername/url-shortener?style=social)](https://github.com/yourusername/url-shortener) -->
-
-</div>
+Built with Node.js, Express, React, and MongoDB.
