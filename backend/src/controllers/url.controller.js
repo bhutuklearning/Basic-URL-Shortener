@@ -147,28 +147,28 @@ import { ENV } from "../config/env.js";
 const generateShortUrl = (shortId, req) => {
     // Use frontend domain from environment variables
     let frontendDomain = ENV.FRONTEND_URL;
-    
+
     if (!frontendDomain) {
         // In production, FRONTEND_URL must be set!
         if (ENV.NODE_ENV === 'production') {
             console.warn('WARNING: FRONTEND_URL is not set in production! Short URLs may be incorrect.');
         }
-        
+
         // Fallback: try to infer from request headers
         // This works for development but is unreliable in production
         const host = req.get("host") || "localhost";
         const protocol = req.protocol || "http";
         const origin = req.get("origin");
-        
+
         // If we have an origin header (from frontend request), use it
         if (origin) {
             frontendDomain = origin;
         } else {
             // Last resort: use request host (won't work correctly in production if backend and frontend are different domains)
-            frontendDomain = `${protocol}://${host}`;
+            frontendDomain = `${protocol}:/${host}`;
         }
     }
-    
+
     // Remove any trailing slashes from the domain and ensure proper URL format
     const cleanDomain = frontendDomain.replace(/\/+$/, '');
     return `${cleanDomain}/${shortId}`;

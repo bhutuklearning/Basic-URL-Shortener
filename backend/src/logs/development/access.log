@@ -18550,3 +18550,23 @@
 [Nov 14, 2025, 23:44:44] 9svclqg | IP: ::1 | User: user1 | "POST /api/v1/url" | Status: 201 | Time: 142.841 ms | UA: PostmanRuntime/7.49.1 | ShortID: none | OriginalURL: https://github.com/bhutuklearning/Basic-URL-Shortener
 [Nov 14, 2025, 23:48:08] jmlhu56 | IP: ::1 | User: user1 | "POST /api/v1/url" | Status: 201 | Time: 267.469 ms | UA: PostmanRuntime/7.49.1 | ShortID: none | OriginalURL: https://github.com/bhutuklearning/Basic-URL-Shortener
 [Nov 14, 2025, 23:48:13] c7vti4w | IP: ::1 | User: anonymous | "GET /api/v1/url/url0" | Status: 301 | Time: 99.034 ms | UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb | ShortID: url0 | OriginalURL: none
+[Nov 15, 2025, 14:52:40] ntdcf1a | IP: ::1 | User: anonymous | "GET /home" | Status: 200 | Time: 15.047 ms | UA: PostmanRuntime/7.49.1 | ShortID: none | OriginalURL: none
+[Nov 15, 2025, 14:55:57] x1hx7hr | IP: ::1 | User: anonymous | "POST /api/v1/auth/login" | Status: 401 | Time: 748.718 ms | UA: PostmanRuntime/7.49.1 | ShortID: none | OriginalURL: none
+[Nov 15, 2025, 14:58:32] 3i4emlv | IP: ::1 | User: anonymous | "POST /api/v1/auth/register" | Status: 201 | Time: 516.381 ms | UA: PostmanRuntime/7.49.1 | ShortID: none | OriginalURL: none
+[Nov 15, 2025, 14:59:19] 5hwhn9e | IP: ::1 | User: anonymous | "POST /api/v1/auth/login" | Status: 200 | Time: 434.481 ms | UA: PostmanRuntime/7.49.1 | ShortID: none | OriginalURL: none
+[Nov 15, 2025, 14:59:27] 96tva5l | IP: ::1 | User: admin | "GET /api/v1/admin/users" | Status: 500 | Time: 110.101 ms | UA: PostmanRuntime/7.49.1 | ShortID: none | OriginalURL: none
+[Nov 15, 2025, 15:00:33] z5mjbne | IP: ::1 | User: admin | "GET /api/v1/admin/users" | Status: 500 | Time: 93.343 ms | UA: PostmanRuntime/7.49.1 | ShortID: none | OriginalURL: none
+[Nov 15, 2025, 15:03:56] bsllot7 | IP: ::1 | User: admin | "POST /api/v1/auth/logout" | Status: 200 | Time: 240.427 ms | UA: PostmanRuntime/7.49.1 | ShortID: none | OriginalURL: none
+[Nov 15, 2025, 15:04:06] ex1hde0 | IP: ::1 | User: anonymous | "POST /api/v1/auth/login" | Status: 200 | Time: 505.447 ms | UA: PostmanRuntime/7.49.1 | ShortID: none | OriginalURL: none
+[Nov 15, 2025, 15:04:11] zisoeo2 | IP: ::1 | User: admin | "GET /api/v1/admin/users" | Status: 200 | Time: 439.733 ms | UA: PostmanRuntime/7.49.1 | ShortID: none | OriginalURL: none
+[Nov 15, 2025, 15:06:09] pp4yxbq | IP: ::1 | User: admin | "GET /api/v1/admin/urls" | Status: 200 | Time: 200.651 ms | UA: PostmanRuntime/7.49.1 | ShortID: none | OriginalURL: none
+[Nov 15, 2025, 15:09:00] xkisgjg | IP: ::1 | User: admin | "GET /api/v1/admin/urls/analytics" | Status: 200 | Time: 81.654 ms | UA: PostmanRuntime/7.49.1 | ShortID: none | OriginalURL: none
+[Nov 15, 2025, 15:11:42] 400p65a | IP: ::1 | User: admin | "POST /api/v1/auth/logout" | Status: 200 | Time: 121.962 ms | UA: PostmanRuntime/7.49.1 | ShortID: none | OriginalURL: none
+[Nov 15, 2025, 15:12:13] znfog25 | IP: ::1 | User: anonymous | "POST /api/v1/auth/login" | Status: 401 | Time: 38.464 ms | UA: PostmanRuntime/7.49.1 | ShortID: none | OriginalURL: none
+[Nov 15, 2025, 15:12:26] a98t2fh | IP: ::1 | User: anonymous | "POST /api/v1/auth/login" | Status: 200 | Time: 203.451 ms | UA: PostmanRuntime/7.49.1 | ShortID: none | OriginalURL: none
+[Nov 15, 2025, 15:12:54] 5r7iely | IP: ::1 | User: user0 | "POST /api/v1/url" | Status: 201 | Time: 119.412 ms | UA: PostmanRuntime/7.49.1 | ShortID: none | OriginalURL: https://github.com/bhutuklearning/Basic-URL-Shortener
+[Nov 15, 2025, 15:14:50] gnpmu0h | IP: ::1 | User: user0 | "POST /api/v1/auth/logout" | Status: 200 | Time: 118.081 ms | UA: PostmanRuntime/7.49.1 | ShortID: none | OriginalURL: none
+[Nov 15, 2025, 15:14:56] 49esw9e | IP: ::1 | User: anonymous | "POST /api/v1/auth/login" | Status: 200 | Time: 203.855 ms | UA: PostmanRuntime/7.49.1 | ShortID: none | OriginalURL: none
+[Nov 15, 2025, 15:15:01] hsdovns | IP: ::1 | User: admin | "GET /api/v1/admin/urls" | Status: 200 | Time: 159.908 ms | UA: PostmanRuntime/7.49.1 | ShortID: none | OriginalURL: none
+[Nov 15, 2025, 15:18:08] o3iwlcg | IP: ::1 | User: admin | "GET /api/v1/admin/urls" | Status: 200 | Time: 211.889 ms | UA: PostmanRuntime/7.49.1 | ShortID: none | OriginalURL: none
+[Nov 15, 2025, 15:18:25] aaumdxe | IP: ::1 | User: admin | "POST /api/v1/auth/logout" | Status: 200 | Time: 136.482 ms | UA: PostmanRuntime/7.49.1 | ShortID: none | OriginalURL: none

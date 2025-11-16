@@ -7,6 +7,7 @@ import rateLimit from "express-rate-limit";
 import axios from "axios";
 import authRoute from "./routes/auth.route.js";
 import urlRoute from "./routes/url.route.js";
+import adminRoute from "./routes/admin.route.js";
 import { errorHandler, notFoundHandler } from "./middlewares/error.middleware.js";
 import { setupLogger } from "./config/logger.js";
 import { ENV } from "./config/env.js";
@@ -87,6 +88,7 @@ app.use("/api/v1/url", urlLimiter);
 
 // Routes
 app.use("/api/v1/auth", authRoute);
+app.use("/api/v1/admin", adminRoute);
 app.use("/api/v1/url", urlRoute);
 
 // Health/test
@@ -108,7 +110,7 @@ function pingServer() {
 }
 
 // Ping every 12 minutes (720,000 milliseconds)
-setInterval(pingServer, 720000); 
+setInterval(pingServer, 720000);
 
 // Errors
 app.use(notFoundHandler);
