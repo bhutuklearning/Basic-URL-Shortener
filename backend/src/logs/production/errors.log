@@ -1587,3 +1587,87 @@ Stack: Error: User not found. Please register.
     at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
 ----------------------------------------
 
+[2025-11-16T04:01:43.676Z] ERROR
+Request ID: oswiv94
+IP: ::1
+User: anonymous
+Method: GET
+URL: /api/v1/auth/profile
+Status: 401
+Message: Not authorized, no token
+Stack: Error: Not authorized, no token
+    at file:///C:/Users/amrit/Desktop/The%20Projects/Backend%20Series/Project-3/backend/src/middlewares/auth.middleware.js:23:15
+    at file:///C:/Users/amrit/Desktop/The%20Projects/Backend%20Series/Project-3/backend/src/middlewares/error.middleware.js:135:9
+    at Layer.handleRequest (C:\Users\amrit\Desktop\The Projects\Backend Series\Project-3\backend\node_modules\router\lib\layer.js:152:17)
+    at next (C:\Users\amrit\Desktop\The Projects\Backend Series\Project-3\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (C:\Users\amrit\Desktop\The Projects\Backend Series\Project-3\backend\node_modules\router\lib\route.js:117:3)
+    at handle (C:\Users\amrit\Desktop\The Projects\Backend Series\Project-3\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (C:\Users\amrit\Desktop\The Projects\Backend Series\Project-3\backend\node_modules\router\lib\layer.js:152:17)
+    at C:\Users\amrit\Desktop\The Projects\Backend Series\Project-3\backend\node_modules\router\index.js:295:15
+    at processParams (C:\Users\amrit\Desktop\The Projects\Backend Series\Project-3\backend\node_modules\router\index.js:582:12)
+    at next (C:\Users\amrit\Desktop\The Projects\Backend Series\Project-3\backend\node_modules\router\index.js:291:5)
+----------------------------------------
+
+[2025-11-16T04:01:43.909Z] ERROR
+Request ID: 36hfvvd
+IP: ::1
+User: anonymous
+Method: GET
+URL: /api/v1/auth/profile
+Status: 401
+Message: Not authorized, no token
+Stack: Error: Not authorized, no token
+    at file:///C:/Users/amrit/Desktop/The%20Projects/Backend%20Series/Project-3/backend/src/middlewares/auth.middleware.js:23:15
+    at file:///C:/Users/amrit/Desktop/The%20Projects/Backend%20Series/Project-3/backend/src/middlewares/error.middleware.js:135:9
+    at Layer.handleRequest (C:\Users\amrit\Desktop\The Projects\Backend Series\Project-3\backend\node_modules\router\lib\layer.js:152:17)
+    at next (C:\Users\amrit\Desktop\The Projects\Backend Series\Project-3\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (C:\Users\amrit\Desktop\The Projects\Backend Series\Project-3\backend\node_modules\router\lib\route.js:117:3)
+    at handle (C:\Users\amrit\Desktop\The Projects\Backend Series\Project-3\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (C:\Users\amrit\Desktop\The Projects\Backend Series\Project-3\backend\node_modules\router\lib\layer.js:152:17)
+    at C:\Users\amrit\Desktop\The Projects\Backend Series\Project-3\backend\node_modules\router\index.js:295:15
+    at processParams (C:\Users\amrit\Desktop\The Projects\Backend Series\Project-3\backend\node_modules\router\index.js:582:12)
+    at next (C:\Users\amrit\Desktop\The Projects\Backend Series\Project-3\backend\node_modules\router\index.js:291:5)
+----------------------------------------
+
+[2025-11-16T04:20:31.452Z] ERROR
+Request ID: v8xg6uc
+IP: ::1
+User: anonymous
+Method: GET
+URL: /api/v1/auth/profile
+Status: 401
+Message: Not authorized, no token
+Stack: Error: Not authorized, no token
+    at file:///C:/Users/amrit/Desktop/The%20Projects/Backend%20Series/Project-3/backend/src/middlewares/auth.middleware.js:23:15
+    at file:///C:/Users/amrit/Desktop/The%20Projects/Backend%20Series/Project-3/backend/src/middlewares/error.middleware.js:135:9
+    at Layer.handleRequest (C:\Users\amrit\Desktop\The Projects\Backend Series\Project-3\backend\node_modules\router\lib\layer.js:152:17)
+    at next (C:\Users\amrit\Desktop\The Projects\Backend Series\Project-3\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (C:\Users\amrit\Desktop\The Projects\Backend Series\Project-3\backend\node_modules\router\lib\route.js:117:3)
+    at handle (C:\Users\amrit\Desktop\The Projects\Backend Series\Project-3\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (C:\Users\amrit\Desktop\The Projects\Backend Series\Project-3\backend\node_modules\router\lib\layer.js:152:17)
+    at C:\Users\amrit\Desktop\The Projects\Backend Series\Project-3\backend\node_modules\router\index.js:295:15
+    at processParams (C:\Users\amrit\Desktop\The Projects\Backend Series\Project-3\backend\node_modules\router\index.js:582:12)
+    at next (C:\Users\amrit\Desktop\The Projects\Backend Series\Project-3\backend\node_modules\router\index.js:291:5)
+----------------------------------------
+
+[2025-11-16T04:20:31.481Z] ERROR
+Request ID: h0lu1nt
+IP: ::1
+User: anonymous
+Method: GET
+URL: /api/v1/auth/profile
+Status: 401
+Message: Not authorized, no token
+Stack: Error: Not authorized, no token
+    at file:///C:/Users/amrit/Desktop/The%20Projects/Backend%20Series/Project-3/backend/src/middlewares/auth.middleware.js:23:15
+    at file:///C:/Users/amrit/Desktop/The%20Projects/Backend%20Series/Project-3/backend/src/middlewares/error.middleware.js:135:9
+    at Layer.handleRequest (C:\Users\amrit\Desktop\The Projects\Backend Series\Project-3\backend\node_modules\router\lib\layer.js:152:17)
+    at next (C:\Users\amrit\Desktop\The Projects\Backend Series\Project-3\backend\node_modules\router\lib\route.js:157:13)
+    at Route.dispatch (C:\Users\amrit\Desktop\The Projects\Backend Series\Project-3\backend\node_modules\router\lib\route.js:117:3)
+    at handle (C:\Users\amrit\Desktop\The Projects\Backend Series\Project-3\backend\node_modules\router\index.js:435:11)
+    at Layer.handleRequest (C:\Users\amrit\Desktop\The Projects\Backend Series\Project-3\backend\node_modules\router\lib\layer.js:152:17)
+    at C:\Users\amrit\Desktop\The Projects\Backend Series\Project-3\backend\node_modules\router\index.js:295:15
+    at processParams (C:\Users\amrit\Desktop\The Projects\Backend Series\Project-3\backend\node_modules\router\index.js:582:12)
+    at next (C:\Users\amrit\Desktop\The Projects\Backend Series\Project-3\backend\node_modules\router\index.js:291:5)
+----------------------------------------
+

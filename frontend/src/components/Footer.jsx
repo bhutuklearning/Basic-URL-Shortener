@@ -58,22 +58,22 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4 text-blue-400">Resources</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-gray-300 hover:text-white transition-colors">API Documentation</a>
+                <a href="https://github.com/bhutuklearning/Basic-URL-Shortener?tab=readme-ov-file#api-documentation" className="text-gray-300 hover:text-white transition-colors">API Documentation</a>
               </li>
               <li>
-                <a href="#" className="text-gray-300 hover:text-white transition-colors">Developer Guide</a>
+                <a href="https://github.com/bhutuklearning/Basic-URL-Shortener/blob/main/README.md" className="text-gray-300 hover:text-white transition-colors">Developer Guide</a>
               </li>
-              <li>
+              {/* <li>
                 <a href="#" className="text-gray-300 hover:text-white transition-colors">FAQs</a>
-              </li>
-              <li>
+              </li> */}
+              {/* <li>
                 <a href="#" className="text-gray-300 hover:text-white transition-colors">Support</a>
-              </li>
+              </li> */}
             </ul>
           </div>
 
           {/* Newsletter */}
-          <div className="col-span-1">
+          {/* <div className="col-span-1">
             <h3 className="text-lg font-semibold mb-4 text-blue-400">Stay Updated</h3>
             <p className="text-gray-300 mb-4">Subscribe to our newsletter for the latest updates and features.</p>
             <form className="flex">
@@ -89,6 +89,28 @@ const Footer = () => {
                 Subscribe
               </button>
             </form>
+          </div> */}
+          {/* An ask for Help */}
+          <div className="col-span-1 md:col-span-1">
+            <div className="flex items-center mb-4">
+              <FaLink className="h-6 w-6 text-blue-400 mr-2" />
+              <span className="text-xl font-bold">Help this project</span>
+            </div>
+            <p className="text-gray-300 mb-4">
+              If you want to support this project by becoming a sponsor or want to contribute for a domain name, just ping me on <a href="https://x.com/Amritanshutwt" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
+                <span className='font-bold text-white'>X/Twitter</span>
+              </a>. Want to make this project better or advance its features? <a href="https://github.com/bhutuklearning/Basic-URL-Shortener" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
+                <span className='font-bold  text-white'>Click me.</span>
+              </a>
+            </p>
+            {/* <div className="flex space-x-4">
+              <a href="https://github.com/bhutuklearning" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
+                <FaGithub className="h-6 w-6" />
+              </a>
+              <a href="https://x.com/Amritanshutwt" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
+                <FaTwitter className="h-6 w-6" />
+              </a>
+            </div> */}
           </div>
         </div>
 
