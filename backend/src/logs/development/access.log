@@ -18570,3 +18570,14 @@
 [Nov 15, 2025, 15:15:01] hsdovns | IP: ::1 | User: admin | "GET /api/v1/admin/urls" | Status: 200 | Time: 159.908 ms | UA: PostmanRuntime/7.49.1 | ShortID: none | OriginalURL: none
 [Nov 15, 2025, 15:18:08] o3iwlcg | IP: ::1 | User: admin | "GET /api/v1/admin/urls" | Status: 200 | Time: 211.889 ms | UA: PostmanRuntime/7.49.1 | ShortID: none | OriginalURL: none
 [Nov 15, 2025, 15:18:25] aaumdxe | IP: ::1 | User: admin | "POST /api/v1/auth/logout" | Status: 200 | Time: 136.482 ms | UA: PostmanRuntime/7.49.1 | ShortID: none | OriginalURL: none
+[Nov 16, 2025, 09:13:15] a5nxa93 | IP: ::1 | User: anonymous | "POST /api/v1/auth/login" | Status: 200 | Time: 1905.381 ms | UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:145.0 | ShortID: none | OriginalURL: none
+[Nov 16, 2025, 09:13:16] qc0c5fv | IP: ::1 | User: user0 | "GET /api/v1/auth/profile" | Status: 200 | Time: 62.365 ms | UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:145.0 | ShortID: none | OriginalURL: none
+[Nov 16, 2025, 09:13:16] ondns2l | IP: ::1 | User: user0 | "GET /api/v1/auth/profile" | Status: 200 | Time: 55.634 ms | UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:145.0 | ShortID: none | OriginalURL: none
+[Nov 16, 2025, 09:13:16] 40rlte6 | IP: ::1 | User: user0 | "GET /api/v1/auth/profile" | Status: 304 | Time: 52.312 ms | UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:145.0 | ShortID: none | OriginalURL: none
+[Nov 16, 2025, 09:13:16] 06gpse2 | IP: ::1 | User: user0 | "GET /api/v1/auth/profile" | Status: 200 | Time: 46.617 ms | UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:145.0 | ShortID: none | OriginalURL: none
+[Nov 16, 2025, 09:13:16] r7e7s54 | IP: ::1 | User: user0 | "GET /api/v1/url/myurls/direct" | Status: 200 | Time: 125.970 ms | UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:145.0 | ShortID: none | OriginalURL: none
+[Nov 16, 2025, 09:13:16] 2jegkh0 | IP: ::1 | User: user0 | "GET /api/v1/url/myurls/direct" | Status: 200 | Time: 129.226 ms | UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:145.0 | ShortID: none | OriginalURL: none
+[Nov 16, 2025, 09:13:31] tg91lmu | IP: ::1 | User: user0 | "GET /api/v1/url/myurls/direct" | Status: 304 | Time: 107.606 ms | UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:145.0 | ShortID: none | OriginalURL: none
+[Nov 16, 2025, 09:13:31] zdau9j9 | IP: ::1 | User: user0 | "GET /api/v1/url/myurls/direct" | Status: 200 | Time: 115.779 ms | UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:145.0 | ShortID: none | OriginalURL: none
+[Nov 16, 2025, 09:13:33] 4oym6no | IP: ::1 | User: user0 | "GET /api/v1/url/url99/analytics" | Status: 200 | Time: 86.251 ms | UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:145.0 | ShortID: url99 | OriginalURL: none
+[Nov 16, 2025, 09:13:33] zz6u1m4 | IP: ::1 | User: user0 | "GET /api/v1/url/url99/analytics" | Status: 200 | Time: 86.515 ms | UA: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:145.0 | ShortID: url99 | OriginalURL: none

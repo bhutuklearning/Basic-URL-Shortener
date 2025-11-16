@@ -361,7 +361,7 @@ const AnalyticsPage = () => {
             <div className="mb-2 md:mb-0">
               <p className="text-sm text-gray-500 mb-1">Created</p>
               <div className="flex items-center">
-                  <FaCalendarAlt className="h-4 w-4 text-gray-500 mr-2" />
+                <FaCalendarAlt className="h-4 w-4 text-gray-500 mr-2" />
                 <span>{formatDate(urlDetails?.createdAt || new Date())}</span>
               </div>
             </div>
@@ -515,7 +515,7 @@ const AnalyticsPage = () => {
         </div>
 
         {/* Device & Browser Stats (Placeholder) */}
-        <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+        {/* <div className="bg-white rounded-lg shadow-lg overflow-hidden">
           <div className="px-6 py-4 border-b border-gray-200 bg-linear-to-r from-gray-50 to-gray-100">
             <h2 className="text-xl font-semibold text-gray-900 flex items-center">
               <FaDesktop className="mr-2 text-blue-600" />
@@ -578,7 +578,7 @@ const AnalyticsPage = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* Click Details */}
