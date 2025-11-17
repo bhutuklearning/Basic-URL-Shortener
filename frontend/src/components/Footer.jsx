@@ -99,18 +99,10 @@ const Footer = () => {
             <p className="text-gray-300 mb-4">
               If you want to support this project by becoming a sponsor or want to contribute for a domain name, just ping me on <a href="https://x.com/Amritanshutwt" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
                 <span className='font-bold text-white'>X/Twitter</span>
-              </a>. Want to make this project better or advance its features? <a href="https://github.com/bhutuklearning/Basic-URL-Shortener" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
+              </a>. Want to make this project better or advance its features? <a href="https://github.com/bhutuklearning/Basic-URL-Shortener/discussions" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
                 <span className='font-bold  text-white'>Click me.</span>
               </a>
             </p>
-            {/* <div className="flex space-x-4">
-              <a href="https://github.com/bhutuklearning" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
-                <FaGithub className="h-6 w-6" />
-              </a>
-              <a href="https://x.com/Amritanshutwt" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
-                <FaTwitter className="h-6 w-6" />
-              </a>
-            </div> */}
           </div>
         </div>
 
