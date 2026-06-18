@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { authAPI } from "../api.js";
 import { FaUser, FaLock, FaEye, FaEyeSlash, FaSignInAlt, FaArrowLeft } from "react-icons/fa";
+import ThemeToggle from "../components/ThemeToggle";
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -37,13 +38,18 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100 flex items-center justify-center px-4 py-8">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100 dark:bg-gray-950 dark:from-gray-950 dark:via-blue-950 dark:to-indigo-950 flex items-center justify-center px-4 py-8 relative text-gray-900 dark:text-white">
+      {/* Theme Toggle */}
+      <div className="absolute top-4 right-4 z-20">
+        <ThemeToggle />
+      </div>
+
       <div className="w-full max-w-md">
         {/* Back Button */}
         <div className="mb-6">
           <Link
             to="/"
-            className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 transition-colors duration-200"
+            className="inline-flex items-center text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors duration-200"
           >
             <FaArrowLeft className="h-4 w-4 mr-2" />
             Back to Home
@@ -51,7 +57,7 @@ const LoginPage = () => {
         </div>
 
         {/* Main Card */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl border border-white/20 overflow-hidden">
+        <div className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm rounded-2xl shadow-2xl dark:shadow-gray-900/50 border border-white/20 dark:border-gray-700/60 overflow-hidden">
           {/* Header */}
           <div className="bg-linear-to-r from-blue-600 to-indigo-700 px-8 py-8 text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full mb-4">
@@ -68,13 +74,13 @@ const LoginPage = () => {
           {/* Form */}
           <div className="px-8 py-8">
             {error && (
-              <div className="mb-6 bg-red-50 border-l-4 border-red-400 p-4 rounded-r-lg">
+              <div className="mb-6 bg-red-50 dark:bg-red-950/50 border-l-4 border-red-400 p-4 rounded-r-lg">
                 <div className="flex items-center">
                   <div className="shrink-0">
                     <FaEyeSlash className="h-5 w-5 text-red-400" />
                   </div>
                   <div className="ml-3">
-                    <p className="text-sm text-red-700 font-medium">{error}</p>
+                    <p className="text-sm text-red-700 dark:text-red-400 font-medium">{error}</p>
                   </div>
                 </div>
               </div>
@@ -84,7 +90,7 @@ const LoginPage = () => {
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-semibold text-gray-700 mb-3"
+                  className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3"
                 >
                   Email Address
                 </label>
@@ -98,7 +104,7 @@ const LoginPage = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
+                    className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-800 dark:text-white dark:placeholder-gray-500"
                     placeholder="your@email.com"
                     required
                   />
@@ -108,7 +114,7 @@ const LoginPage = () => {
               <div>
                 <label
                   htmlFor="password"
-                  className="block text-sm font-semibold text-gray-700 mb-3"
+                  className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3"
                 >
                   Password
                 </label>
@@ -122,7 +128,7 @@ const LoginPage = () => {
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
-                    className="w-full pl-12 pr-14 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
+                    className="w-full pl-12 pr-14 py-4 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-gray-50 dark:bg-gray-800 focus:bg-white dark:focus:bg-gray-800 dark:text-white dark:placeholder-gray-500"
                     placeholder="••••••••"
                     required
                   />
@@ -161,11 +167,11 @@ const LoginPage = () => {
 
             {/* Sign Up Link */}
             <div className="mt-8 text-center">
-              <p className="text-gray-600 text-sm">
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
                 Don't have an account?{" "}
                 <Link
                   to="/register"
-                  className="text-blue-600 hover:text-blue-700 font-semibold transition-colors duration-200"
+                  className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-400 font-semibold transition-colors duration-200"
                 >
                   Create one now
                 </Link>

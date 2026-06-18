@@ -83,11 +83,11 @@ const HomePage = () => {
     <div className="max-w-4xl mx-auto">
       {/* Hero Section */}
       <div className="text-center mb-12">
-        <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+        <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
           Shorten Your URLs
-          <span className="text-blue-600"> Instantly</span>
+          <span className="text-blue-600 dark:text-blue-400"> Instantly</span>
         </h1>
-        <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+        <p className="text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
           Create short, memorable links that are perfect for sharing. Track
           clicks and get detailed analytics.
         </p>
@@ -105,12 +105,12 @@ const HomePage = () => {
       </div>
 
       {/* URL Shortener Form */}
-      <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
+      <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg dark:shadow-gray-900/50 p-8 mb-8">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label
               htmlFor="originalUrl"
-              className="block text-sm font-medium text-gray-700 mb-2"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
             >
               Enter your long URL
             </label>
@@ -120,7 +120,7 @@ const HomePage = () => {
               value={originalUrl}
               onChange={(e) => setOriginalUrl(e.target.value)}
               placeholder="https://example.com/very-long-url"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-white"
               required
             />
           </div>
@@ -128,7 +128,7 @@ const HomePage = () => {
           <div>
             <label
               htmlFor="customShortId"
-              className="block text-sm font-medium text-gray-700 mb-2"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
             >
               Custom short ID
             </label>
@@ -138,12 +138,12 @@ const HomePage = () => {
               value={customShortId}
               onChange={(e) => setCustomShortId(e.target.value)}
               placeholder="my-custom-link"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-white"
             />
           </div>
 
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+            <div className="bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 px-4 py-3 rounded-lg">
               {error}
             </div>
           )}
@@ -169,15 +169,15 @@ const HomePage = () => {
 
         {/* Result */}
         {shortUrl && (
-          <div className="mt-6 p-6 bg-blue-50 border border-blue-200 rounded-lg shadow-md">
-            <h3 className="text-lg font-semibold text-gray-800 mb-3">Your Shortened URL</h3>
+          <div className="mt-6 p-6 bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 rounded-lg shadow-md">
+            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-3">Your Shortened URL</h3>
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-              <div className="flex-1 bg-white p-3 rounded-lg border border-blue-200 font-mono text-blue-700 truncate break-all">
+              <div className="flex-1 bg-white dark:bg-gray-900 p-3 rounded-lg border border-blue-200 dark:border-blue-800 font-mono text-blue-700 dark:text-blue-400 truncate break-all">
                 {shortUrl}
               </div>
               <button
                 onClick={copyToClipboard}
-                className="flex items-center justify-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-all duration-300 shadow-sm"
+                className="flex items-center justify-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-all duration-300 shadow-sm dark:shadow-gray-900/30"
               >
                 {copied ? (
                   <FaCheck className="h-4 w-4" />
@@ -190,7 +190,7 @@ const HomePage = () => {
             <div className="mt-4 flex justify-end">
               <button
                 onClick={() => window.open(shortUrl, '_blank', 'noopener,noreferrer')}
-                className="text-blue-600 hover:text-blue-800 flex items-center"
+                className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 flex items-center"
               >
                 <span>Visit shortened URL</span>
                 <FaArrowRight className="ml-2" />
@@ -203,35 +203,35 @@ const HomePage = () => {
       {/* Features */}
       <div className="grid md:grid-cols-3 gap-8 mb-12">
         <div className="text-center">
-          <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-            <FaLink className="h-8 w-8 text-blue-600" />
+          <div className="bg-blue-100 dark:bg-blue-900/50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+            <FaLink className="h-8 w-8 text-blue-600 dark:text-blue-400" />
           </div>
-          <h3 className="text-xl font-semibold text-gray-900 mb-2">
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
             Fast & Simple
           </h3>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-400">
             Create short URLs in seconds with our simple interface.
           </p>
         </div>
         <div className="text-center">
-          <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-            <FaCopy className="h-8 w-8 text-green-600" />
+          <div className="bg-green-100 dark:bg-green-900/50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+            <FaCopy className="h-8 w-8 text-green-600 dark:text-green-400" />
           </div>
-          <h3 className="text-xl font-semibold text-gray-900 mb-2">
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
             Easy Sharing
           </h3>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-400">
             Share your links easily with one-click copy functionality.
           </p>
         </div>
         <div className="text-center">
-          <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-            <FaArrowRight className="h-8 w-8 text-purple-600" />
+          <div className="bg-purple-100 dark:bg-purple-900/50 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+            <FaArrowRight className="h-8 w-8 text-purple-600 dark:text-purple-400" />
           </div>
-          <h3 className="text-xl font-semibold text-gray-900 mb-2">
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
             Analytics
           </h3>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-400">
             Track clicks and get detailed analytics for your URLs.
           </p>
         </div>

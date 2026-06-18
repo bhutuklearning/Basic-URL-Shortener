@@ -27,10 +27,10 @@ const AuthGuard = ({ children }) => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950">
         <div className="text-center">
-          <FaSpinner className="h-12 w-12 text-blue-600 animate-spin mx-auto mb-4" />
-          <p className="text-gray-600">Checking authentication...</p>
+          <FaSpinner className="h-12 w-12 text-blue-600 dark:text-blue-400 animate-spin mx-auto mb-4" />
+          <p className="text-gray-600 dark:text-gray-400">Checking authentication...</p>
         </div>
       </div>
     );
@@ -44,4 +44,3 @@ const AuthGuard = ({ children }) => {
 };
 
 export default AuthGuard;
-

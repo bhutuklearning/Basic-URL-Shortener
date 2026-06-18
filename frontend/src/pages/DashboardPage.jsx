@@ -104,7 +104,7 @@ const DashboardPage = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 dark:border-blue-400"></div>
       </div>
     );
   }
@@ -112,14 +112,14 @@ const DashboardPage = () => {
   return (
     <div className="max-w-6xl mx-auto">
       {/* Header */}
-      <div className="flex justify-between items-center mb-8 bg-linear-to-r from-blue-600 to-indigo-700 p-6 rounded-lg shadow-lg">
+      <div className="flex justify-between items-center mb-8 bg-linear-to-r from-blue-600 to-indigo-700 p-6 rounded-lg shadow-lg dark:shadow-gray-900/50">
         <div className="text-white">
           <h1 className="text-3xl font-bold">URL Dashboard</h1>
           <p className="mt-2 opacity-90">Create and manage your shortened URLs</p>
         </div>
         <button
           onClick={() => navigate('/home')}
-          className="bg-white text-blue-700 hover:bg-blue-50 px-6 py-3 rounded-lg font-semibold flex items-center space-x-2 transition-colors shadow-md"
+          className="bg-white dark:bg-gray-900 text-blue-700 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-gray-800 px-6 py-3 rounded-lg font-semibold flex items-center space-x-2 transition-colors shadow-md"
         >
           <FaPlus className="h-5 w-5" />
           <span>Create New URL</span>
@@ -128,16 +128,16 @@ const DashboardPage = () => {
 
       {/* Create URL Form */}
       {showCreateForm && (
-        <div className="bg-white rounded-lg shadow-lg p-6 mb-8 border-t-4 border-blue-600 transform transition-all duration-300">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
-            <FaLink className="mr-2 text-blue-600" />
+        <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg dark:shadow-gray-900/50 p-6 mb-8 border-t-4 border-blue-600 transform transition-all duration-300">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+            <FaLink className="mr-2 text-blue-600 dark:text-blue-400" />
             Create Short URL
           </h2>
           <form onSubmit={handleCreateUrl} className="space-y-5">
             <div className="transition-all duration-300 hover:shadow-md p-4 rounded-lg">
               <label
                 htmlFor="originalUrl"
-                className="block text-sm font-medium text-gray-700 mb-2"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
               >
                 Original URL
               </label>
@@ -153,7 +153,7 @@ const DashboardPage = () => {
                     setNewUrl({ ...newUrl, originalUrl: e.target.value })
                   }
                   placeholder="https://example.com/very-long-url"
-                  className="w-full pl-10 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                  className="w-full pl-10 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all dark:bg-gray-800 dark:text-white"
                   required
                 />
               </div>
@@ -163,7 +163,7 @@ const DashboardPage = () => {
             <div className="transition-all duration-300 hover:shadow-md p-4 rounded-lg">
               <label
                 htmlFor="customShortId"
-                className="block text-sm font-medium text-gray-700 mb-2"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
               >
                 Custom Short ID (optional)
               </label>
@@ -175,13 +175,13 @@ const DashboardPage = () => {
                   setNewUrl({ ...newUrl, customShortId: e.target.value })
                 }
                 placeholder="my-custom-link"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all dark:bg-gray-800 dark:text-white"
               />
               <p className="mt-1 text-xs text-gray-500">Leave blank for an auto-generated short URL</p>
             </div>
 
             {error && (
-              <div className="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 rounded-lg flex items-center">
+              <div className="bg-red-50 dark:bg-red-950/50 border-l-4 border-red-500 text-red-700 dark:text-red-400 p-4 rounded-lg flex items-center">
                 <svg className="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
                 </svg>
@@ -213,7 +213,7 @@ const DashboardPage = () => {
               <button
                 type="button"
                 onClick={() => setShowCreateForm(false)}
-                className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-semibold transition-colors shadow-md"
+                className="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 px-6 py-3 rounded-lg font-semibold transition-colors shadow-md"
               >
                 Cancel
               </button>
@@ -223,10 +223,10 @@ const DashboardPage = () => {
       )}
 
       {/* URLs List */}
-      <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-200 bg-linear-to-r from-gray-50 to-gray-100">
-          <h2 className="text-xl font-semibold text-gray-900 flex items-center">
-            <FaLink className="mr-2 text-blue-600" />
+      <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg dark:shadow-gray-900/50 overflow-hidden">
+        <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700 bg-linear-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white flex items-center">
+            <FaLink className="mr-2 text-blue-600 dark:text-blue-400" />
             Your URLs
             <span className="ml-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
               {urls.length}
@@ -236,13 +236,13 @@ const DashboardPage = () => {
 
         {urls.length === 0 ? (
           <div className="text-center py-16 px-4">
-            <div className="bg-blue-50 rounded-full h-24 w-24 flex items-center justify-center mx-auto mb-6">
+            <div className="bg-blue-50 dark:bg-blue-950/50 rounded-full h-24 w-24 flex items-center justify-center mx-auto mb-6">
               <FaLink className="h-12 w-12 text-blue-300" />
             </div>
-            <h3 className="text-xl font-medium text-gray-900 mb-2">
+            <h3 className="text-xl font-medium text-gray-900 dark:text-white mb-2">
               No URLs yet
             </h3>
-            <p className="text-gray-600 mb-6 max-w-md mx-auto">
+            <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-md mx-auto">
               Create your first short URL to start tracking clicks and sharing simplified links
             </p>
             <button
@@ -254,31 +254,31 @@ const DashboardPage = () => {
             </button>
           </div>
         ) : (
-          <div className="divide-y divide-gray-200">
+          <div className="divide-y divide-gray-200 dark:divide-gray-700">
             {urls.map((url) => (
               <div
                 key={url.shortId}
-                className="p-6 hover:bg-blue-50 transition-all duration-300"
+                className="p-6 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all duration-300"
               >
                 <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center space-x-3 mb-3">
-                      <h3 className="text-base lg:text-lg font-medium text-gray-900 truncate max-w-full lg:max-w-md break-all" title={url.originalUrl}>
+                      <h3 className="text-base lg:text-lg font-medium text-gray-900 dark:text-white truncate max-w-full lg:max-w-md break-all" title={url.originalUrl}>
                         {url.originalUrl}
                       </h3>
                       <a
                         href={url.originalUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-600 hover:text-blue-700 transition-colors shrink-0"
+                        className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors shrink-0"
                         title="Visit original URL"
                       >
                         <FaExternalLinkAlt className="h-4 w-4" />
                       </a>
                     </div>
                     <div className="flex flex-wrap items-center gap-3 lg:gap-4 text-sm text-gray-500">
-                      <span className="font-mono bg-white border border-blue-200 px-3 py-1.5 rounded-lg flex items-center max-w-full" title={url.shortUrl}>
-                        <span className="mr-2 text-blue-600 shrink-0">🔗</span>
+                      <span className="font-mono bg-white dark:bg-gray-900 border border-blue-200 dark:border-blue-800 px-3 py-1.5 rounded-lg flex items-center max-w-full" title={url.shortUrl}>
+                        <span className="mr-2 text-blue-600 dark:text-blue-400 shrink-0">🔗</span>
                         <span className="truncate">{url.shortUrl}</span>
                       </span>
                       <span className="flex items-center shrink-0">
@@ -294,12 +294,12 @@ const DashboardPage = () => {
                   <div className="flex items-center space-x-2 lg:space-x-3 mt-3 lg:mt-0 flex-wrap gap-2">
                     <button
                       onClick={() => copyToClipboard(url.shortUrl, url.shortId)}
-                      className="flex items-center space-x-2 bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 px-3 lg:px-4 py-2 rounded-lg transition-all duration-300 shadow-sm shrink-0"
+                      className="flex items-center space-x-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 px-3 lg:px-4 py-2 rounded-lg transition-all duration-300 shadow-sm dark:shadow-gray-900/30 shrink-0"
                     >
                       {copied === url.shortId ? (
                         <>
-                          <FaCheck className="h-4 w-4 text-green-600" />
-                          <span className="text-green-600 hidden sm:inline">Copied!</span>
+                          <FaCheck className="h-4 w-4 text-green-600 dark:text-green-400" />
+                          <span className="text-green-600 dark:text-green-400 hidden sm:inline">Copied!</span>
                         </>
                       ) : (
                         <>
@@ -310,7 +310,7 @@ const DashboardPage = () => {
                     </button>
                     <button
                       onClick={() => window.open(url.shortUrl, '_blank', 'noopener')}
-                      className="flex items-center space-x-2 bg-linear-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-3 lg:px-4 py-2 rounded-lg transition-all duration-300 shadow-sm shrink-0"
+                      className="flex items-center space-x-2 bg-linear-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-3 lg:px-4 py-2 rounded-lg transition-all duration-300 shadow-sm dark:shadow-gray-900/30 shrink-0"
                       title="Open shortened URL"
                     >
                       <FaExternalLinkAlt className="h-4 w-4" />
@@ -318,7 +318,7 @@ const DashboardPage = () => {
                     </button>               
                     <button
                       onClick={() => navigate(`/analytics?data=${encodeURIComponent(JSON.stringify(url))}`)}
-                      className="flex items-center space-x-2 bg-linear-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-3 lg:px-4 py-2 rounded-lg transition-all duration-300 shadow-sm shrink-0"
+                      className="flex items-center space-x-2 bg-linear-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-3 lg:px-4 py-2 rounded-lg transition-all duration-300 shadow-sm dark:shadow-gray-900/30 shrink-0"
                     >
                       <FaChartBar className="h-4 w-4" />
                       <span className="hidden sm:inline">Analytics</span>

@@ -50,23 +50,23 @@ const RedirectPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-950">
         <div className="text-center">
-          <FaSpinner className="animate-spin h-12 w-12 text-blue-600 mx-auto mb-4" />
-          <h2 className="text-xl font-semibold text-gray-700 mb-2">Redirecting...</h2>
-          <p className="text-gray-500">Please wait while we redirect you to your destination.</p>
+          <FaSpinner className="animate-spin h-12 w-12 text-blue-600 dark:text-blue-400 mx-auto mb-4" />
+          <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-2">Redirecting...</h2>
+          <p className="text-gray-500 dark:text-gray-400">Please wait while we redirect you to your destination.</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-4">
-      <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-950 p-4">
+      <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg dark:shadow-gray-900/50 p-8 max-w-md w-full">
         <div className="text-center">
           <div className="text-red-500 text-5xl mb-4">⚠️</div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Redirect Failed</h1>
-          <p className="text-gray-600 mb-6">{error}</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Redirect Failed</h1>
+          <p className="text-gray-600 dark:text-gray-400 mb-6">{error}</p>
           <button
             onClick={handleGoHome}
             className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
