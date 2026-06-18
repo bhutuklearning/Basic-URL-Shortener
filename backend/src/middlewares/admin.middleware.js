@@ -8,7 +8,7 @@ export const isAdmin = catchAsync(async (req, res, next) => {
     }
 
     // Check if the user is the admin
-    if (req.user.email !== process.env.ADMIN_EMAIL) {
+    if (req.user.role !== "admin") {
         throw new AuthError("Admin access required");
     }
 

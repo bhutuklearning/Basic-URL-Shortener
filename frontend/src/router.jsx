@@ -10,6 +10,9 @@ import DashboardPage from "./pages/DashboardPage";
 import AnalyticsPage from "./pages/AnalyticsPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import RedirectPage from "./pages/RedirectPage";
+import AdminGuard from "./components/AdminGuard";
+import AdminDashboardPage from "./pages/AdminDashboardPage";
+
 
 const router = createBrowserRouter(
   [
@@ -43,6 +46,16 @@ const router = createBrowserRouter(
           <AuthGuard>
             <AnalyticsPage />
           </AuthGuard>
+        </Layout>
+      ),
+    },
+    {
+      path: "/admin/dashboard",
+      element: (
+        <Layout>
+          <AdminGuard>
+            <AdminDashboardPage />
+          </AdminGuard>
         </Layout>
       ),
     },

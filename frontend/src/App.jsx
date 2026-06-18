@@ -3,12 +3,14 @@ import React from "react";
 import { Toaster } from "react-hot-toast";
 import Layout from "./components/Layout";
 import AuthGuard from "./components/AuthGuard";
+import AdminGuard from "./components/AdminGuard";
 import LandingPage from "./pages/LandingPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import DashboardPage from "./pages/DashboardPage";
 import AnalyticsPage from "./pages/AnalyticsPage";
+import AdminDashboardPage from "./pages/AdminDashboardPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import RedirectPage from "./pages/RedirectPage";
 import "./App.css";
@@ -55,6 +57,19 @@ function App() {
               </Layout>
             }
           />
+          
+          {/* Admin protected routes */}
+          <Route
+            path="/admin/dashboard"
+            element={
+              <Layout>
+                <AdminGuard>
+                  <AdminDashboardPage />
+                </AdminGuard>
+              </Layout>
+            }
+          />
+
           {/* Redirect route for shortened URLs */}
           <Route path="/:shortId" element={<RedirectPage />} />
           <Route path="*" element={<NotFoundPage />} />

@@ -86,6 +86,14 @@ const Layout = ({ children }) => {
                   >
                     Analytics
                   </Link>
+                  {user.role === 'admin' && (
+                    <Link
+                      to="/admin/dashboard"
+                      className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                    >
+                      Admin Panel
+                    </Link>
+                  )}
                 </>
               ) : null}
             </nav>
@@ -166,6 +174,15 @@ const Layout = ({ children }) => {
                     >
                       Analytics
                     </Link>
+                    {user.role === 'admin' && (
+                      <Link
+                        to="/admin/dashboard"
+                        className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium md:text-center"
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        Admin Panel
+                      </Link>
+                    )}
                     <div className="border-t border-gray-200 pt-2 mt-2">
                       <div className="flex items-center space-x-2 px-3 py-2 ">
                         <FaUser className="h-4 w-4 text-gray-500" />

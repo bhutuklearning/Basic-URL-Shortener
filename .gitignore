@@ -8,3 +8,4 @@ DEPLOYMENT_FIX.md
 PRODUCTION_DEPLOYMENT.md
 
 frontend/dist/
+backend/src/seedAdmin.js
