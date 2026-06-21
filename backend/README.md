@@ -1,668 +1,344 @@
-# URL Shortener API
+# Advance URL Shortener API Backend
 
-A robust REST API for URL shortening, user management, and click analytics. Built with Node.js, Express, and MongoDB.
+<p align="center">
+  <img src="../frontend/public/Logo.png" alt="Advance URL Shortener Logo" width="300"/>
+</p>
 
-## Table of Contents
+<p align="center">
+  A production-ready Express 5 REST API powering the Advance URL Shortener service. Handles user authentication, secure session cookies, click analytics tracking, database schemas, rate limiting, and administrative APIs.
+</p>
 
+---
+
+## 📋 Table of Contents
 - [Overview](#overview)
-- [Features](#features)
 - [Tech Stack](#tech-stack)
-- [Architecture](#architecture)
-- [Project Structure](#project-structure)
-- [Quick Start](#quick-start)
-- [Environment Variables](#environment-variables)
-- [API Documentation](#api-documentation)
-- [Error Responses](#error-responses)
-- [Security](#security)
-- [Performance](#performance)
-- [Deployment](#deployment)
-- [Monitoring and Logging](#monitoring-and-logging)
-- [Health Checks](#health-checks)
+- [Database Models (Mongoose Schemas)](#database-models-mongoose-schemas)
+- [REST API Reference](#rest-api-reference)
+  - [Authentication Endpoints](#authentication-endpoints)
+  - [URL Shortener Endpoints](#url-shortener-endpoints)
+  - [Administrative Endpoints](#administrative-endpoints)
+- [Security & Authentication Strategy](#security--authentication-strategy)
+- [Error Handling Structure](#error-handling-structure)
+- [Logging & Observability](#logging--observability)
+- [Quick Start for Developers](#quick-start-for-developers)
 
-## Overview
+---
 
-This backend service powers a production-ready URL shortener. It provides secure authentication, configurable rate limiting, detailed click capture, and deployment-friendly observability. The codebase is built with Express 5 and MongoDB (via Mongoose) and follows a layered architecture separating routing, controllers, and data access concerns.
+## 🔍 Overview
 
-Key capabilities include:
-- RESTful API for URL shortening operations
-- JWT-based authentication with refresh tokens
-- Click tracking and analytics
-- Rate limiting and security measures
-- Comprehensive error handling
-- Structured logging and monitoring
+The backend service is structured following a layered architectural pattern separating routing, middleware filtration, controller logic, and data mapping. The server exposes a RESTful JSON interface for the client and records visitor device and click metadata during redirection.
 
-## Features
+---
 
-### Core API Features
+## 🛠️ Tech Stack
 
-- **URL Shortening**: Create short URLs with auto-generated or custom IDs
-- **URL Redirection**: Efficient redirect handling with click tracking
-- **User Authentication**: JWT-based authentication with refresh tokens
-- **Click Capture**: Persist timestamp, referrer, IP, and user agent metadata for each redirect
-- **Rate Limiting**: Configurable API rate limits to prevent abuse
-- **Error Handling**: Centralized error management with detailed error responses
+- **Runtime**: Node.js (ES Modules syntax support)
+- **Framework**: Express.js (v5.1.0)
+- **Database**: MongoDB (via Mongoose v8.19.0)
+- **Security & Session**: JWT (Access + Refresh tokens), bcryptjs password hashing, Helmet headers, express-rate-limit.
+- **Logging**: Morgan HTTP logger integrated with dynamic daily rotating file streams.
 
-### Authentication and Authorization
+---
 
-- **JWT Tokens**: Secure token-based authentication with access and refresh tokens
-- **Refresh Tokens**: Automatic token renewal system for seamless user experience
-- **Password Security**: bcrypt hashing with configurable salt rounds (default: 12)
-- **Session Management**: Secure logout and token cleanup
-- **Protected Routes**: Middleware-based route protection for authenticated endpoints
-- **Cookie-based Authentication**: HttpOnly cookies with environment-aware SameSite settings
+## 🗄️ Database Models (Mongoose Schemas)
 
-### Analytics and Reporting
+The MongoDB database maintains two primary collections: `users` and `urls`.
 
-- **Click History**: Access full click records per URL, including timestamp, IP, referrer, and user agent
-- **Unique Clicks**: Derive unique visitor counts based on captured IP addresses
-- **Referrer Tracking**: Monitor traffic sources and referrers
-- **User-Level Views**: Retrieve URL lists and analytics scoped to the authenticated user
-- **Time-based Analytics**: Track performance metrics over time periods
+### 👤 User Model (`backend/src/models/User.model.js`)
+Stores user profiles, access authorization roles, and session refresh tokens.
 
-### Security Features
+| Field | MongoDB Type | Validation / Constraints | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `userName` | `String` | Trimmed, Length: 3 - 50, Required | None | User display name |
+| `email` | `String` | Unique, Trimmed, Lowercase, Regex validated | None | Account login email address |
+| `password` | `String` | Min length: 6, Required | None | Bcrypt hashed password |
+| `role` | `String` | Enum: `["user", "admin"]` | `"user"` | Application control clearance level |
+| `refreshToken`| `String` | `select: false` (hidden in queries by default) | `undefined`| Valid refresh token string |
+| `lastLogin` | `Date` | Date timestamp | `null` | Record of last session login time |
+| `createdAt` | `Date` | Auto-generated timestamp | System | Document generation time |
+| `updatedAt` | `Date` | Auto-generated timestamp | System | Document modification time |
 
-- **Helmet.js**: Security headers implementation to protect against common vulnerabilities
-- **CORS Protection**: Configurable cross-origin policies with restrictive allowed origins
-- **Input Validation**: Comprehensive request validation to prevent malicious input
-- **Rate Limiting**: DDoS and abuse prevention through configurable rate limits
-- **Cookie Management**: HttpOnly cookies with environment-aware SameSite and Secure flags
-- **Error Handling**: Centralized error handler that avoids leaking stack traces in production
+### 🔗 URL Model (`backend/src/models/url.model.js`)
+Maps short identifiers to original web targets and maintains a log of visitor interactions.
 
-## Tech Stack
+| Field | MongoDB Type | Validation / Constraints | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `originalUrl` | `String` | Required | None | Target destination web URL |
+| `shortId` | `String` | Unique, Required | auto-generated | Unique identifier string (via `shortid`) |
+| `customShortId`| `String` | Unique, Sparse index | `undefined` | Custom user-defined short identifier |
+| `user` | `ObjectId` | Refers to `User` collection, Required | None | The owning user's database ID |
+| `clicks` | `Array` | List of click subdocuments | `[]` | Click tracking data array (defined below) |
+| `createdAt` | `Date` | Auto-generated timestamp | System | Document creation timestamp |
+| `updatedAt` | `Date` | Auto-generated timestamp | System | Document update timestamp |
 
-| Category           | Technology         | Version | Purpose                   |
-| ------------------ | ------------------ | ------- | ------------------------- |
-| **Runtime**        | Node.js            | Latest  | JavaScript runtime        |
-| **Framework**      | Express.js         | 5.1.0   | Web application framework |
-| **Database**       | MongoDB            | Latest  | NoSQL database            |
-| **ODM**            | Mongoose           | 8.19.0  | MongoDB object modeling   |
-| **Authentication** | JWT                | 9.0.2   | JSON Web Tokens           |
-| **Security**       | bcryptjs           | 3.0.2   | Password hashing          |
-| **Security**       | Helmet             | 8.1.0   | Security headers          |
-| **Logging**        | Morgan             | 1.10.1  | HTTP request logger       |
-| **Rate Limiting**  | express-rate-limit | 8.1.0   | API rate limiting         |
-| **Development**    | Nodemon            | 3.1.10  | Development hot reload    |
+#### `clicks` Subdocument Structure:
+- `timestamp` (`Date`): Timestamp of redirect click. Defaults to `Date.now`.
+- `referrer` (`String`): HTTP Referer header identifying the source traffic domain.
+- `ip` (`String`): Visitor IP address.
 
-## Architecture
+---
 
-The application follows a layered architecture pattern:
-
-```
-API Layer (Express.js Server)
-    ↓
-Middleware Stack (Auth, Rate Limiting, CORS)
-    ↓
-Route Handlers
-    ↓
-Business Logic (Controllers)
-    ↓
-Data Access (Mongoose Models)
-    ↓
-Data Store (MongoDB)
-```
-
-### Request Flow
-
-1. **Request Reception**: Express.js server receives HTTP request
-2. **Middleware Processing**: Request passes through middleware stack (CORS, rate limiting, authentication)
-3. **Route Handling**: Request is routed to appropriate handler
-4. **Controller Processing**: Business logic is executed in controller
-5. **Data Access**: Database operations are performed via Mongoose models
-6. **Response**: JSON response is sent back to client
-
-## Project Structure
-
-```
-backend/
-├── src/
-│   ├── app.js                 # Express app configuration
-│   ├── server.js              # Server entry point
-│   ├── config/                # Configuration files
-│   │   ├── db.js              # Database connection
-│   │   ├── env.js             # Environment variables
-│   │   └── logger.js          # Logging configuration
-│   ├── controllers/           # Request handlers
-│   │   ├── auth.controller.js # Authentication logic
-│   │   └── url.controller.js  # URL shortening logic
-│   ├── middlewares/           # Express middlewares
-│   │   ├── auth.middleware.js # Authentication middleware
-│   │   └── error.middleware.js# Error handling middleware
-│   ├── models/                # Database models
-│   │   ├── User.model.js      # User schema and model
-│   │   └── url.model.js       # URL schema and model
-│   ├── routes/                # API routes
-│   │   ├── auth.route.js      # Authentication routes
-│   │   └── url.route.js       # URL shortening routes
-│   ├── utils/                 # Utility functions
-│   │   └── generateToken.js   # JWT token generation
-│   └── logs/                  # Application logs
-│       ├── development/       # Dev environment logs
-│       └── production/        # Production environment logs
-├── package.json               # Dependencies and scripts
-├── .env.example               # Environment variables template
-└── README.md                  # Documentation
-```
-
-## Quick Start
-
-### Prerequisites
-
-- Node.js (v18 or higher)
-- MongoDB (v6 or higher)
-- npm or yarn
-
-### Installation
-
-1. **Clone and navigate to backend**
-
-   ```bash
-   git clone https://github.com/yourusername/url-shortener.git
-   cd url-shortener/backend
-   ```
-
-2. **Install dependencies**
-
-   ```bash
-   npm install
-   ```
-
-3. **Environment setup**
-
-   Copy the sample environment file and update it with your configuration:
-
-   ```bash
-   # macOS / Linux
-   cp .env.example .env
-   ```
-
-   ```powershell
-   # Windows PowerShell
-   Copy-Item .env.example .env
-   ```
-
-   Edit `.env` in your preferred editor (VS Code, Notepad, nano, etc.).
-
-4. **Start the server**
-
-   ```bash
-   # Development mode with hot reloading
-   npm run backend
-
-   # Production mode
-   npm start
-   ```
-
-   The server will start on the port specified in your `.env` file (default: 9000).
-
-## Environment Variables
-
-Create a `.env` file in the backend root directory:
-
-```env
-# Server Configuration
-PORT=9000
-NODE_ENV=development
-
-# Database Configuration
-MONGO_URI=mongodb://localhost:27017/url-shortener
-DB_NAME=url-shortener
-
-# JWT Configuration
-JWT_SECRET=your-super-secret-jwt-key-here
-JWT_EXPIRES=7d
-JWT_ACCESS_SECRET=your-access-token-secret
-JWT_ACCESS_EXPIRES_IN=15m
-JWT_REFRESH_SECRET=your-refresh-token-secret
-JWT_REFRESH_EXPIRES_IN=7d
-
-# Security Configuration
-BCRYPT_ROUNDS=12
-RATE_LIMIT_WINDOW_MS=900000
-RATE_LIMIT_MAX_REQUESTS=100
-
-# CORS Configuration
-FRONTEND_URL=http://localhost:5173
-BACKEND_URL=http://localhost:9000
-
-# Logging Configuration
-LOG_LEVEL=info
-LOG_FILE_MAX_SIZE=10m
-LOG_FILE_MAX_FILES=5
-```
-
-### Required Environment Variables
-
-- **PORT**: Server port (default: 9000)
-- **NODE_ENV**: Environment mode (development or production)
-- **MONGO_URI**: MongoDB connection string
-- **JWT_SECRET**: Secret key for JWT token signing
-- **FRONTEND_URL**: Frontend URL for CORS and short URL generation
-
-### Optional Environment Variables
-
-- **DB_NAME**: Database name (default: url-shortener)
-- **JWT_ACCESS_SECRET**: Access token secret (defaults to JWT_SECRET)
-- **JWT_REFRESH_SECRET**: Refresh token secret (defaults to JWT_SECRET)
-- **BACKEND_URL**: Backend URL for self-pinging (optional)
-
-## API Documentation
-
-### Base URL
-
-- Development: `http://localhost:9000/api/v1`
-- Production: `https://your-backend-domain.com/api/v1`
+## 📡 REST API Reference
 
 ### Authentication Endpoints
+All API routes are prefixed by `/api/v1/auth`.
 
-#### Register User
-
-```http
-POST /api/v1/auth/register
-Content-Type: application/json
-
-{
-  "userName": "johndoe",
-  "email": "john@example.com",
-  "password": "securepassword123"
-}
-```
-
-**Response:**
-
-```json
-{
-  "success": true,
-  "message": "User registered successfully",
-  "data": {
-    "user": {
-      "id": "user_id",
-      "userName": "johndoe",
-      "email": "john@example.com"
-    },
-    "accessToken": "jwt_access_token",
-    "refreshToken": "jwt_refresh_token"
+#### 1. Register User
+- **URL**: `/register`
+- **Method**: `POST`
+- **Body (`application/json`)**:
+  ```json
+  {
+    "userName": "johndoe",
+    "email": "john@example.com",
+    "password": "securepassword123"
   }
-}
-```
-
-#### Login User
-
-```http
-POST /api/v1/auth/login
-Content-Type: application/json
-
-{
-  "email": "john@example.com",
-  "password": "securepassword123"
-}
-```
-
-**Response:**
-
-```json
-{
-  "success": true,
-  "message": "Login successful",
-  "data": {
-    "user": {
-      "id": "user_id",
+  ```
+- **Response (201 Created)**:
+  ```json
+  {
+    "success": true,
+    "message": "User registered successfully",
+    "data": {
       "userName": "johndoe",
-      "email": "john@example.com"
-    },
-    "accessToken": "jwt_access_token",
-    "refreshToken": "jwt_refresh_token"
-  }
-}
-```
-
-#### Refresh Token
-
-```http
-POST /api/v1/auth/refresh-token
-Content-Type: application/json
-```
-
-**Response:**
-
-```json
-{
-  "success": true,
-  "data": {
-    "accessToken": "new_jwt_access_token",
-    "refreshToken": "new_jwt_refresh_token"
-  }
-}
-```
-
-#### Get User Profile
-
-```http
-GET /api/v1/auth/profile
-Authorization: Bearer jwt_access_token
-```
-
-**Response:**
-
-```json
-{
-  "success": true,
-  "data": {
-    "user": {
-      "id": "user_id",
-      "userName": "johndoe",
-      "email": "john@example.com"
+      "email": "john@example.com",
+      "role": "user",
+      "_id": "603dcbf1df7b69324888cf32"
     }
   }
-}
-```
+  ```
 
-#### Logout
-
-```http
-POST /api/v1/auth/logout
-Authorization: Bearer jwt_access_token
-```
-
-**Response:**
-
-```json
-{
-  "success": true,
-  "message": "Logout successful"
-}
-```
-
-### URL Shortening Endpoints
-
-#### Create Short URL
-
-```http
-POST /api/v1/url
-Authorization: Bearer jwt_access_token
-Content-Type: application/json
-
-{
-  "originalUrl": "https://example.com/very-long-url",
-  "customShortId": "my-custom-link"
-}
-```
-
-**Response:**
-
-```json
-{
-  "success": true,
-  "data": {
-    "shortId": "my-custom-link",
-    "shortUrl": "http://localhost:5173/my-custom-link",
-    "originalUrl": "https://example.com/very-long-url"
+#### 2. Login User
+- **URL**: `/login`
+- **Method**: `POST`
+- **Body (`application/json`)**:
+  ```json
+  {
+    "email": "john@example.com",
+    "password": "securepassword123"
   }
-}
-```
-
-#### Get User's URLs
-
-```http
-GET /api/v1/url/myurls/direct
-Authorization: Bearer jwt_access_token
-```
-
-**Response:**
-
-```json
-{
-  "success": true,
-  "data": [
-    {
-      "shortId": "abc123",
-      "shortUrl": "http://localhost:5173/abc123",
-      "originalUrl": "https://example.com/long-url",
-      "clicks": 42,
-      "createdAt": "2024-01-20T10:30:00.000Z"
+  ```
+- **Cookies Set**:
+  - `accessToken` (Access Token JWT)
+  - `refreshToken` (Refresh Token JWT)
+- **Response (200 OK)**:
+  ```json
+  {
+    "success": true,
+    "message": "Logged in successfully",
+    "data": {
+      "userName": "johndoe",
+      "email": "john@example.com",
+      "role": "user"
     }
-  ]
-}
-```
-
-#### Get Original URL (for frontend redirect)
-
-```http
-GET /api/v1/url/:shortId/original
-```
-
-**Response:**
-
-```json
-{
-  "success": true,
-  "data": {
-    "originalUrl": "https://example.com/very-long-url",
-    "shortId": "abc123"
   }
-}
-```
+  ```
 
-#### Redirect to Original URL
+#### 3. Refresh Access Token
+- **URL**: `/refresh-token`
+- **Method**: `POST`
+- **Cookies Required**: `refreshToken` cookie.
+- **Cookies Set**: `accessToken` cookie updated with a new validation token.
+- **Response (200 OK)**:
+  ```json
+  {
+    "success": true,
+    "message": "Token refreshed successfully"
+  }
+  ```
 
-```http
-GET /api/v1/url/:shortId
-```
+#### 4. Get User Profile
+- **URL**: `/profile`
+- **Method**: `GET`
+- **Headers Required**: `Authorization: Bearer <access_token>`
+- **Response (200 OK)**:
+  ```json
+  {
+    "success": true,
+    "data": {
+      "_id": "603dcbf1df7b69324888cf32",
+      "userName": "johndoe",
+      "email": "john@example.com",
+      "role": "user",
+      "lastLogin": "2026-06-21T09:00:00.000Z"
+    }
+  }
+  ```
 
-**Response:** HTTP 301 Redirect to original URL
+#### 5. User Logout
+- **URL**: `/logout`
+- **Method**: `POST`
+- **Headers Required**: `Authorization: Bearer <access_token>`
+- **Cookies Cleared**: `accessToken` and `refreshToken`.
+- **Response (200 OK)**:
+  ```json
+  {
+    "success": true,
+    "message": "Logged out successfully"
+  }
+  ```
 
-#### Get URL Analytics
+---
 
-```http
-GET /api/v1/url/:shortId/analytics
-Authorization: Bearer jwt_access_token
-```
+### URL Shortener Endpoints
+All API routes are prefixed by `/api/v1/url`.
 
-**Response:**
+#### 1. Shorten Link
+- **URL**: `/`
+- **Method**: `POST`
+- **Headers Required**: `Authorization: Bearer <access_token>`
+- **Body (`application/json`)**:
+  ```json
+  {
+    "originalUrl": "https://example.com/long-url-path",
+    "customShortId": "custom-alias"
+  }
+  ```
+- **Response (210 Created)**:
+  ```json
+  {
+    "success": true,
+    "message": "URL shortened successfully",
+    "data": {
+      "originalUrl": "https://example.com/long-url-path",
+      "shortId": "custom-alias",
+      "customShortId": "custom-alias",
+      "shortUrl": "http://localhost:5173/custom-alias"
+    }
+  }
+  ```
 
-```json
-{
-  "success": true,
-  "data": {
-    "clicks": 42,
-    "uniqueClicks": 38,
-    "referrers": ["google.com", "Direct"],
-    "details": [
+#### 2. Get User URL Lists
+- **URL**: `/myurls/direct`
+- **Method**: `GET`
+- **Headers Required**: `Authorization: Bearer <access_token>`
+- **Response (200 OK)**:
+  ```json
+  {
+    "success": true,
+    "data": [
       {
-        "timestamp": "2024-01-20T10:30:00.000Z",
-        "referrer": "google.com",
-        "ip": "192.168.1.1",
-        "userAgent": "Mozilla/5.0..."
+        "_id": "603dcd75df7b69324888cf3c",
+        "originalUrl": "https://example.com/long-url-path",
+        "shortId": "custom-alias",
+        "clickCount": 14
       }
-    ],
-    "shortUrl": "http://localhost:5173/abc123",
-    "originalUrl": "https://example.com/very-long-url",
-    "shortId": "abc123"
+    ]
   }
-}
-```
+  ```
 
-## Error Responses
+#### 3. Fetch URL Target (JSON)
+- **URL**: `/:shortId/original`
+- **Method**: `GET`
+- **Description**: Returns redirect address as JSON. Records visitor IP and referrer headers into database analytics.
+- **Response (200 OK)**:
+  ```json
+  {
+    "success": true,
+    "data": {
+      "originalUrl": "https://example.com/long-url-path"
+    }
+  }
+  ```
 
-All endpoints return a consistent structure on error:
+#### 4. Fetch Link Specific Analytics
+- **URL**: `/:shortId/analytics`
+- **Method**: `GET`
+- **Headers Required**: `Authorization: Bearer <access_token>`
+- **Response (200 OK)**:
+  ```json
+  {
+    "success": true,
+    "data": {
+      "originalUrl": "https://example.com/long-url-path",
+      "totalClicks": 3,
+      "uniqueClicks": 2,
+      "clicks": [
+        { "timestamp": "2026-06-21T09:12:00.000Z", "referrer": "Direct", "ip": "127.0.0.1" }
+      ],
+      "referrers": { "Direct": 1, "https://github.com": 2 }
+    }
+  }
+  ```
+
+#### 5. Direct HTTP Redirect
+- **URL**: `/:shortId`
+- **Method**: `GET`
+- **Description**: Standard direct redirect. Logs analytics and returns HTTP 302 redirect directly to the target original URL.
+
+---
+
+### Administrative Endpoints
+All API routes are prefixed by `/api/v1/admin` and require JWT user session authentication with `role: "admin"`.
+
+#### 1. Get All System URLs
+- **URL**: `/urls`
+- **Method**: `GET`
+- **Response (200 OK)**: Returns full array list of all created URL configurations across all users.
+
+#### 2. Get All Registered Users
+- **URL**: `/users`
+- **Method**: `GET`
+- **Response (200 OK)**: Returns list of user profiles (excluding passwords and tokens) including signup time and login history.
+
+#### 3. Get Global Analytics
+- **URL**: `/urls/analytics`
+- **Method**: `GET`
+- **Response (200 OK)**: Returns system-wide performance details (total clicks, unique visitors, total shortened links).
+
+#### 4. Basic Auth endpoint
+- **URL**: `/basic/urls`
+- **Method**: `GET`
+- **Headers Required**: `Authorization: Basic <base64_encoded_credentials>`
+- **Description**: Serves all created short URLs to automated administrative client software scripts.
+
+---
+
+## 🔒 Security & Authentication Strategy
+
+### JWT Token Verification
+Authentication uses double token rotation:
+1. **Access Token**: Short life (15 minutes). Decrypted to evaluate permissions.
+2. **Refresh Token**: Long life (7 days) saved in secure database logs and client cookies. Exposes `/refresh-token` endpoint to automatically request new access tokens if expired.
+
+### SameSite Cookies Configuration
+We implemented cookie settings to handle local environments and cross-site production hosting:
+- **Local Settings (`NODE_ENV !== 'production'`)**:
+  - `httpOnly: true`, `secure: false`, `sameSite: 'Lax'`
+- **Production Settings (`NODE_ENV === 'production'`)**:
+  - `httpOnly: true`, `secure: true`, `sameSite: 'None'`
+  - Allows secure cookies to cross domain bounds between frontend (Vercel) and backend (Render).
+
+---
+
+## 🛑 Error Handling Structure
+
+The API server returns standardized JSON structures for all errors caught by the middleware stack:
 
 ```json
 {
   "success": false,
-  "error": "Error message here"
+  "error": "Error message description details",
+  "stack": "Stack trace detail text (Only visible in development environment)"
 }
 ```
-
-When `NODE_ENV` is `development`, the response may also include a stack trace and additional metadata to help with debugging.
-
-### Common HTTP Status Codes
-
-- `200` - Success
-- `201` - Created
-- `400` - Bad Request
-- `401` - Unauthorized
-- `403` - Forbidden
-- `404` - Not Found
-- `429` - Too Many Requests
-- `500` - Internal Server Error
-
-### Error Types
-
-- **ValidationError**: Invalid input data
-- **NotFoundError**: Resource not found
-- **AuthError**: Authentication or authorization error
-- **AppError**: Generic application error
-
-## Security
-
-### Authentication Security
-
-- **JWT Tokens**: Secure token-based authentication with access and refresh tokens
-- **Refresh Tokens**: Automatic token renewal system for seamless user experience
-- **Password Hashing**: bcrypt with configurable salt rounds (default: 12)
-- **Token Expiration**: Configurable token lifetimes (access: 15m, refresh: 7d)
-- **Secure Cookies**: HttpOnly cookies with environment-aware SameSite and Secure flags
-
-### API Security
-
-- **Rate Limiting**: Configurable per-IP rate limits to prevent abuse and DDoS attacks
-- **CORS Protection**: Restrictive cross-origin policies with configurable allowed origins
-- **Helmet.js**: Security headers implementation to protect against common vulnerabilities
-- **Input Validation**: Comprehensive request validation to prevent malicious input
-- **Error Handling**: Centralized error handler that avoids leaking stack traces in production
-
-### Data Protection
-
-- **Environment Variables**: Sensitive configuration kept out of version control
-- **Secure Cookies**: HttpOnly cookies with SameSite and Secure flags based on environment
-- **HTTPS Recommended**: Deploy behind TLS to encrypt transport-level communication
-- **Error Handling**: Centralized handler avoids leaking stack traces in production
-- **Password Security**: bcrypt hashing with configurable salt rounds
-
-## Performance
-
-### Database
-
-- **Connection Pooling**: Managed by Mongoose to reuse sockets efficiently
-- **Unique Indexes**: Enforced on `shortId` and `customShortId` for fast lookups and integrity
-- **Query Optimization**: Efficient queries with proper indexes
-- **Data Modeling**: Optimized schema design for performance
-
-### API Safeguards
-
-- **Rate Limiting**: Multiple limiters to guard hot endpoints against bursts
-- **Lightweight Controllers**: Async route handlers minimize blocking operations
-- **Structured Logging**: Request and error logs assist with latency analysis
-- **Error Handling**: Efficient error handling to minimize performance impact
-
-### Optimization Strategies
-
-- **Database Indexing**: Proper indexes on frequently accessed fields
-- **Query Optimization**: Efficient database queries
-- **Caching**: Consider implementing caching for frequently accessed data
-- **Connection Pooling**: Efficient database connection management
-
-## Deployment
-
-### Environment Setup
-
-- **Production Database**: MongoDB Atlas or other cloud database service
-- **Environment Variables**: Secure configuration in hosting platform
-- **SSL Certificates**: HTTPS configuration for secure communication
-- **Domain Configuration**: Custom domain setup (optional)
-
-### Deployment Platforms
-
-#### Render
-
-1. Connect GitHub repository to Render
-2. Set environment variables in Render dashboard
-3. Configure build command: `npm install`
-4. Configure start command: `npm start`
-5. Deploy automatically on push to main branch
-
-#### Railway
-
-1. Install Railway CLI: `npm install -g @railway/cli`
-2. Login to Railway: `railway login`
-3. Deploy: `railway deploy`
-4. Set environment variables in Railway dashboard
-
-#### Heroku
-
-1. Install Heroku CLI
-2. Create Heroku app: `heroku create your-app-name`
-3. Set environment variables: `heroku config:set NODE_ENV=production`
-4. Deploy: `git push heroku main`
-
-### Production Checklist
-
-- [ ] Environment variables configured
-- [ ] Database connection established
-- [ ] SSL certificates installed (HTTPS)
-- [ ] Rate limiting configured
-- [ ] Logging configured
-- [ ] Error monitoring setup
-- [ ] Health checks implemented
-- [ ] CORS configured correctly
-- [ ] Frontend URL configured
-- [ ] All secrets and keys secured
-
-## Monitoring and Logging
-
-### Logging Configuration
-
-- **Development**: Colorized console output for easier debugging
-- **Production**: Structured JSON logs for log aggregation and analysis
-- **Log Rotation**: Automatic log file rotation to manage disk space
-- **Log Levels**: Configurable log levels (info, error, debug, etc.)
-
-### Error Tracking
-
-- **Error Logging**: Comprehensive error logging with stack traces
-- **Stack Traces**: Detailed error information for debugging
-- **Error Classification**: Categorized error types for better analysis
-- **Log Files**: Separate log files for access and error logs
-
-### Log Files
-
-Log files are stored in the `src/logs` directory:
-- `development/access.log`: Development access logs
-- `development/error.log`: Development error logs
-- `production/access.log`: Production access logs
-- `production/error.log`: Production error logs
-
-## Health Checks
-
-### Health Endpoint
-
-```http
-GET /health
-```
-
-**Response:**
-
-```json
-{
-  "status": "OK"
-}
-```
-
-The health endpoint is lightweight and suitable for load balancers or uptime monitors.
-
-### Ping Endpoint
-
-```http
-GET /ping
-```
-
-**Response:**
-
-```
-Pong!
-```
-
-The ping endpoint is used for server keep-alive functionality.
 
 ---
 
-Built with Node.js and Express.
+## 📊 Logging & Observability
+
+- **Standard HTTP Logs**: Morgan prints runtime HTTP traffic directly to development consoles.
+- **Log Rotation File Streams**: Server implements daily rotating logs using `rotating-file-stream` writing to `src/logs/development` or `src/logs/production`. These are split automatically once they reach 10MB in size.
+
+---
+
+## 🚀 Quick Start for Developers
+
+1. Install dependencies: `npm install`
+2. Duplicate `.env.example` to `.env` and fill out your local MongoDB path and cryptographic secrets.
+3. Start the Nodemon hot-reload engine:
+   ```bash
+   npm run backend
+   ```
+4. Access backend verification endpoint: `http://localhost:9000/health`.
