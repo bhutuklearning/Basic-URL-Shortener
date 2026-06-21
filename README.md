@@ -502,4 +502,5 @@ Refer to [PRODUCTION_DEPLOYMENT.md](./PRODUCTION_DEPLOYMENT.md) and [DEPLOYMENT_
 - **License**: This project is licensed under the [GNU General Public License v3.0](./LICENSE.md).
 
 ---
-*Built and maintained with a focus on stable, clean design and reliable operations.*
+<!-- *Built and maintained with a focus on stable, clean design and reliable operations.* -->
+*Started this project as learning and want to make it in such a way such that people find usefullness of this application*
