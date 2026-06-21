@@ -496,7 +496,7 @@ Refer to [PRODUCTION_DEPLOYMENT.md](./PRODUCTION_DEPLOYMENT.md) and [DEPLOYMENT_
 
 - **Author**: Amritanshu Goutam
   - LinkedIn: [Amritanshu Goutam](https://www.linkedin.com/in/amritanshu-goutam/)
-  - GitHub: [amritanshu-goutam](https://github.com/amritanshu-goutam)
+  - GitHub: [amritanshu-goutam](https://github.com/bhutuklearning)
   - Twitter/X: [Amritanshutwt](https://x.com/Amritanshutwt)
 
 - **License**: This project is licensed under the [GNU General Public License v3.0](./LICENSE.md).
