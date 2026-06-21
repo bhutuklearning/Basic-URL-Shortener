@@ -484,11 +484,11 @@ When separating client hosts (Vercel) from API servers (Render), modern browsers
 - **React Lazy Loading & Transitions**: Heavy page elements use lazy routes and transition APIs (`v7_startTransition`) to speed up loading and keep transitions smooth.
 - **Daily Rotation Logs**: Morgan request logs use stream rotators to keep server logs structured without wasting disk space.
 
----
+<!-- ---
 
 ## 🚀 Production Deployment
 
-Refer to [PRODUCTION_DEPLOYMENT.md](./PRODUCTION_DEPLOYMENT.md) and [DEPLOYMENT_FIX.md](./DEPLOYMENT_FIX.md) for complete step-by-step setup guides on Render and Vercel.
+Refer to [PRODUCTION_DEPLOYMENT.md](./PRODUCTION_DEPLOYMENT.md) and [DEPLOYMENT_FIX.md](./DEPLOYMENT_FIX.md) for complete step-by-step setup guides on Render and Vercel. -->
 
 ---
 
