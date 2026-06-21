@@ -76,8 +76,8 @@ const LandingPage = () => {
 
             {/* Logo */}
             <Link to="/home" className="flex items-center space-x-2 font-bold text-xl text-gray-900 dark:text-white">
-              <FaLink className="h-7 w-7 text-blue-600 dark:text-blue-400" />
-              <span>URL Shortener</span>
+              <img src="/Favicon_p2.png" alt="Advance URL Shortener" className="h-9 w-9 rounded-lg" />
+              <span>Advance URL Shortener</span>
             </Link>
 
             {/* Desktop Menu */}
@@ -242,7 +242,7 @@ const LandingPage = () => {
         <div className="max-w-7xl mx-auto px-1 py-1">
           <div className="border-t border-gray-700 mt-2 pt-4 mb-2 pb-4 flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
-              © {currentYear} URL Shortener. All rights reserved.
+              © {currentYear} Advance URL Shortener. All rights reserved.
             </p>
             <div className="mt-4 md:mt-0 flex items-center text-gray-400 text-sm">
               <span>Built with</span>

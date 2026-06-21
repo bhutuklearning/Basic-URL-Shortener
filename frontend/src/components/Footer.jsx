@@ -12,8 +12,8 @@ const Footer = () => {
           {/* Logo and Description */}
           <div className="col-span-1 md:col-span-1">
             <div className="flex items-center mb-4">
-              <FaLink className="h-6 w-6 text-blue-400 mr-2" />
-              <span className="text-xl font-bold">URL Shortener</span>
+              <img src="/Favicon_p2.png" alt="Advance URL Shortener" className="h-8 w-8 rounded-lg mr-2" />
+              <span className="text-xl font-bold">Advance URL Shortener</span>
             </div>
             <p className="text-gray-300 mb-4">
               A modern URL shortening service with powerful analytics and tracking capabilities.
@@ -108,7 +108,7 @@ const Footer = () => {
 
         <div className="border-t border-gray-700 mt-8 pt-6 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm">
-            © {currentYear} URL Shortener. All rights reserved.
+            © {currentYear} Advance URL Shortener. All rights reserved.
           </p>
           <div className="mt-4 md:mt-0 flex items-center text-gray-400 text-sm">
             <span>Built with</span>

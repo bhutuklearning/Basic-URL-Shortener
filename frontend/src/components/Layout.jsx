@@ -59,9 +59,9 @@ const Layout = ({ children }) => {
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <Link to="/home" className="flex items-center space-x-2">
-              <FaLink className="h-8 w-8 text-blue-600" />
+              <img src="/Favicon_p2.png" alt="Advance URL Shortener" className="h-9 w-9 rounded-lg" />
               <span className="text-xl font-bold text-gray-900 dark:text-white">
-                URL Shortener
+                Advance URL Shortener
               </span>
             </Link>
 
